@@ -1,3 +1,4 @@
+library(tidyverse)
 source("R/EndosymbiontModel.R")
 
 time <- seq(1:365)
