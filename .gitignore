@@ -4,7 +4,9 @@
 .Ruserdata
 Figures/
 Design/
-Data/
+Data/2021/
+Data/silo
+Data/aphid_flights.csv
 *.pdf
 *.docx
 *.png
