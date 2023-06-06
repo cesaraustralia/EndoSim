@@ -2,5 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
-Model structure.xlsx
-weird_but_cool.png
+Figures/
+Design/
+Data/
+*.pdf
+*.docx
+*.png
+*.xlsx

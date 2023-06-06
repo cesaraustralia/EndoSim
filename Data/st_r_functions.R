@@ -8,6 +8,10 @@ temp <- read.csv('st_r_Data_Temperature.csv')
 temp <- list(Temperature = temp)
 input.Data <- c(input.Data, temp)
 
+temp <- read.csv('st_r_Data_Prop_day.csv')
+temp <- list(Prop_day = temp)
+input.Data <- c(input.Data, temp)
+
 temp <- read.csv('st_r_Data_julday.csv')
 temp <- list(julday = temp)
 input.Data <- c(input.Data, temp)
