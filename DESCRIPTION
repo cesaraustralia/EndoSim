@@ -1,0 +1,9 @@
+Package: EndosymbiontModel
+Version: 0.0.1
+Title: AGPIP Endosymbiont Model
+Description: TBA
+Depends: R (>= 4.2.1)
+License: GPL-3
+Encoding: UTF-8
+LazyData: True
+RoxygenNote: 7.2.1

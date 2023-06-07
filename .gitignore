@@ -2,12 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-Figures/
-Design/
-Data/2021/
-Data/silo
-Data/aphid_flights.csv
-*.pdf
-*.docx
-*.png
-*.xlsx
+old project/
+*how_to_install.R
