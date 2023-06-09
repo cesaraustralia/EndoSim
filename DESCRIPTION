@@ -4,7 +4,7 @@ Version: 0.0.1
 Authors@R: 
     person("Alex", "Slavenko", , "aslavenko@cesaraustralia.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3265-7715"))
-Description: TBA
+Description: TBA.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

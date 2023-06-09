@@ -29,7 +29,7 @@ auc_thresh <- function(x, y, min_val, max_val) {
   
   # define function to integrate above min threshold
   f_above_min_thresh <- function(z, spline_fit, thresh) {
-    y_pred <- stats::predict.smooth.spline(spline_fit, z)$y - thresh
+    y_pred <- stats::predict(spline_fit, z)$y - thresh
     ifelse(y_pred > 0, y_pred, 0)
   }
   
@@ -38,7 +38,7 @@ auc_thresh <- function(x, y, min_val, max_val) {
   
   # define function to integrate above max threshold
   f_above_max_thresh <- function(z, spline_fit, thresh) {
-    y_pred <- stats::predict.smooth.spline(spline_fit, z)$y - thresh
+    y_pred <- stats::predict(spline_fit, z)$y - thresh
     ifelse(y_pred > 0, y_pred, 0)
   }
   
