@@ -54,7 +54,7 @@
 
 
 <dt><code>development</code></dt>
-<dd><p>The form of development of the species ("holometabolous", "hemimetabolous")</p></dd>
+<dd><p>The form of development of the species ("holometabolous", "hemimetabolous)</p></dd>
 
 
 <dt><code>f_growth</code></dt>
@@ -85,7 +85,7 @@
 <span class="r-in"><span><span class="fu">new</span><span class="op">(</span><span class="st">"species"</span>,</span></span>
 <span class="r-in"><span>  name <span class="op">=</span> <span class="st">"Myzus persicae"</span>,</span></span>
 <span class="r-in"><span>  reproduction <span class="op">=</span> <span class="st">"asexual"</span>,</span></span>
-<span class="r-in"><span>  development <span class="op">=</span> <span class="st">"hemi"</span>,</span></span>
+<span class="r-in"><span>  development <span class="op">=</span> <span class="st">"hemimetabolous"</span>,</span></span>
 <span class="r-in"><span>  f_growth <span class="op">=</span> <span class="fu">EndosymbiontModel</span><span class="fu">:::</span><span class="fu"><a href="fit_tpc.html">fit_tpc</a></span><span class="op">(</span><span class="st">"custom"</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">8.87</span>, <span class="fl">11.82</span>, <span class="fl">14.22</span>, <span class="fl">17.13</span>, <span class="fl">19.92</span>, <span class="fl">22.61</span>, <span class="fl">25.77</span>, <span class="fl">27.80</span>, <span class="fl">30</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.06</span>, <span class="fl">0.09</span>, <span class="fl">0.11</span>, <span class="fl">0.13</span>, <span class="fl">0.15</span>, <span class="fl">0.16</span>, <span class="fl">0.14</span>, <span class="fl">0.04</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span></span>
@@ -108,7 +108,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "asexual"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "development":</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "hemi"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "hemimetabolous"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "f_growth":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -118,8 +118,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     y &lt;- ifelse(y &lt; 0, 0, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5594e0379768&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5594e160e040&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5642435337e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x564243e958a0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "f_loss":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -127,8 +127,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     y &lt;- ymax/(1 + exp(-a * (x - xmax)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5594e26f4420&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5594e17ae1a0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56423afe0780&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x564244033728&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "f_suscept":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -138,8 +138,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     y &lt;- ifelse(y &lt; 0, 0, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5594e0379768&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5594e17bf080&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5642435337e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x564244044858&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "f_inoc":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -148,8 +148,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     y &lt;- ifelse(x &lt; xmin | x &gt; xmax, 0, ifelse(y &lt; 0, 0, y))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5594dce32d78&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5594e19c89a8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56423f1dc658&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5642442075b8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "f_alate":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -159,8 +159,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     y &lt;- ifelse(y &lt; 0, 0, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5594e0379768&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5594e1a33c08&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5642435337e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5642442555f0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
