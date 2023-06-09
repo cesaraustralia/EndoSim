@@ -13,3 +13,4 @@ Imports:
     mgcv
 Suggests: 
     testthat
+URL: https://cesaraustralia.github.io/EndosymbiontModel/
