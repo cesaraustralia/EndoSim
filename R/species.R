@@ -2,7 +2,7 @@
 #'
 #' @slot name The name of the species
 #' @slot reproduction The form of reproduction the species has ("sexual", "asexual")
-#' @slot development The form of development of the species ("holometabolous", "hemimetabolous")
+#' @slot development The form of development of the species ("holometabolous", "hemimetabolous)
 #' @slot f_growth Function for growth rate ~ temperature
 #' @slot f_loss Function for mortality rate ~ rainfall
 #' @slot f_suscept Function for infection susceptability ~ temperature
@@ -14,7 +14,7 @@
 #' new("species",
 #'   name = "Myzus persicae",
 #'   reproduction = "asexual",
-#'   development = "hemi",
+#'   development = "hemimetabolous",
 #'   f_growth = EndosymbiontModel:::fit_tpc("custom",
 #'     c(4, 8.87, 11.82, 14.22, 17.13, 19.92, 22.61, 25.77, 27.80, 30),
 #'     c(0, 0.06, 0.09, 0.11, 0.13, 0.15, 0.16, 0.14, 0.04, 0)),
@@ -38,5 +38,6 @@ species <- methods::setClass("species",
                                                  f_loss = "function",
                                                  f_suscept = "function",
                                                  f_inoc = "function",
-                                                 f_alate = "function")
+                                                 f_alate = "function"),
+                             validity = EndosymbiontModel:::check_species
 )

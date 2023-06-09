@@ -15,7 +15,7 @@ An S4 class to store a species' life history and functions for the endosymbiont 
 
 \item{\code{reproduction}}{The form of reproduction the species has ("sexual", "asexual")}
 
-\item{\code{development}}{The form of development of the species ("holometabolous", "hemimetabolous")}
+\item{\code{development}}{The form of development of the species ("holometabolous", "hemimetabolous)}
 
 \item{\code{f_growth}}{Function for growth rate ~ temperature}
 
@@ -33,7 +33,7 @@ GPA <-
 new("species",
   name = "Myzus persicae",
   reproduction = "asexual",
-  development = "hemi",
+  development = "hemimetabolous",
   f_growth = EndosymbiontModel:::fit_tpc("custom",
     c(4, 8.87, 11.82, 14.22, 17.13, 19.92, 22.61, 25.77, 27.80, 30),
     c(0, 0.06, 0.09, 0.11, 0.13, 0.15, 0.16, 0.14, 0.04, 0)),
