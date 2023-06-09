@@ -29,9 +29,16 @@ Fits a curve using the Rezende model (Rezende et al. 2019):
   a \cdot 10^{\frac{\log_{10}(q_{10})}{\frac{10}{x}}} \cdot (1 - b \cdot (x_{\text{opt}} - x)^2), & \text{otherwise}
   \end{cases}
 }
-Optimal values for \code{a} (rate shift parameter), \code{b} (decline rate parameter), and \text{q_{10}} are estimated based on provided arguments.
+Optimal values for \code{a} (rate shift parameter), \code{b} (decline rate parameter), and q_{10} are estimated based on provided arguments.
+}
+\examples{
+my_func <- EndosymbiontModel:::fit_rezende(0.16, 22.61, 4, 30)
+plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \references{
 Rezende, Enrico L., and Francisco Bozinovic. Thermal performance across levels of biological organization. Philosophical Transactions of the Royal Society B 374.1778 (2019): 20180549.
+}
+\seealso{
+\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}, \code{\link[=fit_weibull]{fit_weibull()}}
 }
 \keyword{internal}

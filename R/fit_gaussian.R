@@ -14,13 +14,18 @@
 #' }
 #' Optimal value for \code{a} is estimated based on provided arguments.
 #' @keywords internal
+#' @examples 
+#' my_func <- EndosymbiontModel:::fit_gaussian(0.16, 22.61, 4, 30)
+#' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+#' @seealso [fit_briere()], [fit_custom()], [fit_sigmoid()], [fit_quadratic()], [fit_rezende()], [fit_weibull()]
 
 fit_gaussian <- function(ymax, xopt, xmin, xmax){
+  if(xopt < xmin | xopt > xmax)
+    warning("xopt is outside threshold values; results may be nonsensical")
+  
   # Define the equation
   equation <- function(x, params) {
     a <- params[1]
-    xopt <- params[2]
-    ymax <- params[3]
     
     y <- ymax * exp(-0.5 * (abs(x - xopt)/a)^2)
     return(y)
@@ -40,10 +45,10 @@ fit_gaussian <- function(ymax, xopt, xmin, xmax){
   y <- c(0, 0, ymax)
   
   # Set the initial values for a and b
-  initial_params <- c(10, xopt, ymax)  # Initial guess for a
+  initial_params <- c(10)  # Initial guess for a
   
   # Use optim to find the optimal value of a
-  result <- optim(par = initial_params, fn = objective, x = x, y = y)
+  result <- optim(par = initial_params, fn = objective, x = x, y = y, method = "Brent", lower = initial_params-5, upper = initial_params+5)
   
   # Extract the optimized value of a
   a <- result$par[1]
@@ -51,8 +56,6 @@ fit_gaussian <- function(ymax, xopt, xmin, xmax){
   # Define the model equation
   model <- function(x) {
     y <- ymax * exp(-0.5 * (abs(x - xopt)/a)^2)
-    y <- ifelse(x < xmin | x > xmax, 0,
-                ifelse(y < 0, 0, y))
     return(y)
   }
 }

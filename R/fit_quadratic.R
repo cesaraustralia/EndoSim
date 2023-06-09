@@ -1,6 +1,6 @@
-#' Fit Brière curve
+#' Fit quadratic curve
 #'
-#' Fits a curve using the Brière model for fitting thermal performance curves
+#' Fits a quadratic thermal performance curve
 #'
 #' @param ymax maximal value of y
 #' @param xopt value of x at which y = ymax
@@ -8,14 +8,21 @@
 #' @param xmax maximal threshold of x (y = 0)
 #' @return function that accepts x and returns y based on fitted model
 #' @details
-#' Fits a curve using the quadratic model:
+#' Fits a quadratic curve:
 #' \deqn{
 #'   y = a + b \cdot x + c \cdot x^2
 #' }
 #' Optimal values for \code{a} (parameter defining y when x = 0), \code{b}, and \code{c} are estimated based on provided arguments.
 #' @keywords internal
+#' @examples
+#' my_func <- EndosymbiontModel:::fit_quadratic(0.16, 22.61, 4, 30)
+#' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+#' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_sigmoid()], [fit_rezende()], [fit_weibull()]
 
 fit_quadratic <- function(ymax, xopt, xmin, xmax){
+  if(xopt < xmin | xopt > xmax)
+    warning("xopt is outside threshold values; results may be nonsensical")
+  
   # Define the equation
   equation <- function(x, params) {
     a <- params[1]
@@ -40,7 +47,7 @@ fit_quadratic <- function(ymax, xopt, xmin, xmax){
   y <- c(0, 0, ymax)
   
   # Set the initial values for a, b, and c
-  initial_params <- c(0.23, 0.01, -2)  # Initial guess for a, b, and c
+  initial_params <- c(0.2, 0.002, 0.0001)  # Initial guess for a, b, and c
   
   # Use optim to find the optimal values of a, b, and c
   result <- optim(par = initial_params, fn = objective, x = x, y = y)

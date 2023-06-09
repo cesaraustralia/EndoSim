@@ -26,4 +26,11 @@ Fits a sigmoid curve:
 }
 Optimal values for \code{a} and \code{b} (curve breadth parameter) are estimated based on provided arguments.
 }
+\examples{
+my_func <- EndosymbiontModel:::fit_sigmoid(0.55, 1.5, 3.5)
+plot(seq(0, 10, by = 0.1), my_func(seq(0, 10, by = 0.1)), type = "l")
+}
+\seealso{
+\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_weibull]{fit_weibull()}}
+}
 \keyword{internal}

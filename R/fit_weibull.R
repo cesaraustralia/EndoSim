@@ -14,14 +14,20 @@
 #' }
 #' Optimal values for \code{a} (curve height parameter), \code{b} (curve breadth parameter), and \code{c} (curve shape parameter) are estimated based on provided arguments.
 #' @keywords internal
+#' @examples 
+#' my_func <- EndosymbiontModel:::fit_weibull(0.16, 22.61, 4, 30)
+#' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+#' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_quadratic()], [fit_rezende()], [fit_sigmoid()]
 
 fit_weibull <- function(ymax, xopt, xmin, xmax){
+  if(xopt < xmin | xopt > xmax)
+    warning("xopt is outside threshold values; results may be nonsensical")
+  
   # Define the equation
   equation <- function(x, params) {
     a <- params[1]
     b <- params[2]
     c <- params[3]
-    xopt <- params[4]
     
     y <- (a *
             (((c - 1)/c)^((1 - c)/c)) *
@@ -44,7 +50,7 @@ fit_weibull <- function(ymax, xopt, xmin, xmax){
   y <- c(0, 0, ymax)
   
   # Set the initial values for a, b, and c
-  initial_params <- c(0.09, 26, 4, xopt)  # Initial guess for a, b, and c
+  initial_params <- c(0.09, 26, 4)  # Initial guess for a, b, and c
   
   # Use optim to find the optimal values of a, b, and c
   result <- optim(par = initial_params, fn = objective, x = x, y = y)

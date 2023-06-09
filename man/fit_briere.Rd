@@ -28,7 +28,14 @@ Fits a curve using the Brière model (Brière et al. 1999):
 }
 Optimal values for \code{a} (scale parameter) and \code{b} (shape parameter) are estimated based on provided arguments.
 }
+\examples{
+my_func <- EndosymbiontModel:::fit_briere(0.16, 22.61, 4, 30)
+plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+}
 \references{
 Brière, J.F., Pracros, P., Le Roux, A.Y., Pierre, J.S., A novel rate model of temperature-dependent development for arthropods. Environmental Entomololgy, 28, 22–29 (1999)
+}
+\seealso{
+\code{\link[=fit_sigmoid]{fit_sigmoid()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_weibull]{fit_weibull()}}
 }
 \keyword{internal}

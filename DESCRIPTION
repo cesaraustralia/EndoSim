@@ -1,9 +1,13 @@
 Package: EndosymbiontModel
+Title: Run simulations using the AGPIP Endosymbiont Model
 Version: 0.0.1
-Title: AGPIP Endosymbiont Model
+Authors@R: 
+    person("Alex", "Slavenko", , "aslavenko@cesaraustralia.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-3265-7715"))
 Description: TBA
-Depends: R (>= 4.2.1)
-License: GPL-3
+License: GPL (>= 3)
 Encoding: UTF-8
-LazyData: True
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+Imports: 
+    mgcv

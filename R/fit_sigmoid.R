@@ -13,15 +13,17 @@
 #' }
 #' Optimal values for \code{a} and \code{b} (curve breadth parameter) are estimated based on provided arguments.
 #' @keywords internal
+#' @examples
+#' my_func <- EndosymbiontModel:::fit_sigmoid(0.55, 1.5, 3.5)
+#' plot(seq(0, 10, by = 0.1), my_func(seq(0, 10, by = 0.1)), type = "l")
+#' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_quadratic()], [fit_rezende()], [fit_weibull()]
 
 fit_sigmoid <- function(ymax, xmin, xmax){
   # Define the equation
   equation <- function(x, params) {
     a <- params[1]
-    b <- params[2]
-    xmax <- params[3]
     
-    y <- a / (1 + exp(-b * (x - xmax)))
+    y <- ymax / (1 + exp(-a * (x - xmax)))
     return(y)
   }
   
@@ -33,26 +35,23 @@ fit_sigmoid <- function(ymax, xmin, xmax){
   }
   
   # Create the x vector for optimization
-  x <- c(xmin, (xmin + xmax)/2, xmax)
+  x <- c(xmin, (xmin + xmax)*2/3, xmax)
   
   # Create the y vector for optimization
   y <- c(0, ymax/2, ymax)
   
   # Set the initial values for a and b
-  initial_params <- c(0.54, 0.37, xmax)  # Initial guess for a and b
+  initial_params <- c(5)  # Initial guess for a and b
   
   # Use optim to find the optimal values of a and b
-  result <- optim(par = initial_params, fn = objective, x = x, y = y)
+  result <- optim(par = initial_params, fn = objective, x = x, y = y, method = "Brent", lower = initial_params-5, upper = initial_params+5)
   
   # Extract the optimized values of a and b
   a <- result$par[1]
-  b <- result$par[2]
   
   # Define the model equation
   model <- function(x) {
-    y <- a / (1 + exp(-b * (x - xmax)))
-    y <- ifelse(x < xmin, 0,
-                ifelse(y < 0, 0, y))
+    y <- ymax / (1 + exp(-a * (x - xmax)))
     return(y)
   }
 }

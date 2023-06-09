@@ -89,7 +89,7 @@ plant_infect <-
     # c. calculate total aphid moves
     Amt = ((Awt + Ai) * Aa) + (Awp * Aw)
     # d. calculate transmission efficiency
-    An = transmission_efficiency(temperature)
+    An = transmission_efficiency(temperature) * prop_day
     # e. calculate successful plant innoculations
     Pn = (Amt * Ai) / ((Awt + Ai) * An)
     # f. calculate new number of infected plants

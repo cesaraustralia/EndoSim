@@ -28,4 +28,11 @@ Fits a curve using the Gaussian model:
 }
 Optimal value for \code{a} is estimated based on provided arguments.
 }
+\examples{
+my_func <- EndosymbiontModel:::fit_gaussian(0.16, 22.61, 4, 30)
+plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+}
+\seealso{
+\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_weibull]{fit_weibull()}}
+}
 \keyword{internal}

@@ -15,18 +15,24 @@
 #'   a \cdot 10^{\frac{\log_{10}(q_{10})}{\frac{10}{x}}} \cdot (1 - b \cdot (x_{\text{opt}} - x)^2), & \text{otherwise}
 #'   \end{cases}
 #' }
-#' Optimal values for \code{a} (rate shift parameter), \code{b} (decline rate parameter), and \text{q_{10}} are estimated based on provided arguments.
+#' Optimal values for \code{a} (rate shift parameter), \code{b} (decline rate parameter), and q_{10} are estimated based on provided arguments.
 #' @keywords internal
+#' @examples 
+#' my_func <- EndosymbiontModel:::fit_rezende(0.16, 22.61, 4, 30)
+#' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Rezende, Enrico L., and Francisco Bozinovic. Thermal performance across levels of biological organization. Philosophical Transactions of the Royal Society B 374.1778 (2019): 20180549.
+#' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_quadratic()], [fit_sigmoid()], [fit_weibull()]
 
 fit_rezende <- function(ymax, xopt, xmin, xmax){
+  if(xopt < xmin | xopt > xmax)
+    warning("xopt is outside threshold values; results may be nonsensical")
+  
   # Define the equation
   equation <- function(x, params) {
     a <- params[1]
     b <- params[2]
     q10 <- params[3]
-    xopt <- params[4]
     
     y <- {
       ifelse(x < xopt, (a * 10^(log10(q10)/(10/x))), (a * 10^(log10(q10)/(10/x))) * (1 - b * (xopt - x)^2))
@@ -48,7 +54,7 @@ fit_rezende <- function(ymax, xopt, xmin, xmax){
   y <- c(0, 0, ymax)
   
   # Set the initial values for a, b, and q10
-  initial_params <- c(0.06, 0.003, 2.77, xopt)  # Initial guess for a, b, and q10
+  initial_params <- c(0.1, 0.1, 2.77)  # Initial guess for a, b, and q10
   
   # Use optim to find the optimal values of a, b, and q10
   result <- optim(par = initial_params, fn = objective, x = x, y = y)
@@ -63,8 +69,7 @@ fit_rezende <- function(ymax, xopt, xmin, xmax){
     y <- {
       ifelse(x < xopt, (a * 10^(log10(q10)/(10/x))), (a * 10^(log10(q10)/(10/x))) * (1 - b * (xopt - x)^2))
     }
-    y <- ifelse(x < xmin | x > xmax, 0,
-                ifelse(y < 0, 0, y))
+    y <- ifelse(y < 0, 0, y)
     return(y)
   }
 }

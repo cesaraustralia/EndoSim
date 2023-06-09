@@ -28,4 +28,11 @@ Fits a curve using the Weibull model:
 }
 Optimal values for \code{a} (curve height parameter), \code{b} (curve breadth parameter), and \code{c} (curve shape parameter) are estimated based on provided arguments.
 }
+\examples{
+my_func <- EndosymbiontModel:::fit_weibull(0.16, 22.61, 4, 30)
+plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+}
+\seealso{
+\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}
+}
 \keyword{internal}

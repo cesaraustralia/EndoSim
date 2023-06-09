@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_quadratic.R
 \name{fit_quadratic}
 \alias{fit_quadratic}
-\title{Fit Brière curve}
+\title{Fit quadratic curve}
 \usage{
 fit_quadratic(ymax, xopt, xmin, xmax)
 }
@@ -19,13 +19,20 @@ fit_quadratic(ymax, xopt, xmin, xmax)
 function that accepts x and returns y based on fitted model
 }
 \description{
-Fits a curve using the Brière model for fitting thermal performance curves
+Fits a quadratic thermal performance curve
 }
 \details{
-Fits a curve using the quadratic model:
+Fits a quadratic curve:
 \deqn{
   y = a + b \cdot x + c \cdot x^2
 }
 Optimal values for \code{a} (parameter defining y when x = 0), \code{b}, and \code{c} are estimated based on provided arguments.
+}
+\examples{
+my_func <- EndosymbiontModel:::fit_quadratic(0.16, 22.61, 4, 30)
+plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
+}
+\seealso{
+\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_weibull]{fit_weibull()}}
 }
 \keyword{internal}
