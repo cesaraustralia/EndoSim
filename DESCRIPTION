@@ -10,7 +10,9 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: 
-    mgcv
+    methods,
+    mgcv,
+    stats
 Suggests: 
     testthat
 URL: https://cesaraustralia.github.io/EndosymbiontModel/

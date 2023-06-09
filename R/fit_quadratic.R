@@ -50,7 +50,7 @@ fit_quadratic <- function(ymax, xopt, xmin, xmax){
   initial_params <- c(0.2, 0.002, 0.0001)  # Initial guess for a, b, and c
   
   # Use optim to find the optimal values of a, b, and c
-  result <- optim(par = initial_params, fn = objective, x = x, y = y)
+  result <- stats::optim(par = initial_params, fn = objective, x = x, y = y)
   
   # Extract the optimized values of a, b, and c
   a <- result$par[1]

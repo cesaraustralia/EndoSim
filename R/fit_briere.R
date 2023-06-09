@@ -51,7 +51,7 @@ fit_briere <- function(ymax, xopt, xmin, xmax){
   initial_params <- c(0.001, 1)  # Initial guess for a and b
   
   # Use optim to find the optimal values of a and b
-  result <- optim(par = initial_params, fn = objective, x = x, y = y)
+  result <- stats::optim(par = initial_params, fn = objective, x = x, y = y)
   
   # Extract the optimized values of a and b
   a <- result$par[1]

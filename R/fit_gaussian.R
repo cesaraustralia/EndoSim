@@ -48,7 +48,7 @@ fit_gaussian <- function(ymax, xopt, xmin, xmax){
   initial_params <- c(10)  # Initial guess for a
   
   # Use optim to find the optimal value of a
-  result <- optim(par = initial_params, fn = objective, x = x, y = y, method = "Brent", lower = initial_params-5, upper = initial_params+5)
+  result <- stats::optim(par = initial_params, fn = objective, x = x, y = y, method = "Brent", lower = initial_params-5, upper = initial_params+5)
   
   # Extract the optimized value of a
   a <- result$par[1]

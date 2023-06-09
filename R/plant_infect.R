@@ -42,7 +42,7 @@ plant_infect <-
     # a. calculate current fraction of carrying capacity
     Af = (Awt + Ai) / Ac
     # b. calculate transmission efficiency
-    An = transmission_efficiency(temperature) * prop_day
+    An = f_inoc(temperature) * prop_day
     # c. calculate successful plant inoculations
     Pn = (Amt * Ai) / ((Awt + Ai) * An)
     # d. calculate new number of infected plants

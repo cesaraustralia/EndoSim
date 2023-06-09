@@ -57,7 +57,7 @@ fit_rezende <- function(ymax, xopt, xmin, xmax){
   initial_params <- c(0.1, 0.1, 2.77)  # Initial guess for a, b, and q10
   
   # Use optim to find the optimal values of a, b, and q10
-  result <- optim(par = initial_params, fn = objective, x = x, y = y)
+  result <- stats::optim(par = initial_params, fn = objective, x = x, y = y)
   
   # Extract the optimized values of a, b, and q10
   a <- result$par[1]

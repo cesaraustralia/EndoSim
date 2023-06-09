@@ -24,26 +24,26 @@ auc_thresh <- function(x, y, min_val, max_val) {
   max_norm <- max_val - min_y
   
   # calculate area under curve for full range
-  spline_fit <- smooth.spline(x, y_norm)
-  auc_full <- integrate(function(z) predict(spline_fit, z)$y, min(x), max(x))$value
+  spline_fit <- stats::smooth.spline(x, y_norm)
+  auc_full <- stats::integrate(function(z) predict(spline_fit, z)$y, min(x), max(x))$value
   
   # define function to integrate above min threshold
   f_above_min_thresh <- function(z, spline_fit, thresh) {
-    y_pred <- predict(spline_fit, z)$y - thresh
+    y_pred <- stats::predict.smooth.spline(spline_fit, z)$y - thresh
     ifelse(y_pred > 0, y_pred, 0)
   }
   
   # calculate area above min threshold
-  auc_min <- integrate(f_above_min_thresh, min(x), max(x), spline_fit = spline_fit, thresh = min_norm)$value
+  auc_min <- stats::integrate(f_above_min_thresh, min(x), max(x), spline_fit = spline_fit, thresh = min_norm)$value
   
   # define function to integrate above max threshold
   f_above_max_thresh <- function(z, spline_fit, thresh) {
-    y_pred <- predict(spline_fit, z)$y - thresh
+    y_pred <- stats::predict.smooth.spline(spline_fit, z)$y - thresh
     ifelse(y_pred > 0, y_pred, 0)
   }
   
   # calculate area above max threshold
-  auc_max <- integrate(f_above_max_thresh, min(x), max(x), spline_fit = spline_fit, thresh = max_norm)$value
+  auc_max <- stats::integrate(f_above_max_thresh, min(x), max(x), spline_fit = spline_fit, thresh = max_norm)$value
   
   # return auc_full and difference between auc_min and auc_max
   return(c(auc_full, auc_min - auc_max))
