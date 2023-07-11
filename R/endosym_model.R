@@ -8,6 +8,10 @@
 #' @param init object of class \code{initial} defining the starting conditions for the simulation
 #' @param conds object of class \code{sim_conds} defining the simulation conditions
 #' @param plot if \code{TRUE} (default) generate plots
+#' @param vert_trans set to \code{FALSE} to turn off vertical transmission
+#' @param hori_trans set to \code{FALSE} to turn off horizontal transmission
+#' @param imi set to \code{FALSE} to turn off immigration into paddock
+#' @param emi set to \code{FALSE} to turn off emigration from paddock
 #' @return object of class \code{endosym_mod}; see [endosym_mod].
 #' @details
 #' Constructs the endosymbiont model using the provided [pest], [crop], [beneficials], [initial], and [sim_conds] objects.
@@ -21,7 +25,17 @@
 #' @export endosym_model
 
 
-endosym_model <- function(Pest, Crop, Beneficials = NULL, init, conds, plot = TRUE) {
+endosym_model <- function(Pest,
+                          Crop,
+                          Beneficials = NULL,
+                          init,
+                          conds,
+                          plot = TRUE,
+                          vert_trans = TRUE,
+                          hori_trans = TRUE,
+                          imi = TRUE,
+                          emi = TRUE
+                          ) {
   if (!class(Pest) == "pest")
     stop("No Pest of class pest provided!")
   
@@ -37,30 +51,52 @@ endosym_model <- function(Pest, Crop, Beneficials = NULL, init, conds, plot = TR
   if (is.null(Beneficials))
     warning("No Beneficials provided; parameterising model without beneficial species")
   
+  if(!vert_trans){
+    Pest@'fitness_cost' <- 0
+    warning("Vertical transmission cancelled!")
+  }
+  
+  if(!hori_trans){
+    Crop[['fun_trans_eff']] <- EndosymbiontModel:::fit_null(0)
+    Crop[['fun_susc']] <- EndosymbiontModel:::fit_null(0)
+    warning("Horizontal transmission cancelled!")
+  }
+  
+  if(!imi){
+    Pest@'fun_imi' <- EndosymbiontModel:::fit_null(0)
+    warning("Immigration cancelled!")
+  }
+  
+  if(!emi){
+    Pest@'fun_emi' <- EndosymbiontModel:::fit_null(0)
+    warning("Emigration cancelled!")
+  }
+  
   # define simulation parameters
   sim_length = conds[['sim_length']]
   env = conds[['env']]
   start_date = conds[['start_date']]
   
-  bg_loss <- Pest[['bg_loss']]
-  fitness_cost <- Pest[['fitness_cost']]
-  alate_penalty <- Pest[['alate_penalty']]
-  apterae_walk <- Pest[['apterae_walk']]
-  alate_flight <- Pest[['alate_flight']]
+  bg_loss <- Pest@'bg_loss'
+  fitness_cost <- Pest@'fitness_cost'
+  alate_penalty <- Pest@'alate_penalty'
+  apterae_walk <- Pest@'apterae_walk'
+  alate_flight <- Pest@'alate_flight'
   
   heal_time <- Crop[['heal_time']]
   
   # define functions
-  fun_dev_apt <- Pest[['fun_dev_apt']]
-  fun_dev_ala <- Pest[['fun_dev_ala']]
-  fun_emi <- Pest[['fun_emi']]
-  fun_temp_loss <- Pest[['fun_temp_loss']]
-  fun_rainfall_loss <- Pest[['fun_rainfall_loss']]
-  fun_sen_loss <- Pest[['fun_sen_loss']]
-  fun_dens_fecund <- Pest[['fun_dens_fecund']]
-  fun_temp_fecund <- Pest[['fun_temp_fecund']]
-  fun_age_fecund <- Pest[['fun_age_fecund']]
-  fun_alate_prod <- Pest[['fun_alate_prod']]
+  fun_dev_apt <- Pest@'fun_dev_apt'
+  fun_dev_ala <- Pest@'fun_dev_ala'
+  fun_imi <- Pest@'fun_imi'
+  fun_emi <- Pest@'fun_emi'
+  fun_temp_loss <- Pest@'fun_temp_loss'
+  fun_rainfall_loss <- Pest@'fun_rainfall_loss'
+  fun_sen_loss <- Pest@'fun_sen_loss'
+  fun_dens_fecund <- Pest@'fun_dens_fecund'
+  fun_temp_fecund <- Pest@'fun_temp_fecund'
+  fun_age_fecund <- Pest@'fun_age_fecund'
+  fun_alate_prod <- Pest@'fun_alate_prod'
   
   fun_trans_eff <- Crop[['fun_trans_eff']]
   fun_susc <- Crop[['fun_susc']]
@@ -139,12 +175,37 @@ endosym_model <- function(Pest, Crop, Beneficials = NULL, init, conds, plot = TR
     # update adult ages
     adult_ages[new_adult] <- t
     
-    ## emigration of newly emerged alate adults
+    ## dispersal
     # calculate how many adults emigrate
     emi_adult <- fun_emi(cohorts[, 1, ][new_adult])
     
     cohorts[, 1, ][new_adult] <- cohorts[, 1, ][new_adult] - emi_adult
     cohorts[, 1, ] <- sapply(cohorts[, 1, ], max, 0) # make sure pop size doesn't drop to negative
+    
+    # calculate how many new adults immigrate into population
+    imi_adult <- fun_imi(t)
+    
+    if(imi_adult > 0){
+      # create new cohort
+      new_cohort <- matrix(c(0, 0, 0, imi_adult,
+                             rep(1, 4)),
+                           ncol = 2)
+      cohorts <- abind::abind(cohorts,
+                              new_cohort,
+                              along = 3)
+      dev_cohorts <- rbind(dev_cohorts,
+                           matrix(rep(0, 4), nrow = 1))
+      adult_ages <- cbind(adult_ages,
+                          matrix(rep(0, 4), ncol = 1))
+      cohort_ages <- cbind(cohort_ages,
+                           matrix(rep(t, 4), ncol = 1))
+    }
+    
+    # update active cohorts vector
+    active_cohorts <- which(cohorts[, 1, ] > 0)
+    
+    # update life stages
+    cohorts[, 2, ][-active_cohorts] <- 0
     
     ## virus horizontal transmission
     # calculate total pest moves
@@ -270,6 +331,11 @@ endosym_model <- function(Pest, Crop, Beneficials = NULL, init, conds, plot = TR
     } else {
       pos_prod <- 0
       neg_prod <- 0
+    }
+    
+    if(!vert_trans){
+      neg_prod <- sum(pos_prod, neg_prod)
+      pos_prod <- 0
     }
     
     # calculate proportion of alate-destined nymphs produced

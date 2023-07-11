@@ -5,27 +5,36 @@
 \alias{GPA}
 \title{GPA species information}
 \format{
-An object of class \code{species}; see \link{species}.
+An object of class \code{pest}; see \link{pest}.
 }
 \usage{
 data(GPA)
 }
 \description{
-A species object defining the life history and function
+A pest object defining the life history
 for green peach aphid (\emph{Myzus persicae}).
 Can be used to run the endosymbiont model on GPA.\cr
 \cr
-\code{f_growth} fitted using \link{fit_custom} with data from Whalon & Smilowitz 1979.\cr
-\code{f_loss} fitted using \link{fit_sigmoid} with data from Maling et al. 2008.\cr
-\code{f_suscept} fitted using \link{fit_custom} with data from Thackray et al. 2009.\cr
-\code{f_inoc} fitted using \link{fit_quadratic} with data from Thackray et al. 2009.\cr
-\code{f_alate} fitted using \link{fit_custom} with data from Thackray et al. 2009.\cr
+\code{bg_loss} derived from Barton et al. 2021 \cr
+\code{fitness_cost} derived from experimental data (Hoffman et al. unpublished) \cr
+\code{alate_penalty} derived from Barton et al. 2021 \cr
+\code{apterae_walk} Placeholder \cr
+\code{alate_flight} Placeholder \cr
+\code{fun_dev_apt} fitted using \link{fit_wang} with parameters from Barton et al. 2021 \cr
+\code{fun_dev_ala} fitted using \link{fit_wang} with parameters from Barton et al. 2021 \cr
+\code{fun_imi} fitted using \link{fit_imi_barton} to describe constant immigration of 5 adults from background population \cr
+\code{fun_emi} fitted using \link{fit_emi_thack} to describe a constant emigration rate based on Thackray et al. 2004 \cr
+\code{fun_temp_loss} TBA
+\code{fun_rainfall_loss} fitted using \link{fit_rainfall_thack} with parameters from Barton et al. 2021 \cr
+\code{fun_sen_loss} fitted using \link{fit_compertz} with parameters from Barton et al. 2021 \cr
+\code{fun_dens_fecund} fitted using \link{fit_bannerman} with parameters from Barton et al. 2021 \cr
+\code{fun_temp_fecund} fitted using \link{fit_quadratic} with parameters from Barton et al. 2021 \cr
+\code{fun_age_fecund} fitted using \link{fit_weibull} with parameters from Barton et al. 2021 \cr
+\code{fun_alate_prod} fitted using \link{fit_alate} with parameters from Barton et al. 2021 \cr
 }
 \references{
-Maling, T., Diggle, A.J., Thackray, D.J., Siddique, K.H.M., Jones, R.A.C., An epidemiological model for externally sourced vector-borne viruses applied to \emph{Bean yellow mosaic virus} in lupin crops in a Mediterranean-type environment. Phytopathology, 98, 1280–1290 (2008)
+Barton, M., Parry, H., Ward, S., Hoffmann, A.A., Umina, P.A., van Helden, M., Macfadyen, S. Forecasting impacts of biological control under future climates: mechanistic modelling of an aphid pest and a parasitic wasp. Ecological Modelling, 457, 109679 (2021)
 
-Thackray, D.J., Diggle, A.J., Jones, R.A.C., BYDV PREDICTOR: a simulation model to predict aphid arrival, epidemics of \emph{Barley yellow dwarf virus} and yield loss in wheat crops in a Mediterranean-type environment. Plant Pathology, 58, 186–202 (2009)]
-
-Whalon, M.E., Smilowitz, Z., Temperature-dependent model for predicting field populations of green peach aphid, \emph{Myzus persicae}. The Canadian Entomologist, 111, 1025–1032 (1979)
+Thackray, D.J., Diggle, A.J., Berlandier, F.A., Jones, R.A.C., Forecasting aphid outbreaks and epidemics of Cucumber mosaic virus in lupin crops in a Mediterranean-type environment. Virus Research, 100, 67-82 (2004)
 }
 \keyword{datasets}

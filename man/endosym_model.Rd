@@ -4,7 +4,18 @@
 \alias{endosym_model}
 \title{Endosymbiont model}
 \usage{
-endosym_model(Pest, Crop, Beneficials = NULL, init, conds, plot = TRUE)
+endosym_model(
+  Pest,
+  Crop,
+  Beneficials = NULL,
+  init,
+  conds,
+  plot = TRUE,
+  vert_trans = TRUE,
+  hori_trans = TRUE,
+  imi = TRUE,
+  emi = TRUE
+)
 }
 \arguments{
 \item{Pest}{object of class \code{pest} defining the pest}
@@ -18,6 +29,14 @@ endosym_model(Pest, Crop, Beneficials = NULL, init, conds, plot = TRUE)
 \item{conds}{object of class \code{sim_conds} defining the simulation conditions}
 
 \item{plot}{if \code{TRUE} (default) generate plots}
+
+\item{vert_trans}{set to \code{FALSE} to turn off vertical transmission}
+
+\item{hori_trans}{set to \code{FALSE} to turn off horizontal transmission}
+
+\item{imi}{set to \code{FALSE} to turn off immigration into paddock}
+
+\item{emi}{set to \code{FALSE} to turn off emigration from paddock}
 }
 \value{
 object of class \code{endosym_mod}; see \link{endosym_mod}.
