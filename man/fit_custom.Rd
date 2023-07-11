@@ -30,6 +30,6 @@ c(0, 0.06, 0.09, 0.11, 0.13, 0.15, 0.16, 0.14, 0.04, 0)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \seealso{
-\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_weibull]{fit_weibull()}}
+\code{\link[=fit_null]{fit_null()}}
 }
 \keyword{internal}

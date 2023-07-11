@@ -1,4 +1,6 @@
 #' An S4 class to store a species' life history and functions for the endosymbiont model
+#' 
+#' @exportClass species
 #'
 #' @slot name The name of the species
 #' @slot reproduction The form of reproduction the species has ("sexual", "asexual")

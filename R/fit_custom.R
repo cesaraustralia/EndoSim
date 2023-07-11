@@ -15,7 +15,7 @@
 #' c(0, 0.06, 0.09, 0.11, 0.13, 0.15, 0.16, 0.14, 0.04, 0)
 #' )
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
-#' @seealso [fit_briere()], [fit_sigmoid()], [fit_gaussian()], [fit_quadratic()], [fit_rezende()], [fit_weibull()]
+#' @seealso [fit_null()]
 
 fit_custom <- function(x, y, k = NULL){
   if(is.null(k)){

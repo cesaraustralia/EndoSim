@@ -21,9 +21,9 @@
 #' @references 
 #' Maling, T., Diggle, A.J., Thackray, D.J., Siddique, K.H.M., Jones, R.A.C., An epidemiological model for externally sourced vector-borne viruses applied to \emph{Bean yellow mosaic virus} in lupin crops in a Mediterranean-type environment. Phytopathology, 98, 1280–1290 (2008)
 #' 
-#' Thackray, D.J., Diggle, A.J., Jones, R.A.C., BYDV PREDICTOR: a simulation model to predict aphid arrival, episdemics of \emph{Barley yellow dwarf virus} and yield loss in wheat crops in a Mediterranean-type environment. Plant Pathology, 58, 186–202 (2009)]
+#' Thackray, D.J., Diggle, A.J., Jones, R.A.C., BYDV PREDICTOR: a simulation model to predict aphid arrival, epidemics of \emph{Barley yellow dwarf virus} and yield loss in wheat crops in a Mediterranean-type environment. Plant Pathology, 58, 186–202 (2009)]
 #' 
-#' Whalon, M.E., Smilowitz, Z., Temperature-dependent model for predicting field populations of green peach aphid, \emph{Myzus persicae}. The Canadian Entomoligst, 111, 1025–1032 (1979)
+#' Whalon, M.E., Smilowitz, Z., Temperature-dependent model for predicting field populations of green peach aphid, \emph{Myzus persicae}. The Canadian Entomologist, 111, 1025–1032 (1979)
 #' 
 
 

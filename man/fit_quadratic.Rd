@@ -2,37 +2,34 @@
 % Please edit documentation in R/fit_quadratic.R
 \name{fit_quadratic}
 \alias{fit_quadratic}
-\title{Fit quadratic curve}
+\title{Fit quadratic curve for fecundity}
 \usage{
-fit_quadratic(ymax, xopt, xmin, xmax)
+fit_quadratic(a, b, topt)
 }
 \arguments{
-\item{ymax}{maximal value of y}
+\item{a}{coefficient 1}
 
-\item{xopt}{value of x at which y = ymax}
+\item{b}{coefficient 2}
 
-\item{xmin}{minimal threshold of x (y = 0)}
-
-\item{xmax}{maximal threshold of x (y = 0)}
+\item{topt}{optimum reproductive temperature}
 }
 \value{
 function that accepts x and returns y based on fitted model
 }
 \description{
-Fits a quadratic thermal performance curve
+Fits a function that returns scaled daily fecundity based on daily temperature
 }
 \details{
-Fits a quadratic curve:
+Fits a scaled quadratic curve to produce a temperature scalar ranging from 0 to 1:
 \deqn{
-  y = a + b \cdot x + c \cdot x^2
+  \frac{a \cdot x^2 + b \cdot x}{a \cdot T_{opt}^2 + b \cdot T_{opt}}
 }
-Optimal values for \code{a} (parameter defining y when x = 0), \code{b}, and \code{c} are estimated based on provided arguments.
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_quadratic(0.16, 22.61, 4, 30)
+my_func <- EndosymbiontModel:::fit_quadratic(-0.7611, 31.9847, 25)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \seealso{
-\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_weibull]{fit_weibull()}}
+\code{\link[=fit_bannerman]{fit_bannerman()}}, \code{\link[=fit_null]{fit_null()}}, \code{\link[=fit_weibull]{fit_weibull()}}
 }
 \keyword{internal}

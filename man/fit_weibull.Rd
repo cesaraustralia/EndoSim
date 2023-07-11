@@ -2,37 +2,39 @@
 % Please edit documentation in R/fit_weibull.R
 \name{fit_weibull}
 \alias{fit_weibull}
-\title{Fit Weibull curve}
+\title{Fit Weibull curve for fecundity}
 \usage{
-fit_weibull(ymax, xopt, xmin, xmax)
+fit_weibull(K, iota, gamma, eta)
 }
 \arguments{
-\item{ymax}{maximal value of y}
+\item{K}{fecundity rate scalar}
 
-\item{xopt}{value of x at which y = ymax}
+\item{iota}{shape of fecundity curve}
 
-\item{xmin}{minimal threshold of x (y = 0)}
+\item{gamma}{scale of fecundity curve}
 
-\item{xmax}{maximal threshold of x (y = 0)}
+\item{eta}{locations of fecundity curve}
 }
 \value{
 function that accepts x and returns y based on fitted model
 }
 \description{
-Fits a curve using the Weibull model for fitting thermal performance curves
+Fits a function that returns daily fecundity based on cohort adult age
 }
 \details{
-Fits a curve using the Weibull model:
+Fits a curve using the Weibull distribution to describe how daily fecundity changes with adult age:
 \deqn{
-  y = a \cdot \left(\frac{c - 1}{c}\right)^{\frac{1 - c}{c}} \cdot \left(\frac{x - x_{\text{opt}}}{b} + \left(\frac{c - 1}{c}\right)^{\frac{1}{c}}\right)^{c - 1}  \cdot e^{-\left(\left(\frac{x - x_{\text{opt}}}{b} + \frac{c - 1}{c}\right)^{\frac{1}{c}}\right)^c + \frac{c - 1}{c}\right)} 
+K \cdot \frac{\iota}{\gamma} \cdot  \left( \frac{\text{age} - \eta}{\gamma} \right)^{\iota - 1} \cdot e^{-\left( \frac{\text{age} - \eta}{\gamma} \right)^\iota}
 }
-Optimal values for \code{a} (curve height parameter), \code{b} (curve breadth parameter), and \code{c} (curve shape parameter) are estimated based on provided arguments.
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_weibull(0.16, 22.61, 4, 30)
+my_func <- EndosymbiontModel:::fit_weibull(58, 1.885, 5.953, 0)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
+\references{
+Weibull, W., A statistical distribution function of wide applicability. Journal of Applied Mechanics, 18, 293-297 (1951)
+}
 \seealso{
-\code{\link[=fit_briere]{fit_briere()}}, \code{\link[=fit_custom]{fit_custom()}}, \code{\link[=fit_gaussian]{fit_gaussian()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}, \code{\link[=fit_rezende]{fit_rezende()}}, \code{\link[=fit_sigmoid]{fit_sigmoid()}}
+\code{\link[=fit_bannerman]{fit_bannerman()}}, \code{\link[=fit_null]{fit_null()}}, \code{\link[=fit_quadratic]{fit_quadratic()}}
 }
 \keyword{internal}

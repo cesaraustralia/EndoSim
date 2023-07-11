@@ -1,73 +1,32 @@
-#' Fit Weibull curve
+#' Fit Weibull curve for fecundity
 #'
-#' Fits a curve using the Weibull model for fitting thermal performance curves
+#' Fits a function that returns daily fecundity based on cohort adult age
 #'
-#' @param ymax maximal value of y
-#' @param xopt value of x at which y = ymax
-#' @param xmin minimal threshold of x (y = 0)
-#' @param xmax maximal threshold of x (y = 0)
+#' @param K fecundity rate scalar
+#' @param iota shape of fecundity curve
+#' @param gamma scale of fecundity curve
+#' @param eta locations of fecundity curve
 #' @return function that accepts x and returns y based on fitted model
 #' @details
-#' Fits a curve using the Weibull model:
+#' Fits a curve using the Weibull distribution to describe how daily fecundity changes with adult age:
 #' \deqn{
-#'   y = a \cdot \left(\frac{c - 1}{c}\right)^{\frac{1 - c}{c}} \cdot \left(\frac{x - x_{\text{opt}}}{b} + \left(\frac{c - 1}{c}\right)^{\frac{1}{c}}\right)^{c - 1}  \cdot e^{-\left(\left(\frac{x - x_{\text{opt}}}{b} + \frac{c - 1}{c}\right)^{\frac{1}{c}}\right)^c + \frac{c - 1}{c}\right)} 
+#' K \cdot \frac{\iota}{\gamma} \cdot  \left( \frac{\text{age} - \eta}{\gamma} \right)^{\iota - 1} \cdot e^{-\left( \frac{\text{age} - \eta}{\gamma} \right)^\iota}
 #' }
-#' Optimal values for \code{a} (curve height parameter), \code{b} (curve breadth parameter), and \code{c} (curve shape parameter) are estimated based on provided arguments.
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_weibull(0.16, 22.61, 4, 30)
+#' my_func <- EndosymbiontModel:::fit_weibull(58, 1.885, 5.953, 0)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
-#' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_quadratic()], [fit_rezende()], [fit_sigmoid()]
+#' @references
+#' Weibull, W., A statistical distribution function of wide applicability. Journal of Applied Mechanics, 18, 293-297 (1951)
+#' @seealso [fit_bannerman()], [fit_null()], [fit_quadratic()]
 
-fit_weibull <- function(ymax, xopt, xmin, xmax){
-  if(xopt < xmin | xopt > xmax)
-    warning("xopt is outside threshold values; results may be nonsensical")
+fit_weibull <- function(K, iota, gamma, eta){
   
-  # Define the equation
-  equation <- function(x, params) {
-    a <- params[1]
-    b <- params[2]
-    c <- params[3]
-    
-    y <- (a *
-            (((c - 1)/c)^((1 - c)/c)) *
-            ((((x - xopt)/b) + (((c - 1)/c)^(1/c)))^(c - 1)) *
-            (exp(-((((x - xopt)/b) + (((c - 1)/c)^(1/c)))^c) + ((c - 1)/c))))
-    return(y)
+  func <- function(x){
+    output <- K * (iota / gamma) * (((x - eta)/gamma)^(iota - 1)) * exp(-1 * (((x - eta)/gamma))^iota)
+    output <- ifelse(is.na(output), 0, output)
+    return(output)
   }
   
-  # Define the objective function
-  objective <- function(params, x, y) {
-    y_fit <- equation(x, params)
-    diff <- y_fit - y
-    return(sum(diff^2))  # Sum of squared differences for optimization
-  }
-  
-  # Create the x vector for optimization
-  x <- c(xmin, xmax, xopt)
-  
-  # Create the y vector for optimization
-  y <- c(0, 0, ymax)
-  
-  # Set the initial values for a, b, and c
-  initial_params <- c(0.09, 26, 4)  # Initial guess for a, b, and c
-  
-  # Use optim to find the optimal values of a, b, and c
-  result <- stats::optim(par = initial_params, fn = objective, x = x, y = y)
-  
-  # Extract the optimized values of a, b, and c
-  a <- result$par[1]
-  b <- result$par[2]
-  c <- result$par[3]
-  
-  # Define the model equation
-  model <- function(x) {
-    y <- (a *
-            (((c - 1)/c)^((1 - c)/c)) *
-            ((((x - xopt)/b) + (((c - 1)/c)^(1/c)))^(c - 1)) *
-            (exp(-((((x - xopt)/b) + (((c - 1)/c)^(1/c)))^c) + ((c - 1)/c))))
-    y <- ifelse(x < xmin | x > xmax, 0,
-                ifelse(y < 0, 0, y))
-    return(y)
-  }
+  return(func)
 }

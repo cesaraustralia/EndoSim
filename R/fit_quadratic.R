@@ -1,67 +1,30 @@
-#' Fit quadratic curve
+#' Fit quadratic curve for fecundity
 #'
-#' Fits a quadratic thermal performance curve
+#' Fits a function that returns scaled daily fecundity based on daily temperature
 #'
-#' @param ymax maximal value of y
-#' @param xopt value of x at which y = ymax
-#' @param xmin minimal threshold of x (y = 0)
-#' @param xmax maximal threshold of x (y = 0)
+#' @param a coefficient 1
+#' @param b coefficient 2
+#' @param topt optimum reproductive temperature
 #' @return function that accepts x and returns y based on fitted model
 #' @details
-#' Fits a quadratic curve:
+#' Fits a scaled quadratic curve to produce a temperature scalar ranging from 0 to 1:
 #' \deqn{
-#'   y = a + b \cdot x + c \cdot x^2
+#'   \frac{a \cdot x^2 + b \cdot x}{a \cdot T_{opt}^2 + b \cdot T_{opt}}
 #' }
-#' Optimal values for \code{a} (parameter defining y when x = 0), \code{b}, and \code{c} are estimated based on provided arguments.
 #' @keywords internal
 #' @examples
-#' my_func <- EndosymbiontModel:::fit_quadratic(0.16, 22.61, 4, 30)
+#' my_func <- EndosymbiontModel:::fit_quadratic(-0.7611, 31.9847, 25)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
-#' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_sigmoid()], [fit_rezende()], [fit_weibull()]
+#' @seealso [fit_bannerman()], [fit_null()], [fit_weibull()]
 
-fit_quadratic <- function(ymax, xopt, xmin, xmax){
-  if(xopt < xmin | xopt > xmax)
-    warning("xopt is outside threshold values; results may be nonsensical")
+fit_quadratic <- function(a, b, topt){
   
-  # Define the equation
-  equation <- function(x, params) {
-    a <- params[1]
-    b <- params[2]
-    c <- params[3]
-    
-    y <- a + b * x + c * x^2
-    return(y)
+  func <- function(x){
+    output <- (a*x^2 + b*x)/(a*topt^2 + b*topt)
+    output <- ifelse(output < 0, 0, output)
+    return(output)
   }
   
-  # Define the objective function
-  objective <- function(params, x, y) {
-    y_fit <- equation(x, params)
-    diff <- y_fit - y
-    return(sum(diff^2))  # Sum of squared differences for optimization
-  }
-  
-  # Create the x vector for optimization
-  x <- c(xmin, xmax, xopt)
-  
-  # Create the y vector for optimization
-  y <- c(0, 0, ymax)
-  
-  # Set the initial values for a, b, and c
-  initial_params <- c(0.2, 0.002, 0.0001)  # Initial guess for a, b, and c
-  
-  # Use optim to find the optimal values of a, b, and c
-  result <- stats::optim(par = initial_params, fn = objective, x = x, y = y)
-  
-  # Extract the optimized values of a, b, and c
-  a <- result$par[1]
-  b <- result$par[2]
-  c <- result$par[3]
-  
-  # Define the model equation
-  model <- function(x) {
-    y <- a + b * x + c * x^2
-    y <- ifelse(x < xmin | x > xmax, 0,
-                ifelse(y < 0, 0, y))
-    return(y)
-  }
+  return(func)
 }
+
