@@ -16,37 +16,52 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/GPA.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/auc_thresh.html</loc>
-  </url>
-  <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/check_species.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_briere.html</loc>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/download_silo.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/endosym_model.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_alate.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_bannerman.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_custom.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_gaussian.html</loc>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_emi_thack.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_gompertz.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_null.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_quadratic.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_rezende.html</loc>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_rainfall_thack.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_sigmoid.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_tpc.html</loc>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_wang.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_weibull.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/make_conds.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pipe.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/species-class.html</loc>
