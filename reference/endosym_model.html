@@ -42,7 +42,18 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">endosym_model</span><span class="op">(</span><span class="va">Pest</span>, <span class="va">Crop</span>, Beneficials <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">init</span>, <span class="va">conds</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">endosym_model</span><span class="op">(</span></span>
+<span>  <span class="va">Pest</span>,</span>
+<span>  <span class="va">Crop</span>,</span>
+<span>  Beneficials <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">init</span>,</span>
+<span>  <span class="va">conds</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  vert_trans <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  hori_trans <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  imi <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  emi <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -70,6 +81,22 @@
 <dt>plot</dt>
 <dd><p>if <code>TRUE</code> (default) generate plots</p></dd>
 
+
+<dt>vert_trans</dt>
+<dd><p>set to <code>FALSE</code> to turn off vertical transmission</p></dd>
+
+
+<dt>hori_trans</dt>
+<dd><p>set to <code>FALSE</code> to turn off horizontal transmission</p></dd>
+
+
+<dt>imi</dt>
+<dd><p>set to <code>FALSE</code> to turn off immigration into paddock</p></dd>
+
+
+<dt>emi</dt>
+<dd><p>set to <code>FALSE</code> to turn off emigration from paddock</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -79,7 +106,7 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Constructs the endosymbiont model using the provided pest, crop, beneficials, initial, and sim_conds objects.</p>
+    <p>Constructs the endosymbiont model using the provided <a href="pest-class.html">pest</a>, crop, beneficials, initial, and sim_conds objects.</p>
 <p>The <code>Pest</code> species feeds on the provided <code>Crop</code>.</p>
 <p>Vertical transmission of endosymbiont is defined using functions in the <code>Pest</code>. Horizontal transmission through herbivory is defined using functions in the <code>Crop</code>.</p>
 <p>Each element of the <code>Beneficials</code> list should be a <code>beneficial</code> object with functions defining the interactions with the pest (e.g. predation, parasitism) and their impacts on mortality and endosymbiont transmission.</p>

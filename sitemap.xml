@@ -16,9 +16,6 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/GPA.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/check_species.html</loc>
-  </url>
-  <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/download_silo.html</loc>
   </url>
   <url>
@@ -38,6 +35,9 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_gompertz.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_imi_barton.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_null.html</loc>
@@ -61,9 +61,9 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/make_conds.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pipe.html</loc>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pest-class.html</loc>
   </url>
   <url>
-    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/species-class.html</loc>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pipe.html</loc>
   </url>
 </urlset>
