@@ -18,5 +18,6 @@ download_silo <- function(date, year, var, path){
                                     date, ".",
                                     var, ".tif"),
                        method = "curl",
-                       destfile = paste0(path, date, ".", var, ".tif")) 
+                       destfile = paste0(path, date, ".", var, ".tif"),
+                       quiet = T) 
 }

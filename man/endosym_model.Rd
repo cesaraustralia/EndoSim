@@ -6,6 +6,7 @@
 \usage{
 endosym_model(
   Pest,
+  Endosymbiont,
   Crop,
   Beneficials = NULL,
   init,
@@ -19,6 +20,8 @@ endosym_model(
 }
 \arguments{
 \item{Pest}{object of class \code{pest} defining the pest}
+
+\item{Endosymbiont}{object of class \code{endosym} defining the endosymbiont}
 
 \item{Crop}{object of class \code{crop} defining the crop}
 
@@ -45,11 +48,11 @@ object of class \code{endosym_mod}; see \link{endosym_mod}.
 Run simulation using the endosymbiont model
 }
 \details{
-Constructs the endosymbiont model using the provided \link{pest}, \link{crop}, \link{beneficials}, \link{initial}, and \link{sim_conds} objects.
+Constructs the endosymbiont model using the provided \link{pest}, \link{endosym}, \link{crop}, \link{beneficials}, \link{initial}, and \link{sim_conds} objects.
 
 The \code{Pest} species feeds on the provided \code{Crop}.
 
-Vertical transmission of endosymbiont is defined using functions in the \code{Pest}. Horizontal transmission through herbivory is defined using functions in the \code{Crop}.
+Vertical and horizontal transmission of endosymbiont are defined using functions in the \code{Endosymbiont}.
 
 Each element of the \code{Beneficials} list should be a \code{beneficial} object with functions defining the interactions with the pest (e.g. predation, parasitism) and their impacts on mortality and endosymbiont transmission.
 }

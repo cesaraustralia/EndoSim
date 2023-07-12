@@ -15,8 +15,6 @@ An S4 class to store a pest's life history for the endosymbiont model
 
 \item{\code{bg_loss}}{Background mortality (0-1)}
 
-\item{\code{fitness_cost}}{Relative fitness cost of R+ phenotype (0-1)}
-
 \item{\code{alate_penalty}}{Relative fecundity penalty of alates compaered to apterae (0-1)}
 
 \item{\code{apterae_walk}}{Number of plants per day visited by apterae}
@@ -51,7 +49,6 @@ GPA <-
 new("pest",
   species = "Myzus persicae",
   bg_loss = 0.03,
-  fitness_cost = 0.5,
   alate_penalty = 0.5,
   apterae_walk = 0.0005,
   alate_flight = 0.005,

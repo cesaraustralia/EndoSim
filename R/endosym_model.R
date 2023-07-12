@@ -3,6 +3,7 @@
 #' Run simulation using the endosymbiont model
 #'
 #' @param Pest object of class \code{pest} defining the pest
+#' @param Endosymbiont object of class \code{endosym} defining the endosymbiont
 #' @param Crop object of class \code{crop} defining the crop
 #' @param Beneficials list of objects of class \code{beneficial} describing the beneficials in the system
 #' @param init object of class \code{initial} defining the starting conditions for the simulation
@@ -14,11 +15,11 @@
 #' @param emi set to \code{FALSE} to turn off emigration from paddock
 #' @return object of class \code{endosym_mod}; see [endosym_mod].
 #' @details
-#' Constructs the endosymbiont model using the provided [pest], [crop], [beneficials], [initial], and [sim_conds] objects.
+#' Constructs the endosymbiont model using the provided [pest], [endosym], [crop], [beneficials], [initial], and [sim_conds] objects.
 #' 
 #' The \code{Pest} species feeds on the provided \code{Crop}.
 #' 
-#' Vertical transmission of endosymbiont is defined using functions in the \code{Pest}. Horizontal transmission through herbivory is defined using functions in the \code{Crop}.
+#' Vertical and horizontal transmission of endosymbiont are defined using functions in the \code{Endosymbiont}.
 #' 
 #' Each element of the \code{Beneficials} list should be a \code{beneficial} object with functions defining the interactions with the pest (e.g. predation, parasitism) and their impacts on mortality and endosymbiont transmission.
 #' 
@@ -26,6 +27,7 @@
 
 
 endosym_model <- function(Pest,
+                          Endosymbiont,
                           Crop,
                           Beneficials = NULL,
                           init,
@@ -36,29 +38,29 @@ endosym_model <- function(Pest,
                           imi = TRUE,
                           emi = TRUE
                           ) {
-  if (!class(Pest) == "pest")
+  if (!inherits(Pest, "pest"))
     stop("No Pest of class pest provided!")
   
-  if (!class(Crop) == "crop")
+  if (!inherits(Crop, "crop"))
     stop("No Crop of class crop provided!")
   
-  if (!class(init) == "initial")
+  if (!inherits(init, "initial"))
     stop("No init of class initial provided!")
   
-  if (!class(conds) == "sim_conds")
+  if (!inherits(conds, "sim_conds"))
     stop("No conds of class sim_conds provided!")
   
   if (is.null(Beneficials))
     warning("No Beneficials provided; parameterising model without beneficial species")
   
   if(!vert_trans){
-    Pest@'fitness_cost' <- 0
+    Endosymbiont@'fitness_cost' <- 0
     warning("Vertical transmission cancelled!")
   }
   
   if(!hori_trans){
-    Crop[['fun_trans_eff']] <- EndosymbiontModel:::fit_null(0)
-    Crop[['fun_susc']] <- EndosymbiontModel:::fit_null(0)
+    Endosymbiont@'fun_trans_eff' <- EndosymbiontModel:::fit_null(0)
+    Endosymbiont@'fun_susc' <- EndosymbiontModel:::fit_null(0)
     warning("Horizontal transmission cancelled!")
   }
   
@@ -73,17 +75,20 @@ endosym_model <- function(Pest,
   }
   
   # define simulation parameters
-  sim_length = conds[['sim_length']]
-  env = conds[['env']]
-  start_date = conds[['start_date']]
+  sim_length = conds@'sim_length'
+  env = conds@'env'
+  start_date = conds@'start_date'
   
   bg_loss <- Pest@'bg_loss'
-  fitness_cost <- Pest@'fitness_cost'
   alate_penalty <- Pest@'alate_penalty'
   apterae_walk <- Pest@'apterae_walk'
   alate_flight <- Pest@'alate_flight'
   
-  heal_time <- Crop[['heal_time']]
+  fitness_cost <- Endosymbiont@'fitness_cost'
+  
+  heal_time <- Crop@'heal_time'
+  sowing_date <- Crop@'sowing_date'
+  harvest_date <- Crop@'harvest_date'
   
   # define functions
   fun_dev_apt <- Pest@'fun_dev_apt'
@@ -98,11 +103,11 @@ endosym_model <- function(Pest,
   fun_age_fecund <- Pest@'fun_age_fecund'
   fun_alate_prod <- Pest@'fun_alate_prod'
   
-  fun_trans_eff <- Crop[['fun_trans_eff']]
-  fun_susc <- Crop[['fun_susc']]
+  fun_trans_eff <- Endosymbiont@'fun_trans_eff'
+  fun_susc <- Endosymbiont@'fun_susc'
   
   # define tracked populations
-  cohorts <- init[['Pest']]
+  cohorts <- init@'Pest'
   
   # create initial vector of active cohorts
   active_cohorts <- which(cohorts[, 1, ] > 0)
@@ -134,7 +139,7 @@ endosym_model <- function(Pest,
   cohort_ages <- matrix(c(rep(0, 16), rep(1, 4)), nrow = 4)
   
   # create initial dataframe of crop population
-  crop_pop <- init[['Crop']]
+  crop_pop <- init@'Crop'
   
   print("Running model:")
   
@@ -146,6 +151,15 @@ endosym_model <- function(Pest,
   )
   
   for (t in 1:sim_length){
+    # current_date <- lubridate::ymd(start_date) + lubridate::days(t)
+    # growth_season <- current_date %in% seq(lubridate::ymd(sowing_date), lubridate::ymd(harvest_date), "day")
+    # 
+    # # adjust carrying capacity if outside growth season
+    # if(growth_season)
+    #   fun_dens_fecund <- Pest@'fun_dens_fecund'
+    # else
+    #   fun_dens_fecund <- EndosymbiontModel:::fit_bannerman(100, 0.08)
+    
     temperature = env[t, 2]
     rainfall = env[t, 3]
     
@@ -188,7 +202,7 @@ endosym_model <- function(Pest,
     if(imi_adult > 0){
       # create new cohort
       new_cohort <- matrix(c(0, 0, 0, imi_adult,
-                             rep(1, 4)),
+                             rep(5, 4)),
                            ncol = 2)
       cohorts <- abind::abind(cohorts,
                               new_cohort,
@@ -196,9 +210,9 @@ endosym_model <- function(Pest,
       dev_cohorts <- rbind(dev_cohorts,
                            matrix(rep(0, 4), nrow = 1))
       adult_ages <- cbind(adult_ages,
-                          matrix(rep(0, 4), ncol = 1))
+                          matrix(c(0, 0, 0, t), ncol = 1))
       cohort_ages <- cbind(cohort_ages,
-                           matrix(rep(t, 4), ncol = 1))
+                           matrix(c(0, 0, 0, t), ncol = 1))
     }
     
     # update active cohorts vector

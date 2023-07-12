@@ -4,7 +4,6 @@
 #'
 #' @slot species The name of the pest
 #' @slot bg_loss Background mortality (0-1)
-#' @slot fitness_cost Relative fitness cost of R+ phenotype (0-1)
 #' @slot alate_penalty Relative fecundity penalty of alates compaered to apterae (0-1)
 #' @slot apterae_walk Number of plants per day visited by apterae
 #' @slot alate_flight Number of plants per day visited by alates
@@ -25,7 +24,6 @@
 #' new("pest",
 #'   species = "Myzus persicae",
 #'   bg_loss = 0.03,
-#'   fitness_cost = 0.5,
 #'   alate_penalty = 0.5,
 #'   apterae_walk = 0.0005,
 #'   alate_flight = 0.005,
@@ -47,7 +45,6 @@
 pest <- methods::setClass("pest",
                           slots = c(species = "character",
                                     bg_loss = "numeric",
-                                    fitness_cost = "numeric",
                                     alate_penalty = "numeric",
                                     apterae_walk = "numeric",
                                     alate_flight = "numeric",

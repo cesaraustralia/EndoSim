@@ -36,6 +36,8 @@ make_conds <- function(start_date, end_date, lat, long, path = NULL){
     
     dir.create(file.path(main.dir, "temp"))
     
+    print("Downloading:")
+    progress_bar = utils::txtProgressBar(min=0, max=sim_length, style = 3, char="=")
     for(i in 1:length(times)){
       for(k in c("max_temp", "min_temp", "daily_rain")){
         date = stringr::str_remove_all(sapply(strsplit(as.character(times[[i]]), " "), "[", 1), "-")
@@ -44,6 +46,8 @@ make_conds <- function(start_date, end_date, lat, long, path = NULL){
         
         EndosymbiontModel::download_silo(date, year, var, path = silo_path)
       }
+      utils::setTxtProgressBar(progress_bar,
+                               value = i)
     }
   }
   
@@ -84,9 +88,10 @@ make_conds <- function(start_date, end_date, lat, long, path = NULL){
   if(is.null(path))
     unlink(silo_path, recursive = TRUE)
   
-  conds <- list(env = env,
-                sim_length = sim_length,
-                start_date = start_date)
+  conds <- new("sim_conds",
+               env = env,
+               sim_length = sim_length,
+               start_date = start_date)
   class(conds) <- "sim_conds"
   
   return(conds)

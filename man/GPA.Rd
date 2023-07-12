@@ -16,7 +16,6 @@ for green peach aphid (\emph{Myzus persicae}).
 Can be used to run the endosymbiont model on GPA.\cr
 \cr
 \code{bg_loss} derived from Barton et al. 2021 \cr
-\code{fitness_cost} derived from experimental data (Hoffman et al. unpublished) \cr
 \code{alate_penalty} derived from Barton et al. 2021 \cr
 \code{apterae_walk} Placeholder \cr
 \code{alate_flight} Placeholder \cr
