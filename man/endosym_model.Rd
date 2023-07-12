@@ -42,13 +42,13 @@ endosym_model(
 \item{emi}{set to \code{FALSE} to turn off emigration from paddock}
 }
 \value{
-object of class \code{endosym_mod}; see \link{endosym_mod}.
+object of class \code{endosym_mod}; see endosym_mod.
 }
 \description{
 Run simulation using the endosymbiont model
 }
 \details{
-Constructs the endosymbiont model using the provided \link{pest}, \link{endosym}, \link{crop}, \link{beneficials}, \link{initial}, and \link{sim_conds} objects.
+Constructs the endosymbiont model using the provided \link{pest}, \link{endosym}, \link{crop}, beneficial, \link{initial}, and \link{sim_conds} objects.
 
 The \code{Pest} species feeds on the provided \code{Crop}.
 

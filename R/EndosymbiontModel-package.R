@@ -3,7 +3,7 @@
 #' @importFrom stats predict smooth.spline
 #' @importFrom abind abind
 #' @importFrom terra rast extract
-#' @import tidyr
+#' @importFrom tidyr pivot_longer
 #' @import lubridate
 #' @import dplyr
 #' @import ggplot2
