@@ -16,7 +16,13 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/GPA.html</loc>
   </url>
   <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/crop-class.html</loc>
+  </url>
+  <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/download_silo.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/endosym-class.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/endosym_model.html</loc>
@@ -58,6 +64,9 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/initial-class.html</loc>
+  </url>
+  <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/make_conds.html</loc>
   </url>
   <url>
@@ -65,5 +74,8 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/sim_conds-class.html</loc>
   </url>
 </urlset>
