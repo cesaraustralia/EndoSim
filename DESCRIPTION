@@ -19,6 +19,7 @@ Imports:
     mgcv (>= 1.8.40),
     stats (>= 4.2.1),
     stringr (>= 1.4.1),
+    terra (>= 1.6.17),
     tidyr (>= 1.2.1),
     utils (>= 4.2.1)
 Suggests: 

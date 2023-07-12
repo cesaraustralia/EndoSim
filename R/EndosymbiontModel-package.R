@@ -2,6 +2,7 @@
 #' @importFrom methods new setClass
 #' @importFrom stats predict smooth.spline
 #' @importFrom abind abind
+#' @importFrom terra rast extract
 #' @import tidyr
 #' @import lubridate
 #' @import dplyr

@@ -14,7 +14,7 @@
 #' @examples 
 #' my_func <- EndosymbiontModel:::fit_bannerman(10000, 0.0008)
 #' plot(seq(0, 15000, by = 1), my_func(seq(0, 15000, by = 1)), type = "l")
-#' #' @references
+#' @references
 #' Bannerman, J,A., Roitberg, B.D., Impact of extreme and fluctuating temperatures on aphid-parasitoid dynamics. Oikos, 123, 89-98 (2014)
 #' @seealso [fit_null()], [fit_quadratic()], [fit_weibull()]
 

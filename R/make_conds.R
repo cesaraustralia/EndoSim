@@ -44,7 +44,7 @@ make_conds <- function(start_date, end_date, lat, long, path = NULL){
         year = lubridate::year(times[[i]])
         var = k
         
-        EndosymbiontModel::download_silo(date, year, var, path = silo_path)
+        download_silo(date, year, var, path = silo_path)
       }
       utils::setTxtProgressBar(progress_bar,
                                value = i)

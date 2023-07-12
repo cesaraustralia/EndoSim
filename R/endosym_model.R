@@ -59,18 +59,18 @@ endosym_model <- function(Pest,
   }
   
   if(!hori_trans){
-    Endosymbiont@'fun_trans_eff' <- EndosymbiontModel:::fit_null(0)
-    Endosymbiont@'fun_susc' <- EndosymbiontModel:::fit_null(0)
+    Endosymbiont@'fun_trans_eff' <- fit_null(0)
+    Endosymbiont@'fun_susc' <- fit_null(0)
     warning("Horizontal transmission cancelled!")
   }
   
   if(!imi){
-    Pest@'fun_imi' <- EndosymbiontModel:::fit_null(0)
+    Pest@'fun_imi' <- fit_null(0)
     warning("Immigration cancelled!")
   }
   
   if(!emi){
-    Pest@'fun_emi' <- EndosymbiontModel:::fit_null(0)
+    Pest@'fun_emi' <- fit_null(0)
     warning("Emigration cancelled!")
   }
   
@@ -158,7 +158,7 @@ endosym_model <- function(Pest,
     # if(growth_season)
     #   fun_dens_fecund <- Pest@'fun_dens_fecund'
     # else
-    #   fun_dens_fecund <- EndosymbiontModel:::fit_bannerman(100, 0.08)
+    #   fun_dens_fecund <- fit_bannerman(100, 0.08)
     
     temperature = env[t, 2]
     rainfall = env[t, 3]

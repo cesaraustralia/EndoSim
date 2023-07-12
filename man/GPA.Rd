@@ -25,7 +25,7 @@ Can be used to run the endosymbiont model on GPA.\cr
 \code{fun_emi} fitted using \link{fit_emi_thack} to describe a constant emigration rate based on Thackray et al. 2004 \cr
 \code{fun_temp_loss} TBA
 \code{fun_rainfall_loss} fitted using \link{fit_rainfall_thack} with parameters from Barton et al. 2021 \cr
-\code{fun_sen_loss} fitted using \link{fit_compertz} with parameters from Barton et al. 2021 \cr
+\code{fun_sen_loss} fitted using \link{fit_gompertz} with parameters from Barton et al. 2021 \cr
 \code{fun_dens_fecund} fitted using \link{fit_bannerman} with parameters from Barton et al. 2021 \cr
 \code{fun_temp_fecund} fitted using \link{fit_quadratic} with parameters from Barton et al. 2021 \cr
 \code{fun_age_fecund} fitted using \link{fit_weibull} with parameters from Barton et al. 2021 \cr
