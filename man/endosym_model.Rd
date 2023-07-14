@@ -48,7 +48,7 @@ object of class \code{endosym_mod}; see endosym_mod.
 Run simulation using the endosymbiont model
 }
 \details{
-Constructs the endosymbiont model using the provided \link{pest}, \link{endosym}, \link{crop}, beneficial, \link{initial}, and \link{sim_conds} objects.
+Constructs the endosymbiont model using the provided \linkS4class{pest}, \linkS4class{endosym}, \linkS4class{crop}, beneficial, \linkS4class{initial}, and \linkS4class{sim_conds} objects.
 
 The \code{Pest} species feeds on the provided \code{Crop}.
 

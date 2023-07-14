@@ -5,7 +5,7 @@
 \alias{GPA}
 \title{GPA species information}
 \format{
-An object of class \code{pest}; see \link{pest}.
+An object of class \code{pest}; see \linkS4class{pest}.
 }
 \usage{
 data(GPA)
