@@ -15,7 +15,7 @@
 #' @param emi set to \code{FALSE} to turn off emigration from paddock
 #' @return object of class \code{endosym_mod}; see endosym_mod.
 #' @details
-#' Constructs the endosymbiont model using the provided [pest], [endosym], [crop], beneficial, [initial], and [sim_conds] objects.
+#' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class], beneficial, [initial-class], and [sim_conds-class] objects.
 #' 
 #' The \code{Pest} species feeds on the provided \code{Crop}.
 #' 

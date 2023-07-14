@@ -24,7 +24,7 @@
 #'
 #' @usage data(GPA)
 #'
-#' @format An object of class \code{pest}; see [pest].
+#' @format An object of class \code{pest}; see [pest-class].
 #'
 #' @keywords datasets
 #'
