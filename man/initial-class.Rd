@@ -3,7 +3,6 @@
 \docType{class}
 \name{initial-class}
 \alias{initial-class}
-\alias{initial}
 \title{An S4 class to store initial population sizes for the endosymbiont model}
 \description{
 An S4 class to store initial population sizes for the endosymbiont model

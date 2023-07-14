@@ -6,7 +6,7 @@
 #' @slot Crop Dataframe where each row is an individual plant, the first column (t) describes the time of infection, the second and third columns binary representations of infection status - if R+ 1 in second column and 0 in third, if R- 0 in second column and 1 in third
 #' 
 
-initial <- methods::setClass("initial",
-                             slots = c(Pest = "array",
-                                       Crop = "data.frame")
+methods::setClass("initial",
+                  slots = c(Pest = "array",
+                            Crop = "data.frame")
 )
