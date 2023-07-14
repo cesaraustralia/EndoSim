@@ -15,9 +15,9 @@
 #' 
 #' canola
 
-crop <- methods::setClass("crop",
-                          slots = c(name = "character",
-                                    heal_time = "numeric",
-                                    sowing_date = "character",
-                                    harvest_date = "character")
+methods::setClass("crop",
+                  slots = c(name = "character",
+                            heal_time = "numeric",
+                            sowing_date = "character",
+                            harvest_date = "character")
 )

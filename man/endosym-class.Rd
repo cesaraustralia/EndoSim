@@ -3,7 +3,6 @@
 \docType{class}
 \name{endosym-class}
 \alias{endosym-class}
-\alias{endosym}
 \title{An S4 class to store a endosymbiont's life history for the endosymbiont model}
 \description{
 An S4 class to store a endosymbiont's life history for the endosymbiont model

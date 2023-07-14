@@ -37,7 +37,7 @@ endosym_model <- function(Pest,
                           hori_trans = TRUE,
                           imi = TRUE,
                           emi = TRUE
-                          ) {
+) {
   if (!inherits(Pest, "pest"))
     stop("No Pest of class pest provided!")
   
@@ -133,10 +133,10 @@ endosym_model <- function(Pest,
   dev_cohorts <- matrix(rep(0, 20), ncol = 4)
   
   # create initial matrix of adult ages
-  adult_ages <- matrix(c(rep(0, 16), rep(1, 4)), nrow = 4)
+  adult_ages <- matrix(c(rep(0, 20)), nrow = 4)
   
   # create initial matrix of cohort ages
-  cohort_ages <- matrix(c(rep(0, 16), rep(1, 4)), nrow = 4)
+  cohort_ages <- matrix(c(rep(1, 20)), nrow = 4)
   
   # create initial dataframe of crop population
   crop_pop <- init@'Crop'
@@ -210,7 +210,7 @@ endosym_model <- function(Pest,
       dev_cohorts <- rbind(dev_cohorts,
                            matrix(rep(0, 4), nrow = 1))
       adult_ages <- cbind(adult_ages,
-                          matrix(c(0, 0, 0, t), ncol = 1))
+                          matrix(c(0, 0, 0, t - 1), ncol = 1))
       cohort_ages <- cbind(cohort_ages,
                            matrix(c(0, 0, 0, t), ncol = 1))
     }
@@ -264,8 +264,8 @@ endosym_model <- function(Pest,
     
     cohorts[1, 1, ] <- cohorts[1, 1, ] + new_inf_apt
     cohorts[2, 1, ] <- cohorts[2, 1, ] - new_inf_apt
-    cohorts[3, 1, ] <- cohorts[3, 1, ] + new_inf_apt
-    cohorts[4, 1, ] <- cohorts[4, 1, ] - new_inf_apt
+    cohorts[3, 1, ] <- cohorts[3, 1, ] + new_inf_ala
+    cohorts[4, 1, ] <- cohorts[4, 1, ] - new_inf_ala
     
     ## mortality
     # calculate mortality due to temperature and rainfall
@@ -276,8 +276,6 @@ endosym_model <- function(Pest,
     
     # calculate mortality due to senesence
     ages <- t - cohort_ages
-    ages[which(ages == t)] <- 0
-    ages[, 1] <- t # update first cohort age
     
     sen_loss <- fun_sen_loss(ages)
     sen_loss[is.na(sen_loss)] <- 0
@@ -311,9 +309,7 @@ endosym_model <- function(Pest,
     
     # calculate daily fecundity due to age
     ages <- t - adult_ages
-    ages[which(ages == t)] <- 0
-    ages[, 1] <- t # fix first cohort age
-    ages[-active_cohorts] <- 0 # make sure non-active cohorts are not counted
+    ages[-all_adult] <- 0 # make only active adult cohorts are counted
     
     age_prod <- fun_age_fecund(ages)
     
@@ -329,7 +325,7 @@ endosym_model <- function(Pest,
     # calculate total newly produced pests with adjustments for type
     all_prod <- as.numeric(cohorts[, 1, ])
     
-    all_prod <- round(all_prod[all_adult] * as.numeric(res_fecund), 0)
+    all_prod <- round(all_prod * as.numeric(res_fecund), 0)
     
     if(is.matrix(cohorts[, 1, ]))
     {names(all_prod) <- rep(rownames(cohorts[,1,]), length.out = length(all_prod))} else

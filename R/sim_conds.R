@@ -7,8 +7,8 @@
 #' @slot start_date first day of simulation in YYYY-MM-DD format
 #' 
 
-sim_conds <- methods::setClass("sim_conds",
-                          slots = c(env = "data.frame",
-                                    sim_length = "numeric",
-                                    start_date = "character")
+methods::setClass("sim_conds",
+                  slots = c(env = "data.frame",
+                            sim_length = "numeric",
+                            start_date = "character")
 )

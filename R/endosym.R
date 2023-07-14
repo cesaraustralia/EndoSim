@@ -23,9 +23,9 @@
 #' 
 #' Rickettsiella
 
-endosym <- methods::setClass("endosym",
-                             slots = c(name = "character",
-                                       fitness_cost = "numeric",
-                                       fun_trans_eff = "function",
-                                       fun_susc = "function")
+methods::setClass("endosym",
+                  slots = c(name = "character",
+                            fitness_cost = "numeric",
+                            fun_trans_eff = "function",
+                            fun_susc = "function")
 )

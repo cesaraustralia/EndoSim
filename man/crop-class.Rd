@@ -3,7 +3,6 @@
 \docType{class}
 \name{crop-class}
 \alias{crop-class}
-\alias{crop}
 \title{An S4 class to store a crop's life history for the endosymbiont model}
 \description{
 An S4 class to store a crop's life history for the endosymbiont model

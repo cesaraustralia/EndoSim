@@ -3,7 +3,6 @@
 \docType{class}
 \name{sim_conds-class}
 \alias{sim_conds-class}
-\alias{sim_conds}
 \title{An S4 class to store simulation conditions for the endosymbiont model}
 \description{
 An S4 class to store simulation conditions for the endosymbiont model

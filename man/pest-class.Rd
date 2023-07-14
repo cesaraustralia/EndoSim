@@ -3,7 +3,6 @@
 \docType{class}
 \name{pest-class}
 \alias{pest-class}
-\alias{pest}
 \title{An S4 class to store a pest's life history for the endosymbiont model}
 \description{
 An S4 class to store a pest's life history for the endosymbiont model

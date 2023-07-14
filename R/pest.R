@@ -42,21 +42,21 @@
 #' 
 #' GPA
 
-pest <- methods::setClass("pest",
-                          slots = c(species = "character",
-                                    bg_loss = "numeric",
-                                    alate_penalty = "numeric",
-                                    apterae_walk = "numeric",
-                                    alate_flight = "numeric",
-                                    fun_dev_apt = "function",
-                                    fun_dev_ala = "function",
-                                    fun_imi = "function",
-                                    fun_emi = "function",
-                                    fun_temp_loss = "function",
-                                    fun_rainfall_loss = "function",
-                                    fun_sen_loss = "function",
-                                    fun_dens_fecund = "function",
-                                    fun_temp_fecund = "function",
-                                    fun_age_fecund = "function",
-                                    fun_alate_prod = "function")
+methods::setClass("pest",
+                  slots = c(species = "character",
+                            bg_loss = "numeric",
+                            alate_penalty = "numeric",
+                            apterae_walk = "numeric",
+                            alate_flight = "numeric",
+                            fun_dev_apt = "function",
+                            fun_dev_ala = "function",
+                            fun_imi = "function",
+                            fun_emi = "function",
+                            fun_temp_loss = "function",
+                            fun_rainfall_loss = "function",
+                            fun_sen_loss = "function",
+                            fun_dens_fecund = "function",
+                            fun_temp_fecund = "function",
+                            fun_age_fecund = "function",
+                            fun_alate_prod = "function")
 )
