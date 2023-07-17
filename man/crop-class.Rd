@@ -14,6 +14,8 @@ An S4 class to store a crop's life history for the endosymbiont model
 
 \item{\code{heal_time}}{Time in days endosymbiont remains in plant}
 
+\item{\code{fun_reinf}}{Function describing probability of plant reinfection as function of R+ pest density}
+
 \item{\code{sowing_date}}{Date crop is sown in YYYY-MM-DD format}
 
 \item{\code{harvest_date}}{Date crop is harvested in YYYY-MM-DD format}

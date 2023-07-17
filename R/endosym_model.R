@@ -13,7 +13,7 @@
 #' @param hori_trans set to \code{FALSE} to turn off horizontal transmission
 #' @param imi set to \code{FALSE} to turn off immigration into paddock
 #' @param emi set to \code{FALSE} to turn off emigration from paddock
-#' @return object of class \code{endosym_mod}; see endosym_mod.
+#' @return object of class \code{endosym_mod}; see [endosym_mod].
 #' @details
 #' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class], beneficial, [initial-class], and [sim_conds-class] objects.
 #' 
@@ -50,8 +50,12 @@ endosym_model <- function(Pest,
   if (!inherits(conds, "sim_conds"))
     stop("No conds of class sim_conds provided!")
   
-  if (is.null(Beneficials))
+  if (is.null(Beneficials)){
     warning("No Beneficials provided; parameterising model without beneficial species")
+    ben_names <- "None"
+  } else {
+    ben_names <- paste(sapply(Beneficials, "[[", "species"), collapse = ", ")
+  }
   
   if(!vert_trans){
     Endosymbiont@'fitness_cost' <- 0
@@ -87,6 +91,7 @@ endosym_model <- function(Pest,
   fitness_cost <- Endosymbiont@'fitness_cost'
   
   heal_time <- Crop@'heal_time'
+  fun_reinf <- Crop@'fun_reinf'
   sowing_date <- Crop@'sowing_date'
   harvest_date <- Crop@'harvest_date'
   
@@ -222,15 +227,19 @@ endosym_model <- function(Pest,
     cohorts[, 2, ][-active_cohorts] <- 0
     
     ## virus horizontal transmission
+    # identify adult alates
+    adult_ala <- which(cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "ala"))
+    
     # calculate total pest moves
-    tot_mov = (sum(cohorts[, 1, ]) * apterae_walk) +
-      (sum(c(cohorts[3, 1, ], cohorts[4, 1, ])[which(cbind(cohorts[3, , ], cohorts[4, , ])[2, ] == 5)]) * alate_flight)
+    tot_mov = (sum(cohorts[, 1, ][-adult_ala]) * apterae_walk) +
+      (sum(cohorts[, 1, ][adult_ala]) * alate_flight)
     
     # calculate number of inoculated plants
-    new_inoc = tot_mov *
-      sum(cohorts[c(1, 3), 1, ]) / sum(cohorts[, 1, ]) *
-      fun_trans_eff(temperature) *
-      sum(crop_pop[, 3]) / sum(crop_pop[, 2:3])
+    new_inoc =
+      tot_mov * # total plants encountered by pest
+      sum(cohorts[c(1, 3), 1, ]) / sum(cohorts[, 1, ]) * # probability pest is R+
+      sum(crop_pop[, 3]) / sum(crop_pop[, 2:3]) * # probability encountered plant is R-
+      fun_trans_eff(temperature) # probability plant is infected
     
     if(is.na(new_inoc))
       new_inoc <- 0 # capture case when population dies out
@@ -245,27 +254,33 @@ endosym_model <- function(Pest,
     
     # which plants recover
     heal_ind <- which(t - crop_pop[, 1] >= heal_time)
+    if (round(length(heal_ind)*fun_reinf(sum(cohorts[,1,][c(1,3),])/nrow(crop_pop))) > 0)
+      heal_ind <- heal_ind[1:round(length(heal_ind)*fun_reinf(sum(cohorts[,1,][c(1,3),])/nrow(crop_pop)))] else
+        heal_ind <- which(1 < 0)
     
     # update crop dataframe
     crop_pop[heal_ind, 2] <- 0
     crop_pop[heal_ind, 3] <- 1
     
-    # calculate infection rate
-    inf_rate = fun_susc(temperature) *
-      (sum(crop_pop[, 2]) / sum(crop_pop[, 2:3])) *
-      (sum(cohorts[c(2, 4), 1, ]) / sum(cohorts[, 1, ]))
+    # identify susceptible pests
+    sus_ala <- which(cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "neg_ala"))
+    sus_apt <- which(cohorts[, 2, ] %in% c(1, 2, 3, 4) & stringr::str_detect(rownames(cohorts[, 2, ]), "neg") |
+                       cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "neg_apt"))
     
-    if(is.na(inf_rate))
-      inf_rate <- 0 # capture case when population dies out
+    # calculate infection rate
+    inf_rate =
+      sum(cohorts[, 1, ][c(sus_apt, sus_ala)]) * # Number of susceptible R- pests
+      (sum(crop_pop[, 2]) / sum(crop_pop[, 2:3])) * # proportion of R+ plants
+      fun_susc(temperature) # probability pest is infected
+    
+    new_inf_apt <- round((cohorts[, 1, ][sus_apt] / sum(cohorts[, 1, ][sus_apt])) * inf_rate, 0)
+    new_inf_ala <- round((cohorts[, 1, ][sus_ala] / sum(cohorts[, 1, ][sus_ala])) * inf_rate, 0)
     
     # update cohorts
-    new_inf_apt <- round(cohorts[2, 1, ] * inf_rate, 0)
-    new_inf_ala <- round(cohorts[4, 1, ] * inf_rate, 0)
-    
-    cohorts[1, 1, ] <- cohorts[1, 1, ] + new_inf_apt
-    cohorts[2, 1, ] <- cohorts[2, 1, ] - new_inf_apt
-    cohorts[3, 1, ] <- cohorts[3, 1, ] + new_inf_ala
-    cohorts[4, 1, ] <- cohorts[4, 1, ] - new_inf_ala
+    cohorts[, 1, ][sus_apt - 1] <- cohorts[, 1, ][sus_apt - 1] + new_inf_apt
+    cohorts[, 1, ][sus_apt] <- cohorts[, 1, ][sus_apt] - new_inf_apt
+    cohorts[, 1, ][sus_ala - 1] <- cohorts[, 1, ][sus_ala - 1] + new_inf_ala
+    cohorts[, 1, ][sus_ala] <- cohorts[, 1, ][sus_ala] - new_inf_ala
     
     ## mortality
     # calculate mortality due to temperature and rainfall
@@ -402,83 +417,23 @@ endosym_model <- function(Pest,
   
   close(progress_bar)
   
+  output <- new("endosym_mod",
+                pest = Pest@species,
+                crop = Crop@name,
+                endosymbiont = Endosymbiont@name,
+                beneficials = ben_names,
+                start_date = start_date,
+                sim_length = sim_length,
+                vert_trans = vert_trans,
+                hori_trans = hori_trans,
+                imi = imi,
+                emi = emi,
+                pest_df = pest_pop,
+                pest_cohorts = cohorts)
+  
   if (plot){
-    pop_plot <- pest_pop %>%
-      tidyr::pivot_longer(cols = 2:11,
-                          names_to = "lifestage",
-                          values_to = "n") %>%
-      dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
-                    lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
-      dplyr::group_by(t, endosymbiont) %>%
-      dplyr::summarise(n = sum(n)) %>%
-      dplyr::group_by(t) %>%
-      dplyr::mutate(tot = sum(n)) %>%
-      ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(start_date)), y = n)) +
-      ggplot2::geom_density(ggplot2::aes(fill = endosymbiont),
-                            stat = "identity",
-                            colour = NA,
-                            position = "stack",
-                            data = pest_pop %>%
-                              tidyr::pivot_longer(cols = 2:11,
-                                                  names_to = "lifestage",
-                                                  values_to = "n") %>%
-                              dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
-                                            lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
-                              dplyr::group_by(t, endosymbiont) %>%
-                              dplyr::summarise(n = sum(n))) +
-      ggplot2::geom_line(data = pest_pop %>%
-                           tidyr::pivot_longer(cols = 2:11,
-                                               names_to = "lifestage",
-                                               values_to = "n") %>%
-                           dplyr::group_by(t) %>%
-                           dplyr::summarise(n = sum(n))) +
-      ggplot2::labs(x = "Date",
-                    y = "Total number of pests",
-                    title = paste0("Fitness cost = ", fitness_cost)) +
-      ggplot2::scale_fill_manual(
-        values = c("darkgoldenrod", "darkgreen"),
-        name = "Phenotype",
-        labels = c("R-", "R+")
-      ) +
-      ggplot2::theme_bw()
-    
-    prop_plot <- pest_pop %>%
-      tidyr::pivot_longer(cols = 2:11,
-                          names_to = "lifestage",
-                          values_to = "n") %>%
-      dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
-                    lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
-      dplyr::group_by(t, endosymbiont) %>%
-      dplyr::summarise(n = sum(n)) %>%
-      dplyr::group_by(t) %>%
-      dplyr::summarise(tot = sum(n),
-                       prop = n / tot) %>%
-      dplyr::slice(2L) %>%
-      ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(start_date)), y = prop)) +
-      ggplot2::geom_line(colour = "darkred", size = 1) +
-      ggplot2::lims(y = c(0, 1)) +
-      ggplot2::labs(x = "Date",
-                    y = "Proportion of R+ in population",
-                    title = paste0("Fitness cost = ", fitness_cost)) +
-      ggplot2::theme_bw()
-    
-    output <- list(pest_pop,
-                   cohorts,
-                   pop_plot,
-                   prop_plot)
-    
-    names(output) <- c("pest_df",
-                       "pest_cohorts",
-                       "Population_plot",
-                       "Endosymbiont_plot")
-  } else {
-    output <- list(pest_pop,
-                   cohorts)
-    
-    names(output) <- c("pest_df",
-                       "pest_cohorts")
+   plot(output)
   }
   
-  class(output) <- "endosym_model"
   return(output)
 }
