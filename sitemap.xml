@@ -25,6 +25,9 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/endosym-class.html</loc>
   </url>
   <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/endosym_mod-class.html</loc>
+  </url>
+  <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/endosym_model.html</loc>
   </url>
   <url>
@@ -74,6 +77,12 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/plot-methods.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/show-methods.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/sim_conds-class.html</loc>
