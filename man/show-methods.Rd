@@ -9,7 +9,7 @@
 \S4method{show}{endosym_mod}(object)
 }
 \arguments{
-\item{obj}{object of class \linkS4class{endosym_mod}}
+\item{object}{object of class \linkS4class{endosym_mod}}
 }
 \description{
 Show method for S4 object of class endosym_mod

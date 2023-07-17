@@ -1,6 +1,6 @@
 #' Show method for S4 object of class endosym_mod
 #' 
-#' @param obj object of class [endosym_mod-class]
+#' @param object object of class [endosym_mod-class]
 #' 
 #' @keywords methods show
 #' @export
@@ -11,20 +11,20 @@
 setMethod("show",
           "endosym_mod",
           
-          function(obj) {
-            if(obj@vert_trans)
+          function(object) {
+            if(object@vert_trans)
               vert_trans <- "Vertical transmission" else
                 vert_trans <- NULL
               
-              if(obj@hori_trans)
+              if(object@hori_trans)
                 hori_trans <- "Horizontal transmission" else
                   hori_trans <- NULL
                 
-                if(obj@imi)
+                if(object@imi)
                   imi <- "Immigration" else
                     imi <- NULL
                   
-                  if(obj@emi)
+                  if(object@emi)
                     emi <- "Emigration" else
                       emi <- NULL
                     

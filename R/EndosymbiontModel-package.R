@@ -3,6 +3,7 @@
 #' @importFrom abind abind
 #' @importFrom terra rast extract
 #' @importFrom tidyr pivot_longer
+#' @importFrom tibble tibble
 #' @import methods
 #' @import lubridate
 #' @import dplyr
