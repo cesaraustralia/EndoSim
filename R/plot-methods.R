@@ -1,14 +1,25 @@
-#' S4 plotting methods for EndosymbiontModel objects
+#' Plot methods for S4 objects of class sim_conds and endosym_mod
 #'
+#' @param x S4 object of class \code{sim_conds} or \code{endosym_mod}
+#' @param y from the generic \code{plot} function, ignored for EndosymbiontModel objects
+#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time; ignored for class \code{sim_conds}
+#' @param ... Any other argument suitable for plot()
+#' 
+#' @keywords methods plot
 #' @export
 #' @docType methods
 #' @rdname plot-methods
-#' @aliases plot
+
+setGeneric("plot", function(x, y, ...) standardGeneric("plot"))
+
+#' @docType methods
+#' @aliases plot,sim_conds,missing,ANY-method
+#' @rdname plot-methods
 
 setMethod("plot",
-          "sim_conds",
+          signature(x = "sim_conds", y = "missing"),
           
-          function(x) {
+          function(x, ...) {
             x1 = lubridate::ymd(x@x@start_date) + lubridate::days(x@env[,1] - 1)
             y1 = x@env[,2]
             y2 = x@env[,3]
@@ -30,10 +41,14 @@ setMethod("plot",
           }
 )
 
+#' @docType methods
+#' @aliases plot,endosym_mod,missing,ANY-method
+#' @rdname plot-methods
+
 setMethod("plot",
-          "endosym_mod",
+          signature(x = "endosym_mod", y = "missing"),
           
-          function(x, type = "pop_size") {
+          function(x, type = "pop_size", ...) {
             if(type == "pop_size") {
               print(
                 x@pest_df %>%

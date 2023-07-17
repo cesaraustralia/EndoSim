@@ -13,7 +13,7 @@
 #' @param hori_trans set to \code{FALSE} to turn off horizontal transmission
 #' @param imi set to \code{FALSE} to turn off immigration into paddock
 #' @param emi set to \code{FALSE} to turn off emigration from paddock
-#' @return object of class \code{endosym_mod}; see [endosym_mod].
+#' @return object of class \code{endosym_mod}; see [endosym_mod-class].
 #' @details
 #' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class], beneficial, [initial-class], and [sim_conds-class] objects.
 #' 

@@ -1,5 +1,8 @@
-#' Show endosym_mod object
-#'
+#' Show method for S4 object of class endosym_mod
+#' 
+#' @param obj object of class [endosym_mod-class]
+#' 
+#' @keywords methods show
 #' @export
 #' @docType methods
 #' @rdname show-methods

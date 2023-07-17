@@ -42,7 +42,7 @@ endosym_model(
 \item{emi}{set to \code{FALSE} to turn off emigration from paddock}
 }
 \value{
-object of class \code{endosym_mod}; see \link{endosym_mod}.
+object of class \code{endosym_mod}; see \linkS4class{endosym_mod}.
 }
 \description{
 Run simulation using the endosymbiont model

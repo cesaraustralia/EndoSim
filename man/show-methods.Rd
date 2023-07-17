@@ -4,10 +4,15 @@
 \name{show,endosym_mod-method}
 \alias{show,endosym_mod-method}
 \alias{show}
-\title{Show endosym_mod object}
+\title{Show method for S4 object of class endosym_mod}
 \usage{
 \S4method{show}{endosym_mod}(object)
 }
-\description{
-Show endosym_mod object
+\arguments{
+\item{obj}{object of class \linkS4class{endosym_mod}}
 }
+\description{
+Show method for S4 object of class endosym_mod
+}
+\keyword{methods}
+\keyword{show}
