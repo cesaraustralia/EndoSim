@@ -9,7 +9,8 @@
 #' @slot alate_flight Number of plants per day visited by alates
 #' @slot fun_dev_apt Function describing temperature-dependent development of nymphs destined to become apterae
 #' @slot fun_dev_ala Function describing temperature-dependent development of nymphs destined to become alates
-#' @slot fun_imi Function describing number of immigrant alates
+#' @slot fun_imi_neg Function describing number of immigrant R- alates
+#' @slot fun_imi_pos Function describing number of immigrant R+ alates
 #' @slot fun_emi Function describing number of emigrants among newly metamorphosed alates
 #' @slot fun_temp_loss Function describing daily mortality due to exceeding temperature thresholds
 #' @slot fun_rainfall_loss Function describing daily mortality due to rainfall
@@ -29,7 +30,8 @@
 #'   alate_flight = 0.005,
 #'   fun_dev_apt = EndosymbiontModel:::fit_wang(24.1, 0.152, 18.09, 32.79, 2.84, 1.8977),
 #'   fun_dev_ala = EndosymbiontModel:::fit_wang(24.1, 0.16474, 19.96, 33.17, 1.41, 2.2202),
-#'   fun_imi = EndosymbiontModel:::fit_imi_barton(),
+#'   fun_imi_neg = EndosymbiontModel:::fit_imi_barton(),
+#'   fun_imi_pos = EndosymbiontModel:::fit_null(0),
 #'   fun_emi = EndosymbiontModel:::fit_emi_thack(),
 #'   fun_temp_loss = EndosymbiontModel:::fit_null(0),
 #'   fun_rainfall_loss = EndosymbiontModel:::fit_rainfall_thack(),
@@ -50,7 +52,8 @@ methods::setClass("pest",
                             alate_flight = "numeric",
                             fun_dev_apt = "function",
                             fun_dev_ala = "function",
-                            fun_imi = "function",
+                            fun_imi_neg = "function",
+                            fun_imi_pos = "function",
                             fun_emi = "function",
                             fun_temp_loss = "function",
                             fun_rainfall_loss = "function",

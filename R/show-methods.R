@@ -28,13 +28,17 @@ setMethod("show",
                     emi <- "Emigration" else
                       emi <- NULL
                     
+                    if(object@para)
+                      para <- "Parasitoid" else
+                        para <- NULL
+                    
             cat("Endosymbiont model simulation\n",
                 "Pest: ", object@pest, "\n",
                 "Crop: ", object@crop, "\n",
                 "Endosymbiont: ", object@endosymbiont, "\n",
-                "Beneficials: ", object@beneficials, "\n",
+                "Parasitoid: ", object@parasitoid, "\n",
                 "Started on ", object@start_date, ", running for ", object@sim_length, " days\n",
-                "With the following modules: ", paste(c(vert_trans, hori_trans, imi, emi), collapse = ", ")
+                "With the following modules: ", paste(c(vert_trans, hori_trans, imi, emi, para), collapse = ", ")
                 )
           }
 )

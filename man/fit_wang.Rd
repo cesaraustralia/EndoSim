@@ -40,6 +40,6 @@ plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 Wang, R.S., Lan, Z.X., Ting, Y.C., Studies on mathematical models of the relationships between insect development and temperature. Acta Ecologica Sinica, 2, 47-57 (1982)
 }
 \seealso{
-\code{\link[=fit_null]{fit_null()}}
+\code{\link[=fit_lactin]{fit_lactin()}}, \code{\link[=fit_null]{fit_null()}}
 }
 \keyword{internal}

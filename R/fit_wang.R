@@ -21,7 +21,7 @@
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Wang, R.S., Lan, Z.X., Ting, Y.C., Studies on mathematical models of the relationships between insect development and temperature. Acta Ecologica Sinica, 2, 47-57 (1982)
-#' @seealso [fit_null()]
+#' @seealso [fit_lactin()], [fit_null()]
 
 fit_wang <- function(H, r, Topt, Tupper, Tlower, bound){
   

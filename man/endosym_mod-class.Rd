@@ -16,7 +16,7 @@ An S4 class to store a simulation output
 
 \item{\code{endosymbiont}}{name of the endosymbiont}
 
-\item{\code{beneficials}}{names of the beneficials}
+\item{\code{parasitoid}}{name of the parasitoid}
 
 \item{\code{start_date}}{first day of simulation in YYYY-MM-DD format}
 
@@ -30,8 +30,12 @@ An S4 class to store a simulation output
 
 \item{\code{emi}}{is emigration active}
 
+\item{\code{para}}{is parasitoid active}
+
 \item{\code{pest_df}}{data.frame of pest population through time}
 
 \item{\code{pest_cohorts}}{array of pest cohorts at the end of the simulation}
+
+\item{\code{para_df}}{data.frame of parasitoid population through time}
 }}
 

@@ -50,49 +50,47 @@ setMethod("plot",
           
           function(x, type = "pop_size", ...) {
             if(type == "pop_size") {
-              print(
-                x@pest_df %>%
-                  tidyr::pivot_longer(cols = 2:11,
-                                      names_to = "lifestage",
-                                      values_to = "n") %>%
-                  dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
-                                lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
-                  dplyr::group_by(t, endosymbiont) %>%
-                  dplyr::summarise(n = sum(n)) %>%
-                  dplyr::group_by(t) %>%
-                  dplyr::mutate(tot = sum(n)) %>%
-                  ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(x@start_date)), y = n)) +
-                  ggplot2::geom_density(ggplot2::aes(fill = endosymbiont),
-                                        stat = "identity",
-                                        colour = NA,
-                                        position = "stack",
-                                        data = x@pest_df %>%
-                                          tidyr::pivot_longer(cols = 2:11,
-                                                              names_to = "lifestage",
-                                                              values_to = "n") %>%
-                                          dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
-                                                        lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
-                                          dplyr::group_by(t, endosymbiont) %>%
-                                          dplyr::summarise(n = sum(n))) +
-                  ggplot2::geom_line(data = x@pest_df %>%
-                                       tidyr::pivot_longer(cols = 2:11,
-                                                           names_to = "lifestage",
-                                                           values_to = "n") %>%
-                                       dplyr::group_by(t) %>%
-                                       dplyr::summarise(n = sum(n))) +
-                  ggplot2::labs(x = "Date",
-                                y = "Total number of pests") +
-                  ggplot2::scale_fill_manual(
-                    values = c("darkgoldenrod", "darkgreen"),
-                    name = "Phenotype",
-                    labels = c("R-", "R+")
-                  ) +
-                  ggplot2::theme_bw()
-              )
+              output <- x@pest_df %>%
+                tidyr::pivot_longer(cols = 2:11,
+                                    names_to = "lifestage",
+                                    values_to = "n") %>%
+                dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
+                              lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
+                dplyr::group_by(t, endosymbiont) %>%
+                dplyr::summarise(n = sum(n)) %>%
+                dplyr::group_by(t) %>%
+                dplyr::mutate(tot = sum(n)) %>%
+                ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(x@start_date)), y = n)) +
+                ggplot2::geom_density(ggplot2::aes(fill = endosymbiont),
+                                      stat = "identity",
+                                      colour = NA,
+                                      position = "stack",
+                                      data = x@pest_df %>%
+                                        tidyr::pivot_longer(cols = 2:11,
+                                                            names_to = "lifestage",
+                                                            values_to = "n") %>%
+                                        dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
+                                                      lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
+                                        dplyr::group_by(t, endosymbiont) %>%
+                                        dplyr::summarise(n = sum(n))) +
+                ggplot2::geom_line(data = x@pest_df %>%
+                                     tidyr::pivot_longer(cols = 2:11,
+                                                         names_to = "lifestage",
+                                                         values_to = "n") %>%
+                                     dplyr::group_by(t) %>%
+                                     dplyr::summarise(n = sum(n))) +
+                ggplot2::labs(x = "Date",
+                              y = "Total number of pests") +
+                ggplot2::scale_fill_manual(
+                  values = c("darkgoldenrod", "darkgreen"),
+                  name = "Phenotype",
+                  labels = c("R-", "R+")
+                ) +
+                ggplot2::theme_bw()
             }
             
             if(type == "R+"){
-              x@pest_df %>%
+              output <- x@pest_df %>%
                 tidyr::pivot_longer(cols = 2:11,
                                     names_to = "lifestage",
                                     values_to = "n") %>%
@@ -111,5 +109,7 @@ setMethod("plot",
                               y = "Proportion of R+ in population") +
                 ggplot2::theme_bw()
             }
+            
+            output
           }
 )

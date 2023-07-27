@@ -8,14 +8,15 @@ endosym_model(
   Pest,
   Endosymbiont,
   Crop,
-  Beneficials = NULL,
+  Parasitoid = NULL,
   init,
   conds,
   plot = TRUE,
   vert_trans = TRUE,
   hori_trans = TRUE,
   imi = TRUE,
-  emi = TRUE
+  emi = TRUE,
+  para = TRUE
 )
 }
 \arguments{
@@ -25,7 +26,7 @@ endosym_model(
 
 \item{Crop}{object of class \code{crop} defining the crop}
 
-\item{Beneficials}{list of objects of class \code{beneficial} describing the beneficials in the system}
+\item{Parasitoid}{object of class \code{parasitoid} defining the parasitoid}
 
 \item{init}{object of class \code{initial} defining the starting conditions for the simulation}
 
@@ -40,6 +41,8 @@ endosym_model(
 \item{imi}{set to \code{FALSE} to turn off immigration into paddock}
 
 \item{emi}{set to \code{FALSE} to turn off emigration from paddock}
+
+\item{para}{set to \code{FALSE} to turn off parasitoids}
 }
 \value{
 object of class \code{endosym_mod}; see \linkS4class{endosym_mod}.
@@ -48,11 +51,11 @@ object of class \code{endosym_mod}; see \linkS4class{endosym_mod}.
 Run simulation using the endosymbiont model
 }
 \details{
-Constructs the endosymbiont model using the provided \linkS4class{pest}, \linkS4class{endosym}, \linkS4class{crop}, beneficial, \linkS4class{initial}, and \linkS4class{sim_conds} objects.
+Constructs the endosymbiont model using the provided \linkS4class{pest}, \linkS4class{endosym}, \linkS4class{crop},\linkS4class{parasitoid}, \linkS4class{initial}, and \linkS4class{sim_conds} objects.
 
 The \code{Pest} species feeds on the provided \code{Crop}.
 
 Vertical and horizontal transmission of endosymbiont are defined using functions in the \code{Endosymbiont}.
 
-Each element of the \code{Beneficials} list should be a \code{beneficial} object with functions defining the interactions with the pest (e.g. predation, parasitism) and their impacts on mortality and endosymbiont transmission.
+Parasitism rates are defined usined functions in the \code{Parasitoid}.
 }

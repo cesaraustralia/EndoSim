@@ -5,7 +5,7 @@
 #' @param Pest object of class \code{pest} defining the pest
 #' @param Endosymbiont object of class \code{endosym} defining the endosymbiont
 #' @param Crop object of class \code{crop} defining the crop
-#' @param Beneficials list of objects of class \code{beneficial} describing the beneficials in the system
+#' @param Parasitoid object of class \code{parasitoid} defining the parasitoid
 #' @param init object of class \code{initial} defining the starting conditions for the simulation
 #' @param conds object of class \code{sim_conds} defining the simulation conditions
 #' @param plot if \code{TRUE} (default) generate plots
@@ -13,15 +13,16 @@
 #' @param hori_trans set to \code{FALSE} to turn off horizontal transmission
 #' @param imi set to \code{FALSE} to turn off immigration into paddock
 #' @param emi set to \code{FALSE} to turn off emigration from paddock
+#' @param para set to \code{FALSE} to turn off parasitoids
 #' @return object of class \code{endosym_mod}; see [endosym_mod-class].
 #' @details
-#' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class], beneficial, [initial-class], and [sim_conds-class] objects.
+#' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class],[parasitoid-class], [initial-class], and [sim_conds-class] objects.
 #' 
 #' The \code{Pest} species feeds on the provided \code{Crop}.
 #' 
 #' Vertical and horizontal transmission of endosymbiont are defined using functions in the \code{Endosymbiont}.
 #' 
-#' Each element of the \code{Beneficials} list should be a \code{beneficial} object with functions defining the interactions with the pest (e.g. predation, parasitism) and their impacts on mortality and endosymbiont transmission.
+#' Parasitism rates are defined usined functions in the \code{Parasitoid}.
 #' 
 #' @export endosym_model
 
@@ -29,14 +30,15 @@
 endosym_model <- function(Pest,
                           Endosymbiont,
                           Crop,
-                          Beneficials = NULL,
+                          Parasitoid = NULL,
                           init,
                           conds,
                           plot = TRUE,
                           vert_trans = TRUE,
                           hori_trans = TRUE,
                           imi = TRUE,
-                          emi = TRUE
+                          emi = TRUE,
+                          para = TRUE
 ) {
   if (!inherits(Pest, "pest"))
     stop("No Pest of class pest provided!")
@@ -50,12 +52,8 @@ endosym_model <- function(Pest,
   if (!inherits(conds, "sim_conds"))
     stop("No conds of class sim_conds provided!")
   
-  if (is.null(Beneficials)){
-    warning("No Beneficials provided; parameterising model without beneficial species")
-    ben_names <- "None"
-  } else {
-    ben_names <- paste(sapply(Beneficials, "[[", "species"), collapse = ", ")
-  }
+  if (!inherits(Parasitoid, "parasitoid"))
+    stop("No Parasitoid of class parasitoid provided!")
   
   if(!vert_trans){
     Endosymbiont@'fitness_cost' <- 0
@@ -69,13 +67,20 @@ endosym_model <- function(Pest,
   }
   
   if(!imi){
-    Pest@'fun_imi' <- fit_null(0)
+    Pest@'fun_imi_neg' <- fit_null(0)
+    Pest@'fun_imi_pos' <- fit_null(0)
     warning("Immigration cancelled!")
   }
   
   if(!emi){
     Pest@'fun_emi' <- fit_null(0)
     warning("Emigration cancelled!")
+  }
+  
+  if(!para){
+    Parasitoid@'fun_para_scal' <- fit_null(0)
+    init@'Parasitoid' <- 0
+    warning("Parasitoids cancelled!")
   }
   
   # define simulation parameters
@@ -98,7 +103,8 @@ endosym_model <- function(Pest,
   # define functions
   fun_dev_apt <- Pest@'fun_dev_apt'
   fun_dev_ala <- Pest@'fun_dev_ala'
-  fun_imi <- Pest@'fun_imi'
+  fun_imi_neg <- Pest@'fun_imi_neg'
+  fun_imi_pos <- Pest@'fun_imi_pos'
   fun_emi <- Pest@'fun_emi'
   fun_temp_loss <- Pest@'fun_temp_loss'
   fun_rainfall_loss <- Pest@'fun_rainfall_loss'
@@ -110,6 +116,11 @@ endosym_model <- function(Pest,
   
   fun_trans_eff <- Endosymbiont@'fun_trans_eff'
   fun_susc <- Endosymbiont@'fun_susc'
+  
+  fun_dev_para <- Parasitoid@'fun_dev_para'
+  fun_para_scal <- Parasitoid@'fun_para_scal'
+  fun_attack <- Parasitoid@'fun_attack'
+  fun_handling <- Parasitoid@'fun_handling'
   
   # define tracked populations
   cohorts <- init@'Pest'
@@ -146,6 +157,28 @@ endosym_model <- function(Pest,
   # create initial dataframe of crop population
   crop_pop <- init@'Crop'
   
+  # create initial vector of parasitoid population and array of parasitised cohorts
+  para_pop <- c(0, init@'Parasitoid')
+  names(para_pop) <- c("mummies", "females")
+  
+  para_cohorts <- array(0,
+                        dim = c(4, 2, 2),
+                        dimnames = list("pest_type" = c("pos_apt", "neg_apt", "pos_ala", "neg_ala"),
+                                        "variable" = c("N", "lifestage"),
+                                        "cohort_num" = c()
+                        )
+  )
+  
+  active_para <- which(para_cohorts[, 1, ] > 0)
+  
+  dev_para_cohorts <- matrix(rep(0, 8), ncol = 4)
+  
+  para_ages <- matrix(rep(0, 8), nrow = 4)
+  
+  para_df <- data.frame(t = 0,
+                        mummies = 0,
+                        females = para_pop[['females']])
+  
   print("Running model:")
   
   progress_bar = utils::txtProgressBar(
@@ -172,10 +205,13 @@ endosym_model <- function(Pest,
     # calculate development units gained in timestep
     dev_apt <- fun_dev_apt(temperature)
     dev_ala <- fun_dev_ala(temperature)
+    dev_para <- fun_dev_para(temperature)
     
     # add development units
     dev_cohorts[, c(1, 2)] <- dev_cohorts[, c(1, 2)] + dev_apt
     dev_cohorts[, c(3, 4)] <- dev_cohorts[, c(3, 4)] + dev_ala
+    
+    dev_para_cohorts <- dev_para_cohorts + dev_para
     
     ## life-stage transitions
     # identify which pest types in the cohort have reached completion of development
@@ -194,6 +230,22 @@ endosym_model <- function(Pest,
     # update adult ages
     adult_ages[new_adult] <- t
     
+    # identify which parasitised pests have completed development
+    new_para <- which(t(dev_para_cohorts >= 1))
+    new_para <- new_para[which(new_para %in% active_para)]
+    
+    para_pop[['females']] <- para_pop[['females']] + round(sum(para_cohorts[, 1, ][new_para])/4, 0)
+    
+    para_cohorts[, 1, ][new_para] <- 0
+    
+    active_para <- which(para_cohorts[, 1, ] > 0)
+    
+    # identify which parasitised pests have become mummies
+    mummies <- which(dev_para_cohorts >= 0.6)
+    mummies <- mummies[which(mummies %in% active_para)]
+    
+    para_pop[['mummies']] <- sum(para_cohorts[, 1, ][mummies])
+    
     ## dispersal
     # calculate how many adults emigrate
     emi_adult <- fun_emi(cohorts[, 1, ][new_adult])
@@ -202,22 +254,24 @@ endosym_model <- function(Pest,
     cohorts[, 1, ] <- sapply(cohorts[, 1, ], max, 0) # make sure pop size doesn't drop to negative
     
     # calculate how many new adults immigrate into population
-    imi_adult <- fun_imi(t)
+    imi_adult_neg <- fun_imi_neg(t)
+    imi_adult_pos <- fun_imi_pos(t)
     
-    if(imi_adult > 0){
+    if(sum(imi_adult_neg, imi_adult_pos) > 0){
       # create new cohort
-      new_cohort <- matrix(c(0, 0, 0, imi_adult,
+      new_cohort <- matrix(c(0, 0, imi_adult_pos, imi_adult_neg,
                              rep(5, 4)),
                            ncol = 2)
+      
       cohorts <- abind::abind(cohorts,
                               new_cohort,
                               along = 3)
       dev_cohorts <- rbind(dev_cohorts,
                            matrix(rep(0, 4), nrow = 1))
       adult_ages <- cbind(adult_ages,
-                          matrix(c(0, 0, 0, t - 1), ncol = 1))
+                          matrix(c(0, 0, t - 1, t - 1), ncol = 1))
       cohort_ages <- cbind(cohort_ages,
-                           matrix(c(0, 0, 0, t), ncol = 1))
+                           matrix(c(0, 0, t, t), ncol = 1))
     }
     
     # update active cohorts vector
@@ -231,13 +285,13 @@ endosym_model <- function(Pest,
     adult_ala <- which(cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "ala"))
     
     # calculate total pest moves
-    tot_mov = (sum(cohorts[, 1, ][-adult_ala]) * apterae_walk) +
+    tot_mov = (sum(cohorts[, 1, ][-adult_ala], para_cohorts[, 1, ]) * apterae_walk) +
       (sum(cohorts[, 1, ][adult_ala]) * alate_flight)
     
     # calculate number of inoculated plants
     new_inoc =
       tot_mov * # total plants encountered by pest
-      sum(cohorts[c(1, 3), 1, ]) / sum(cohorts[, 1, ]) * # probability pest is R+
+      sum(cohorts[c(1, 3), 1, ], para_cohorts[c(1, 3), 1, ]) / sum(cohorts[, 1, ], para_cohorts[, 1, ]) * # probability pest is R+
       sum(crop_pop[, 3]) / sum(crop_pop[, 2:3]) * # probability encountered plant is R-
       fun_trans_eff(temperature) # probability plant is infected
     
@@ -254,8 +308,8 @@ endosym_model <- function(Pest,
     
     # which plants recover
     heal_ind <- which(t - crop_pop[, 1] >= heal_time)
-    if (round(length(heal_ind)*fun_reinf(sum(cohorts[,1,][c(1,3),])/nrow(crop_pop))) > 0)
-      heal_ind <- heal_ind[1:round(length(heal_ind)*fun_reinf(sum(cohorts[,1,][c(1,3),])/nrow(crop_pop)))] else
+    if (round(length(heal_ind) * fun_reinf(sum(cohorts[c(1, 3), 1, ], para_cohorts[c(1, 3), 1, ]) / nrow(crop_pop))) > 0)
+      heal_ind <- heal_ind[1:round(length(heal_ind) * fun_reinf(sum(cohorts[c(1, 3), 1, ], para_cohorts[c(1, 3), 1, ]) / nrow(crop_pop)))] else
         heal_ind <- which(1 < 0)
     
     # update crop dataframe
@@ -267,20 +321,76 @@ endosym_model <- function(Pest,
     sus_apt <- which(cohorts[, 2, ] %in% c(1, 2, 3, 4) & stringr::str_detect(rownames(cohorts[, 2, ]), "neg") |
                        cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "neg_apt"))
     
+    sus_para <- sum(para_cohorts[c(2, 4), 1, ])
+    
     # calculate infection rate
     inf_rate =
-      sum(cohorts[, 1, ][c(sus_apt, sus_ala)]) * # Number of susceptible R- pests
+      sum(sum(cohorts[, 1, ][c(sus_apt, sus_ala)]), sus_para) * # Number of susceptible R- pests
       (sum(crop_pop[, 2]) / sum(crop_pop[, 2:3])) * # proportion of R+ plants
       fun_susc(temperature) # probability pest is infected
     
-    new_inf_apt <- round((cohorts[, 1, ][sus_apt] / sum(cohorts[, 1, ][sus_apt])) * inf_rate, 0)
-    new_inf_ala <- round((cohorts[, 1, ][sus_ala] / sum(cohorts[, 1, ][sus_ala])) * inf_rate, 0)
+    inf_para <- inf_rate * sus_para / sum(sum(cohorts[, 1, ][c(sus_apt, sus_ala)]), sus_para)
+    inf_rate <- inf_rate - inf_para
+    
+    inf_apt <- inf_rate * sum(cohorts[, 1, ][c(sus_apt)]) / sum(cohorts[, 1, ][c(sus_apt, sus_ala)])
+    inf_ala <- inf_rate * sum(cohorts[, 1, ][c(sus_ala)]) / sum(cohorts[, 1, ][c(sus_apt, sus_ala)])
+    
+    new_inf_apt <- round((cohorts[, 1, ][sus_apt] / sum(cohorts[, 1, ][sus_apt])) * inf_apt, 0)
+    new_inf_ala <- round((cohorts[, 1, ][sus_ala] / sum(cohorts[, 1, ][sus_ala])) * inf_ala, 0)
     
     # update cohorts
     cohorts[, 1, ][sus_apt - 1] <- cohorts[, 1, ][sus_apt - 1] + new_inf_apt
     cohorts[, 1, ][sus_apt] <- cohorts[, 1, ][sus_apt] - new_inf_apt
     cohorts[, 1, ][sus_ala - 1] <- cohorts[, 1, ][sus_ala - 1] + new_inf_ala
     cohorts[, 1, ][sus_ala] <- cohorts[, 1, ][sus_ala] - new_inf_ala
+    
+    ## parasitism
+    # identify susceptible pests (instars 2-3)
+    all_susc <- sum(cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))])
+    
+    all_parasite <- para_pop[['females']]
+    
+    attack_rate <- fun_attack(temperature)
+    
+    handling_time <- fun_handling(temperature)
+    
+    para_rate <- all_susc * (1 - exp((-abs(attack_rate)*all_parasite)/(1 + abs(attack_rate)*all_susc*handling_time))) * fun_para_scal(t)
+    
+    if(is.na(para_rate))
+      para_rate <- 0
+    
+    # calculate new parasitised cohort
+    if(para_rate > 0){
+      
+      new_para <- round(cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))] * para_rate / all_susc, 0)
+      
+      new_para_cohort_n2 <- matrix(c(round(sum(new_para) * sum(cohorts[1, 1, ][which(cohorts[1, 2, ] == 2)]) / all_susc, 0),
+                                     round(sum(new_para) * sum(cohorts[2, 1, ][which(cohorts[2, 2, ] == 2)]) / all_susc, 0),
+                                     round(sum(new_para) * sum(cohorts[3, 1, ][which(cohorts[3, 2, ] == 2)]) / all_susc, 0),
+                                     round(sum(new_para) * sum(cohorts[4, 1, ][which(cohorts[4, 2, ] == 2)]) / all_susc, 0),
+                                     rep(2, 4)), ncol = 2)
+      
+      new_para_cohort_n3 <- matrix(c(round(sum(new_para) * sum(cohorts[1, 1, ][which(cohorts[1, 2, ] == 3)]) / all_susc, 0),
+                                     round(sum(new_para) * sum(cohorts[2, 1, ][which(cohorts[2, 2, ] == 3)]) / all_susc, 0),
+                                     round(sum(new_para) * sum(cohorts[3, 1, ][which(cohorts[3, 2, ] == 3)]) / all_susc, 0),
+                                     round(sum(new_para) * sum(cohorts[4, 1, ][which(cohorts[4, 2, ] == 3)]) / all_susc, 0),
+                                     rep(3, 4)), ncol = 2)
+      
+      para_cohorts <- abind::abind(para_cohorts,
+                                   new_para_cohort_n2,
+                                   new_para_cohort_n3,
+                                   along = 3)
+      
+      dev_para_cohorts <- rbind(dev_para_cohorts,
+                                matrix(rep(0, 8), ncol = 4))
+      
+      para_ages <- cbind(para_ages,
+                         matrix(rep(min(cohort_ages[which(cohorts[, 2, ] %in% c(2, 3))]), 8), nrow = 4))
+      
+      active_para <- which(para_cohorts[, 1, ] > 0)
+      
+      cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))] <- cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))] - new_para
+    }
     
     ## mortality
     # calculate mortality due to temperature and rainfall
@@ -315,8 +425,28 @@ endosym_model <- function(Pest,
     # update lifestages
     cohorts[, 2, ][-active_cohorts] <- 0
     
-    ## parasitism
-    # TBA
+    ## parasitoid mortality
+    ages <- t - para_ages
+    
+    sen_loss <- fun_sen_loss(ages)
+    sen_loss[is.na(sen_loss)] <- 0
+    
+    # calculate mortality rate for each cohort
+    daily_loss <-
+      rep(temp_loss, length(sen_loss)) +
+      rep(rainfall_loss, length(sen_loss)) +
+      sen_loss +
+      rep(bg_loss, length(sen_loss))
+    
+    daily_loss <- sapply(daily_loss, min, 1) # make sure mortality rate doesn't exceed 1
+    
+    daily_loss <- ceiling(para_cohorts[, 1, ] * daily_loss)
+    
+    # update cohort sizes
+    para_cohorts[, 1, ] <- sapply(1:length(ages), function(x) max(para_cohorts[, 1, ][x] - daily_loss[x], 0))
+   
+    # update active cohorts vector
+    active_para <- which(para_cohorts[, 1, ] > 0)
     
     ## offspring production (create new cohort)
     # identify adult cohorts
@@ -399,20 +529,35 @@ endosym_model <- function(Pest,
     pos_pops <- rbind(t(cohorts[1, , ]), t(cohorts[3, , ]))
     neg_pops <- rbind(t(cohorts[2, , ]), t(cohorts[4, , ]))
     
+    pos_para <- rbind(t(para_cohorts[1, , ]), t(para_cohorts[3, , ]))
+    neg_para <- rbind(t(para_cohorts[2, , ]), t(para_cohorts[4, , ]))
+    
     pest_pop <- rbind(pest_pop,
                       c(t,
                         sum(pos_pops[which(pos_pops[, 2] == 1), 1], na.rm = T),
                         sum(neg_pops[which(neg_pops[, 2] == 1), 1], na.rm = T),
-                        sum(pos_pops[which(pos_pops[, 2] == 2), 1], na.rm = T),
-                        sum(neg_pops[which(neg_pops[, 2] == 2), 1], na.rm = T),
-                        sum(pos_pops[which(pos_pops[, 2] == 3), 1], na.rm = T),
-                        sum(neg_pops[which(neg_pops[, 2] == 3), 1], na.rm = T),
+                        sum(pos_pops[which(pos_pops[, 2] == 2), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 2), 1], na.rm = T),
+                        sum(neg_pops[which(neg_pops[, 2] == 2), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 2), 1], na.rm = T),
+                        sum(pos_pops[which(pos_pops[, 2] == 3), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 3), 1], na.rm = T),
+                        sum(neg_pops[which(neg_pops[, 2] == 3), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 3), 1], na.rm = T),
                         sum(pos_pops[which(pos_pops[, 2] == 4), 1], na.rm = T),
                         sum(neg_pops[which(neg_pops[, 2] == 4), 1], na.rm = T),
                         sum(pos_pops[which(pos_pops[, 2] == 5), 1], na.rm = T),
                         sum(neg_pops[which(neg_pops[, 2] == 5), 1], na.rm = T)))
     
+    para_df <- rbind(para_df,
+                     c(t = t,
+                       mummies = para_pop[['mummies']],
+                       females = para_pop[['females']]))
+    
+    para_pop[['females']] <- 0
+    
     utils::setTxtProgressBar(progress_bar, value = t)
+    
+    if(sum(cohorts[, 1, ]) == 0){
+      print(paste0("Population died out at time ", t, "; simulation ended"))
+      break
+    }
   }
   
   close(progress_bar)
@@ -421,18 +566,22 @@ endosym_model <- function(Pest,
                 pest = Pest@species,
                 crop = Crop@name,
                 endosymbiont = Endosymbiont@name,
-                beneficials = ben_names,
+                parasitoid = Parasitoid@species,
                 start_date = start_date,
                 sim_length = sim_length,
                 vert_trans = vert_trans,
                 hori_trans = hori_trans,
                 imi = imi,
                 emi = emi,
+                para = para,
                 pest_df = pest_pop,
-                pest_cohorts = cohorts)
+                pest_cohorts = cohorts,
+                para_df = para_df)
   
   if (plot){
-   plot(output)
+    mod_plot <- plot(output, type = "pop_size")
+    
+    print(mod_plot)
   }
   
   return(output)
