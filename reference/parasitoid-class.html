@@ -70,15 +70,58 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Wasp</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"parasitoid"</span>,</span></span>
-<span class="r-in"><span>            name <span class="op">=</span> <span class="st">"Diaeretiella rapae"</span>,</span></span>
+<span class="r-in"><span>            species <span class="op">=</span> <span class="st">"Diaeretiella rapae"</span>,</span></span>
 <span class="r-in"><span>            fun_dev_para <span class="op">=</span> <span class="fu">EndosymbiontModel</span><span class="fu">:::</span><span class="fu"><a href="fit_lactin.html">fit_lactin</a></span><span class="op">(</span><span class="fl">0.13048</span>, <span class="fl">7.64313</span>, <span class="op">-</span><span class="fl">0.01308</span>, <span class="fl">35.47</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            fun_para_scal <span class="op">=</span> <span class="fu">EndosymbiontModel</span><span class="fu">:::</span><span class="fu"><a href="fit_null.html">fit_null</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            fun_attack <span class="op">=</span> <span class="fu">EndosymbiontModel</span><span class="fu">:::</span><span class="fu"><a href="fit_thirdpoly.html">fit_thirdpoly</a></span><span class="op">(</span><span class="fl">0.00001084</span>, <span class="op">-</span><span class="fl">0.0021</span>, <span class="op">-</span><span class="fl">0.0272</span>, <span class="op">-</span><span class="fl">0.0145</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            fun_handling <span class="op">=</span> <span class="fu">EndosymbiontModel</span><span class="fu">:::</span><span class="fu"><a href="fit_thirdpoly.html">fit_thirdpoly</a></span><span class="op">(</span><span class="fl">0.298</span>, <span class="fl">0.0035</span>, <span class="fl">0.000256</span>, <span class="fl">1.395</span>, inv <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in initialize(value, ...):</span> invalid name for slot of class “parasitoid”: name</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Wasp</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'Wasp' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "parasitoid"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "species":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Diaeretiella rapae"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_dev_para":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- exp(epsilon * x) - exp(epsilon * Tupper - ((Tupper - </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         x)/tau)) + lambda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &lt; 0, 0, output)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x563314f43528&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56332fcd8708&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_para_scal":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(rep(output, length(x)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56332beb9fe0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56332fcd8548&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_attack":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- a * x^3 + b * x^2 + c * x + d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     if (inv) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         output &lt;- 1/output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56332763bdd8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56332fcd8158&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_handling":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- a * x^3 + b * x^2 + c * x + d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     if (inv) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         output &lt;- 1/output</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56332763bdd8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56332fcd7cc0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
