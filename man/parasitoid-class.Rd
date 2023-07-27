@@ -23,7 +23,7 @@ An S4 class to store a parasitoid's life history for the endosymbiont model
 
 \examples{
 Wasp <- new("parasitoid",
-            name = "Diaeretiella rapae",
+            species = "Diaeretiella rapae",
             fun_dev_para = EndosymbiontModel:::fit_lactin(0.13048, 7.64313, -0.01308, 35.47),
             fun_para_scal = EndosymbiontModel:::fit_null(1),
             fun_attack = EndosymbiontModel:::fit_thirdpoly(0.00001084, -0.0021, -0.0272, -0.0145),
