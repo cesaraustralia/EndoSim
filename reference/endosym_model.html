@@ -46,14 +46,15 @@
 <span>  <span class="va">Pest</span>,</span>
 <span>  <span class="va">Endosymbiont</span>,</span>
 <span>  <span class="va">Crop</span>,</span>
-<span>  Beneficials <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  Parasitoid <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">init</span>,</span>
 <span>  <span class="va">conds</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  vert_trans <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  hori_trans <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  imi <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  emi <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  emi <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  para <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -71,8 +72,8 @@
 <dd><p>object of class <code>crop</code> defining the crop</p></dd>
 
 
-<dt>Beneficials</dt>
-<dd><p>list of objects of class <code>beneficial</code> describing the beneficials in the system</p></dd>
+<dt>Parasitoid</dt>
+<dd><p>object of class <code>parasitoid</code> defining the parasitoid</p></dd>
 
 
 <dt>init</dt>
@@ -102,6 +103,10 @@
 <dt>emi</dt>
 <dd><p>set to <code>FALSE</code> to turn off emigration from paddock</p></dd>
 
+
+<dt>para</dt>
+<dd><p>set to <code>FALSE</code> to turn off parasitoids</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -111,10 +116,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Constructs the endosymbiont model using the provided <a href="pest-class.html">pest</a>, <a href="endosym-class.html">endosym</a>, <a href="crop-class.html">crop</a>, beneficial, <a href="initial-class.html">initial</a>, and <a href="sim_conds-class.html">sim_conds</a> objects.</p>
+    <p>Constructs the endosymbiont model using the provided <a href="pest-class.html">pest</a>, <a href="endosym-class.html">endosym</a>, <a href="crop-class.html">crop</a>,<a href="parasitoid-class.html">parasitoid</a>, <a href="initial-class.html">initial</a>, and <a href="sim_conds-class.html">sim_conds</a> objects.</p>
 <p>The <code>Pest</code> species feeds on the provided <code>Crop</code>.</p>
 <p>Vertical and horizontal transmission of endosymbiont are defined using functions in the <code>Endosymbiont</code>.</p>
-<p>Each element of the <code>Beneficials</code> list should be a <code>beneficial</code> object with functions defining the interactions with the pest (e.g. predation, parasitism) and their impacts on mortality and endosymbiont transmission.</p>
+<p>Parasitism rates are defined usined functions in the <code>Parasitoid</code>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -49,6 +49,9 @@
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_imi_barton.html</loc>
   </url>
   <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_lactin.html</loc>
+  </url>
+  <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_null.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_rainfall_thack.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_thirdpoly.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/fit_wang.html</loc>
@@ -71,6 +77,9 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/make_conds.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/parasitoid-class.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndosymbiontModel/reference/pest-class.html</loc>
