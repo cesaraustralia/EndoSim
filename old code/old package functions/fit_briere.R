@@ -15,7 +15,7 @@
 #' Optimal values for \code{a} (scale parameter) and \code{b} (shape parameter) are estimated based on provided arguments.
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_briere(0.16, 22.61, 4, 30)
+#' my_func <- EndoSim:::fit_briere(0.16, 22.61, 4, 30)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Brière, J.F., Pracros, P., Le Roux, A.Y., Pierre, J.S., A novel rate model of temperature-dependent development for arthropods. Environmental Entomololgy, 28, 22–29 (1999)

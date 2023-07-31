@@ -18,7 +18,7 @@ plot(x, y, ...)
 \arguments{
 \item{x}{S4 object of class \code{sim_conds} or \code{endosym_mod}}
 
-\item{y}{from the generic \code{plot} function, ignored for EndosymbiontModel objects}
+\item{y}{from the generic \code{plot} function, ignored for EndoSim objects}
 
 \item{...}{Any other argument suitable for plot()}
 

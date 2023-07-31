@@ -1,7 +1,7 @@
 #' Plot methods for S4 objects of class sim_conds and endosym_mod
 #'
 #' @param x S4 object of class \code{sim_conds} or \code{endosym_mod}
-#' @param y from the generic \code{plot} function, ignored for EndosymbiontModel objects
+#' @param y from the generic \code{plot} function, ignored for EndoSim objects
 #' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time; ignored for class \code{sim_conds}
 #' @param ... Any other argument suitable for plot()
 #' 
@@ -20,11 +20,11 @@ setMethod("plot",
           signature(x = "sim_conds", y = "missing"),
           
           function(x, ...) {
-            x1 = lubridate::ymd(x@x@start_date) + lubridate::days(x@env[,1] - 1)
+            x1 = lubridate::ymd(x@start_date) + lubridate::days(x@env[,1] - 1)
             y1 = x@env[,2]
             y2 = x@env[,3]
             
-            print(
+            output <-
               tibble::tibble(Date = x1,
                              Temperature = y1,
                              Rainfall = y2) %>%
@@ -37,7 +37,8 @@ setMethod("plot",
                 ggplot2::facet_wrap(~name, ncol = 1, scales = "free") +
                 ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1),
                                legend.position = "none")
-            )
+            
+            output
           }
 )
 

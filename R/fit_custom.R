@@ -10,7 +10,7 @@
 #' Fits a generalised additive model (GAM) using the mgcv package.
 #' @keywords internal
 #' @examples
-#' my_func <- EndosymbiontModel:::fit_custom(
+#' my_func <- EndoSim:::fit_custom(
 #' c(4, 8.87, 11.82, 14.22, 17.13, 19.92, 22.61, 25.77, 27.80, 30),
 #' c(0, 0.06, 0.09, 0.11, 0.13, 0.15, 0.16, 0.14, 0.04, 0)
 #' )

@@ -19,7 +19,7 @@ Fits a function that returns number of emigrating adults
 A base emigration rate of 20\% of newly emerged adults
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_emi_thack()
+my_func <- EndoSim:::fit_emi_thack()
 my_func(runif(10, 1, 100))
 }
 \references{

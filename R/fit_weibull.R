@@ -14,7 +14,7 @@
 #' }
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_weibull(58, 1.885, 5.953, 0)
+#' my_func <- EndoSim:::fit_weibull(58, 1.885, 5.953, 0)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Weibull, W., A statistical distribution function of wide applicability. Journal of Applied Mechanics, 18, 293-297 (1951)

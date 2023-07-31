@@ -33,7 +33,7 @@ Fits a curve using the Wang model (Wang et al. 1982):
 }
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_wang(24.1, 0.152, 18.09, 32.79, 2.84, 1.8977)
+my_func <- EndoSim:::fit_wang(24.1, 0.152, 18.09, 32.79, 2.84, 1.8977)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \references{

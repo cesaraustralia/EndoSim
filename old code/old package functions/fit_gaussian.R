@@ -15,7 +15,7 @@
 #' Optimal value for \code{a} is estimated based on provided arguments.
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_gaussian(0.16, 22.61, 4, 30)
+#' my_func <- EndoSim:::fit_gaussian(0.16, 22.61, 4, 30)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @seealso [fit_briere()], [fit_custom()], [fit_sigmoid()], [fit_quadratic()], [fit_rezende()], [fit_weibull()]
 

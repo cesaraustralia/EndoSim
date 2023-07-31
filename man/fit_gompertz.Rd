@@ -25,7 +25,7 @@ Fits an a Gomeprtz survival function to calculate mortality rate:
 }
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_gompertz(0.00188, 0.13)
+my_func <- EndoSim:::fit_gompertz(0.00188, 0.13)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \references{

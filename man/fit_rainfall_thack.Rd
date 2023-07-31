@@ -25,7 +25,7 @@ Fits a curve using the Thackray definition of rainfall-induced mortality in aphi
 Where mortality increases linearly as daily rainfall increases from 15 mm and is capped at a maximum of 0.5.
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_rainfall_thack()
+my_func <- EndoSim:::fit_rainfall_thack()
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \references{

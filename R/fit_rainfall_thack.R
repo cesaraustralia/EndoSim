@@ -15,7 +15,7 @@
 #' 
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_rainfall_thack()
+#' my_func <- EndoSim:::fit_rainfall_thack()
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Thackray, D.J., Diggle, A.J., Berlandier, F.A., Jones, R.A.C., Forecasting aphid outbreaks and epidemics of Cucumber mosaic virus in lupin crops in a Mediterranean-type environment. Virus Research, 100, 67-82 (2004)

@@ -29,7 +29,7 @@ e^{\epsilon \cdot T} - e^{\epsilon \cdot T_{\text{opt}} - \left(\frac{T_{\text{o
 }
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_lactin(0.13048, 7.64313, -0.01308, 35.47)
+my_func <- EndoSim:::fit_lactin(0.13048, 7.64313, -0.01308, 35.47)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \references{

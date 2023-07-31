@@ -1,4 +1,4 @@
-Package: EndosymbiontModel
+Package: EndoSim
 Title: Run simulations using the AGPIP Endosymbiont Model
 Version: 0.0.2
 Authors@R: 
@@ -25,4 +25,4 @@ Imports:
     utils (>= 4.2.1)
 Suggests: 
     testthat (>= 3.1.4)
-URL: https://cesaraustralia.github.io/EndosymbiontModel/
+URL: https://cesaraustralia.github.io/EndoSim/

@@ -15,7 +15,7 @@
 #' }
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_lactin(0.13048, 7.64313, -0.01308, 35.47)
+#' my_func <- EndoSim:::fit_lactin(0.13048, 7.64313, -0.01308, 35.47)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Lactin, D.J., Holliday, N.J., Johnson, D.L., Craigen, R., Improved rate model of temperature-dependent development by arthropods. Environmental Entomology, 24, 68-75 (1995)

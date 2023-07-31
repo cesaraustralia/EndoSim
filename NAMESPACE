@@ -2,7 +2,7 @@
 
 export("%>%")
 export(download_silo)
-export(endosym_model)
+export(endosim)
 export(make_conds)
 export(plot)
 exportClasses(crop)

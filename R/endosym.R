@@ -13,10 +13,10 @@
 #'     "endosym",
 #'     name = "Rickettsiella",
 #'     fitness_cost = 0.5,
-#'     fun_trans_eff = EndosymbiontModel:::fit_custom(seq(0, 36, 4),
+#'     fun_trans_eff = EndoSim:::fit_custom(seq(0, 36, 4),
 #'       c(0, 0.6, 0.7, 0.75, 0.8, 0.8, 0.75, 0.6, 0.3, 0),
 #'       k = 4),
-#'     fun_susc = EndosymbiontModel:::fit_custom(seq(0, 40, 4),
+#'     fun_susc = EndoSim:::fit_custom(seq(0, 40, 4),
 #'       c(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.75, 0.6, 0.3, 0, 0),
 #'       k = 7)
 #'     )

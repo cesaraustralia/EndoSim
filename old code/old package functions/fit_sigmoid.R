@@ -14,7 +14,7 @@
 #' Optimal values for \code{a} and \code{b} (curve breadth parameter) are estimated based on provided arguments.
 #' @keywords internal
 #' @examples
-#' my_func <- EndosymbiontModel:::fit_sigmoid(0.55, 1.5, 3.5)
+#' my_func <- EndoSim:::fit_sigmoid(0.55, 1.5, 3.5)
 #' plot(seq(0, 10, by = 0.1), my_func(seq(0, 10, by = 0.1)), type = "l")
 #' @seealso [fit_briere()], [fit_custom()], [fit_gaussian()], [fit_quadratic()], [fit_rezende()], [fit_weibull()]
 

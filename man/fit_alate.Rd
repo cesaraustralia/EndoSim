@@ -28,7 +28,7 @@ Fits a logistic regression curve to determine the proportion of offspring destin
 }
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_alate(67.418, 0.993, 0.076, 300)
+my_func <- EndoSim:::fit_alate(67.418, 0.993, 0.076, 300)
 plot(seq(0, 15000, by = 1), my_func(seq(0, 15000, by = 1)), type = "l")
 }
 \references{

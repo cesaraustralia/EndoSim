@@ -18,7 +18,7 @@
 #' Optimal values for \code{a} (rate shift parameter), \code{b} (decline rate parameter), and q_{10} are estimated based on provided arguments.
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_rezende(0.16, 22.61, 4, 30)
+#' my_func <- EndoSim:::fit_rezende(0.16, 22.61, 4, 30)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Rezende, Enrico L., and Francisco Bozinovic. Thermal performance across levels of biological organization. Philosophical Transactions of the Royal Society B 374.1778 (2019): 20180549.

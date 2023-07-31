@@ -14,7 +14,7 @@
 #' }
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_alate(67.418, 0.993, 0.076, 300)
+#' my_func <- EndoSim:::fit_alate(67.418, 0.993, 0.076, 300)
 #' plot(seq(0, 15000, by = 1), my_func(seq(0, 15000, by = 1)), type = "l")
 #' @references
 #' Morgan, D., Population dynamics of the bird cherry-oat aphid, \emph{Rhopalosiphum padi} (L.), during the autumn and winter: a modelling approach. Agricultural and Forest Entomology, 2, 297-304 (2000)

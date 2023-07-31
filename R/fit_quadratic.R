@@ -13,7 +13,7 @@
 #' }
 #' @keywords internal
 #' @examples
-#' my_func <- EndosymbiontModel:::fit_quadratic(-0.7611, 31.9847, 25)
+#' my_func <- EndoSim:::fit_quadratic(-0.7611, 31.9847, 25)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @seealso [fit_bannerman()], [fit_null()], [fit_weibull()]
 

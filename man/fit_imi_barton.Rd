@@ -19,7 +19,7 @@ Fits a function that returns number of immigrating adults
 A base immigration rate of 5 adult alates from a background population
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_imi_barton()
+my_func <- EndoSim:::fit_imi_barton()
 my_func(runif(10, 1, 100))
 }
 \references{

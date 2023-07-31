@@ -1,4 +1,4 @@
-#' Endosymbiont model
+#' EndoSim
 #'
 #' Run simulation using the endosymbiont model
 #'
@@ -24,21 +24,21 @@
 #' 
 #' Parasitism rates are defined usined functions in the \code{Parasitoid}.
 #' 
-#' @export endosym_model
+#' @export endosim
 
 
-endosym_model <- function(Pest,
-                          Endosymbiont,
-                          Crop,
-                          Parasitoid = NULL,
-                          init,
-                          conds,
-                          plot = TRUE,
-                          vert_trans = TRUE,
-                          hori_trans = TRUE,
-                          imi = TRUE,
-                          emi = TRUE,
-                          para = TRUE
+endosim <- function(Pest,
+                    Endosymbiont,
+                    Crop,
+                    Parasitoid = NULL,
+                    init,
+                    conds,
+                    plot = TRUE,
+                    vert_trans = TRUE,
+                    hori_trans = TRUE,
+                    imi = TRUE,
+                    emi = TRUE,
+                    para = TRUE
 ) {
   if (!inherits(Pest, "pest"))
     stop("No Pest of class pest provided!")
@@ -444,7 +444,7 @@ endosym_model <- function(Pest,
     
     # update cohort sizes
     para_cohorts[, 1, ] <- sapply(1:length(ages), function(x) max(para_cohorts[, 1, ][x] - daily_loss[x], 0))
-   
+    
     # update active cohorts vector
     active_para <- which(para_cohorts[, 1, ] > 0)
     

@@ -1,6 +1,6 @@
 library(tidyverse)
 library(lubridate)
-source("R/EndosymbiontModel.R")
+source("R/EndoSim.R")
 
 # download_silo <- function(date, year, var, path){
 #   download.file(url = paste0("https://s3-ap-southeast-2.amazonaws.com/silo-open-data/Official/daily/",

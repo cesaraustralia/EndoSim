@@ -24,7 +24,7 @@ Fits a curve based on Bannerman & Roitberg (2014) to describe how daily fecundit
 }
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_bannerman(10000, 0.0008)
+my_func <- EndoSim:::fit_bannerman(10000, 0.0008)
 plot(seq(0, 15000, by = 1), my_func(seq(0, 15000, by = 1)), type = "l")
 }
 \references{

@@ -28,7 +28,7 @@ K \cdot \frac{\iota}{\gamma} \cdot  \left( \frac{\text{age} - \eta}{\gamma} \rig
 }
 }
 \examples{
-my_func <- EndosymbiontModel:::fit_weibull(58, 1.885, 5.953, 0)
+my_func <- EndoSim:::fit_weibull(58, 1.885, 5.953, 0)
 plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 }
 \references{

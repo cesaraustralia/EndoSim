@@ -14,7 +14,7 @@
 #' 
 #' @keywords internal
 #' @examples 
-#' my_func <- EndosymbiontModel:::fit_gompertz(0.00188, 0.13)
+#' my_func <- EndoSim:::fit_gompertz(0.00188, 0.13)
 #' plot(seq(0, 50, by = 0.1), my_func(seq(0, 50, by = 0.1)), type = "l")
 #' @references
 #' Gompertz, B., On the nature of the function expressive of the law of human mortality and on a new mode of determining the value of life contingencies. Philosophical Transactions of the Royal Society of London, 115, 513-583 (1825)
