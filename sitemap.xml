@@ -16,6 +16,9 @@
     <loc>https://cesaraustralia.github.io/EndoSim/reference/GPA.html</loc>
   </url>
   <url>
+    <loc>https://cesaraustralia.github.io/EndoSim/reference/counterfact.html</loc>
+  </url>
+  <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/crop-class.html</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/endosym-class.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndoSim/reference/endosym_col-class.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/endosym_mod-class.html</loc>
@@ -95,5 +101,8 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/sim_conds-class.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndoSim/reference/summary-methods.html</loc>
   </url>
 </urlset>
