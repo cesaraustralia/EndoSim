@@ -12,11 +12,11 @@ endosim(
   init,
   conds,
   plot = TRUE,
-  vert_trans = TRUE,
-  hori_trans = TRUE,
-  imi = TRUE,
-  emi = TRUE,
-  para = TRUE
+  vert_trans = FALSE,
+  hori_trans = FALSE,
+  imi = FALSE,
+  emi = FALSE,
+  para = FALSE
 )
 }
 \arguments{
@@ -34,15 +34,15 @@ endosim(
 
 \item{plot}{if \code{TRUE} (default) generate plots}
 
-\item{vert_trans}{set to \code{FALSE} to turn off vertical transmission}
+\item{vert_trans}{set to \code{TRUE} to turn on vertical transmission}
 
-\item{hori_trans}{set to \code{FALSE} to turn off horizontal transmission}
+\item{hori_trans}{set to \code{TRUE} to turn on horizontal transmission}
 
-\item{imi}{set to \code{FALSE} to turn off immigration into paddock}
+\item{imi}{set to \code{TRUE} to turn on immigration into paddock}
 
-\item{emi}{set to \code{FALSE} to turn off emigration from paddock}
+\item{emi}{set to \code{TRUE} to turn on emigration from paddock}
 
-\item{para}{set to \code{FALSE} to turn off parasitoids}
+\item{para}{set to \code{TRUE} to turn on parasitoids}
 }
 \value{
 object of class \code{endosym_mod}; see \linkS4class{endosym_mod}.

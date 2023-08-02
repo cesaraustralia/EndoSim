@@ -9,11 +9,11 @@
 #' @param init object of class \code{initial} defining the starting conditions for the simulation
 #' @param conds object of class \code{sim_conds} defining the simulation conditions
 #' @param plot if \code{TRUE} (default) generate plots
-#' @param vert_trans set to \code{FALSE} to turn off vertical transmission
-#' @param hori_trans set to \code{FALSE} to turn off horizontal transmission
-#' @param imi set to \code{FALSE} to turn off immigration into paddock
-#' @param emi set to \code{FALSE} to turn off emigration from paddock
-#' @param para set to \code{FALSE} to turn off parasitoids
+#' @param vert_trans set to \code{TRUE} to turn on vertical transmission
+#' @param hori_trans set to \code{TRUE} to turn on horizontal transmission
+#' @param imi set to \code{TRUE} to turn on immigration into paddock
+#' @param emi set to \code{TRUE} to turn on emigration from paddock
+#' @param para set to \code{TRUE} to turn on parasitoids
 #' @return object of class \code{endosym_mod}; see [endosym_mod-class].
 #' @details
 #' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class],[parasitoid-class], [initial-class], and [sim_conds-class] objects.
@@ -34,11 +34,11 @@ endosim <- function(Pest,
                     init,
                     conds,
                     plot = TRUE,
-                    vert_trans = TRUE,
-                    hori_trans = TRUE,
-                    imi = TRUE,
-                    emi = TRUE,
-                    para = TRUE
+                    vert_trans = FALSE,
+                    hori_trans = FALSE,
+                    imi = FALSE,
+                    emi = FALSE,
+                    para = FALSE
 ) {
   if (!inherits(Pest, "pest"))
     stop("No Pest of class pest provided!")
