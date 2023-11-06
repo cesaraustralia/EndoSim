@@ -58,32 +58,36 @@ make_conds <- function(start_date, end_date, lat, long, path = NULL){
   dat_max_temp <- dat[which(stringr::str_detect(dat, "max_temp"))]
   dat_min_temp <- dat[which(stringr::str_detect(dat, "min_temp"))]
   
+  Min.Temp <- unlist(sapply(1:sim_length,
+                           function(x)
+                             terra::extract(
+                               x = terra::rast(paste0(silo_path, dat_min_temp[x])),
+                               y = data.frame(x = long, y = lat),
+                               ID = FALSE
+                             )))
+  
+  Max.Temp <- unlist(sapply(1:sim_length,
+                           function(x)
+                             terra::extract(
+                               x = terra::rast(paste0(silo_path, dat_max_temp[x])),
+                               y = data.frame(x = long, y = lat),
+                               ID = FALSE
+                             )))
+  
+  Precipitation <-
+    unlist(sapply(1:sim_length,
+                  function(x)
+                    terra::extract(
+                      x = terra::rast(paste0(silo_path, dat_rain[x])),
+                      y = data.frame(x = long, y = lat),
+                      ID = FALSE
+                    )))
+  
   env <- data.frame(t = 1:sim_length,
-                    Temperature =
-                      (unlist(sapply(1:sim_length,
-                                     function(x)
-                                       terra::extract(
-                                         x = terra::rast(paste0(silo_path, dat_max_temp[x])),
-                                         y = data.frame(x = long, y = lat),
-                                         ID = FALSE
-                                       ))) +
-                         unlist(sapply(1:sim_length,
-                                       function(x)
-                                         terra::extract(
-                                           x = terra::rast(paste0(silo_path, dat_min_temp[x])),
-                                           y = data.frame(x = long, y = lat),
-                                           ID = FALSE
-                                         )))
-                      )/2,
-                    Precipitation =
-                      unlist(sapply(1:sim_length,
-                                    function(x)
-                                      terra::extract(
-                                        x = terra::rast(paste0(silo_path, dat_rain[x])),
-                                        y = data.frame(x = long, y = lat),
-                                        ID = FALSE
-                                      )))
-  )
+                    Min.Temp = Min.Temp,
+                    Max.Temp = Max.Temp,
+                    Temperature = (Min.Temp + Max.Temp)/2,
+                    Precipitation = Precipitation)
   
   if(is.null(path))
     unlink(silo_path, recursive = TRUE)

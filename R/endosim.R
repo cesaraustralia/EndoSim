@@ -198,8 +198,10 @@ endosim <- function(Pest,
     # else
     #   fun_dens_fecund <- fit_bannerman(100, 0.08)
     
-    temperature = env[t, 2]
-    rainfall = env[t, 3]
+    min_temp = env[t, 2]
+    max_temp = env[t, 3]
+    temperature = env[t, 4]
+    rainfall = env[t, 5]
     
     ## nymph development and adult aging
     # calculate development units gained in timestep
@@ -395,7 +397,7 @@ endosim <- function(Pest,
     ## mortality
     # calculate mortality due to temperature and rainfall
     temp_loss <-
-      fun_temp_loss(temperature)
+      fun_temp_loss(max_temp, min_temp)
     rainfall_loss <-
       fun_rainfall_loss(rainfall)
     

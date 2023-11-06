@@ -24,7 +24,7 @@ Can be used to run the endosymbiont model on GPA.\cr
 \code{fun_imi_neg} fitted using \link{fit_imi_barton} to describe constant immigration of 5 adults from background population \cr
 \code{fun_imi_pos} fitted using \link{fit_null} to describe no new introductions of R+ adult \cr
 \code{fun_emi} fitted using \link{fit_emi_thack} to describe a constant emigration rate based on Thackray et al. 2004 \cr
-\code{fun_temp_loss} TBA
+\code{fun_temp_loss} fitted using \link{fit_supergaus} with parameters from Barton et al. 2021 \cr
 \code{fun_rainfall_loss} fitted using \link{fit_rainfall_thack} with parameters from Barton et al. 2021 \cr
 \code{fun_sen_loss} fitted using \link{fit_gompertz} with parameters from Barton et al. 2021 \cr
 \code{fun_dens_fecund} fitted using \link{fit_bannerman} with parameters from Barton et al. 2021 \cr

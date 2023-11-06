@@ -33,7 +33,7 @@
 #'   fun_imi_neg = EndoSim:::fit_imi_barton(),
 #'   fun_imi_pos = EndoSim:::fit_null(0),
 #'   fun_emi = EndoSim:::fit_emi_thack(),
-#'   fun_temp_loss = EndoSim:::fit_null(0),
+#'   fun_temp_loss = EndoSim:::fit_supergaus(32.79, 2.84, 0.00083, 0.00017, 7.66, 17.66),
 #'   fun_rainfall_loss = EndoSim:::fit_rainfall_thack(),
 #'   fun_sen_loss = EndoSim:::fit_gompertz(0.00188, 0.13),
 #'   fun_dens_fecund = EndoSim:::fit_bannerman(10000, 0.0008),

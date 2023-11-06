@@ -13,7 +13,7 @@
 #' \code{fun_imi_neg} fitted using [fit_imi_barton] to describe constant immigration of 5 adults from background population \cr
 #' \code{fun_imi_pos} fitted using [fit_null] to describe no new introductions of R+ adult \cr
 #' \code{fun_emi} fitted using [fit_emi_thack] to describe a constant emigration rate based on Thackray et al. 2004 \cr
-#' \code{fun_temp_loss} TBA
+#' \code{fun_temp_loss} fitted using [fit_supergaus] with parameters from Barton et al. 2021 \cr
 #' \code{fun_rainfall_loss} fitted using [fit_rainfall_thack] with parameters from Barton et al. 2021 \cr
 #' \code{fun_sen_loss} fitted using [fit_gompertz] with parameters from Barton et al. 2021 \cr
 #' \code{fun_dens_fecund} fitted using [fit_bannerman] with parameters from Barton et al. 2021 \cr

@@ -21,15 +21,22 @@ setMethod("plot",
           
           function(x, ...) {
             x1 = lubridate::ymd(x@start_date) + lubridate::days(x@env[,1] - 1)
-            y1 = x@env[,2]
-            y2 = x@env[,3]
+            y1min = x@env[,2]
+            y2max = x@env[,3]
+            y1 = x@env[,4]
+            y2 = x@env[,5]
             
             output <-
               tibble::tibble(Date = x1,
                              Temperature = y1,
-                             Rainfall = y2) %>%
+                             Rainfall = y2,
+                             Temp.Min = y1min,
+                             Temp.Max = y2max) %>%
               tidyr::pivot_longer(cols = 2:3) %>%
+              dplyr::mutate(Temp.Min = dplyr::case_when(name == "Temperature" ~ Temp.Min),
+                            Temp.Max = dplyr::case_when(name == "Temperature" ~ Temp.Max)) %>%
               ggplot2::ggplot(ggplot2::aes(x = Date, y = value, colour = name)) +
+              ggplot2::geom_ribbon(ggplot2::aes(ymax = Temp.Max, ymin = Temp.Min), fill = "darkred", colour = NA, alpha = .5) +
               ggplot2::geom_line() +
               ggplot2::scale_colour_manual(values = c("darkblue", "darkred")) +
               ggplot2::theme_bw() +
