@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EndoSim</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,7 +129,7 @@
 <span class="r-in"><span>  fun_imi_neg <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_imi_barton.html">fit_imi_barton</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  fun_imi_pos <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_null.html">fit_null</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  fun_emi <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_emi_thack.html">fit_emi_thack</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  fun_temp_loss <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_null.html">fit_null</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  fun_temp_loss <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_supergaus.html">fit_supergaus</a></span><span class="op">(</span><span class="fl">32.79</span>, <span class="fl">2.84</span>, <span class="fl">0.00083</span>, <span class="fl">0.00017</span>, <span class="fl">7.66</span>, <span class="fl">17.66</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  fun_rainfall_loss <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_rainfall_thack.html">fit_rainfall_thack</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  fun_sen_loss <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_gompertz.html">fit_gompertz</a></span><span class="op">(</span><span class="fl">0.00188</span>, <span class="fl">0.13</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  fun_dens_fecund <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_bannerman.html">fit_bannerman</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">0.0008</span><span class="op">)</span>,</span></span>
@@ -163,8 +163,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &lt; 0, 0, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe09bb8d0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e6420&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53cb94318&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0f318&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_dev_ala":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -174,24 +174,24 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &lt; 0, 0, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe09bb8d0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e5f18&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53cb94318&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0ee10&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_imi_neg":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(5)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbdfc43250&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e5e00&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53aca9518&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0ecf8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_imi_pos":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(rep(output, length(x)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe3eda050&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e5c40&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53e840678&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0eb38&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_emi":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -199,16 +199,23 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- round(0.2 * x, 0)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbd86f1d38&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e5b28&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b532ad2190&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0ea20&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_temp_loss":</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (Tmax, Tmin) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     return(rep(output, length(x)))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     if (Tmax &gt; Tupper) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         max_comp &lt;- -Piupper * (Chi * (Tmax - Tupper)/Psi)^3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     else max_comp &lt;- 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     if (Tmin &lt; Tlower) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         min_comp &lt;- -Pilower * (Chi * (Tlower - Tmin)/Psi)^3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     else min_comp &lt;- 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- 1 - exp(max_comp + min_comp)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe3eda050&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e9798&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53931f5e0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0e518&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_rainfall_loss":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -218,8 +225,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>         output))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbd741e1a0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e9680&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b5328682e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0e400&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_sen_loss":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -229,8 +236,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &gt; 1, 1, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbd3237300&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e9418&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53915d9b0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0e198&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_dens_fecund":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -238,8 +245,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- 1 - (1/(1 + exp(-1 * p * (x - D))))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe3997408&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e91b0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53ef6ef10&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f0df30&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_temp_fecund":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -248,8 +255,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &lt; 0, 0, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbdb07f4c0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e8ea0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b535709280&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f13970&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_age_fecund":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -259,8 +266,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(is.na(output), 0, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe2e9bdd8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e8ae8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53ed94110&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f135b8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_alate_prod":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -269,8 +276,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &gt; 0.5, 0.5, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bbe15e3798&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55bbde8e8730&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b53ce36298&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b539f13200&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
