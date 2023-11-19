@@ -49,6 +49,9 @@
     <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_emi_thack.html</loc>
   </url>
   <url>
+    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_gaussian.html</loc>
+  </url>
+  <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_gompertz.html</loc>
   </url>
   <url>
@@ -65,6 +68,9 @@
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_rainfall_thack.html</loc>
+  </url>
+  <url>
+    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_rezende.html</loc>
   </url>
   <url>
     <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_supergaus.html</loc>
