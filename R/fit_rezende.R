@@ -65,11 +65,29 @@ fit_rezende <- function(ymax, xopt, xmin, xmax){
   q10 <- result$par[3]
   
   # Define the model equation
-  model <- function(x) {
-    y <- {
+  func <- function(x) {
+    output <- {
       ifelse(x < xopt, (a * 10^(log10(q10)/(10/x))), (a * 10^(log10(q10)/(10/x))) * (1 - b * (xopt - x)^2))
     }
-    y <- ifelse(y < 0, 0, y)
-    return(y)
+    output <- ifelse(output < 0, 0, output)
+    return(output)
   }
+  
+  # Scale to range 0-1
+  max.y <- max(func(seq(-50, 50, by = 0.1)))
+  min.y <- min(func(seq(-50, 50, by = 0.1)))
+  
+  scale_values <- function(x) {
+    (x-min.y) / (max.y-min.y)
+  }
+  
+  func <- function(x) {
+    output <- {
+      ifelse(x < xopt, (a * 10^(log10(q10)/(10/x))), (a * 10^(log10(q10)/(10/x))) * (1 - b * (xopt - x)^2))
+    }
+    output <- ifelse(output < 0, 0, output)
+    return(scale_values(output))
+  }
+  
+  return(func)
 }

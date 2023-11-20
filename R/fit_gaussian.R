@@ -25,6 +25,20 @@ fit_gaussian <- function(rmax, topt, a){
     return(output)
   }
   
+  # Scale to range 0-1
+  max.y <- max(func(seq(-50, 50, by = 0.1)))
+  min.y <- min(func(seq(-50, 50, by = 0.1)))
+  
+  scale_values <- function(x) {
+    (x-min.y) / (max.y-min.y)
+  }
+  
+  func <- function(x){
+    output <- rmax * exp(-0.5 * (abs(x - topt)/a)^2)
+    output <- ifelse(output < 0, 0, output)
+    return(scale_values(output))
+  }
+  
   return(func)
 }
 

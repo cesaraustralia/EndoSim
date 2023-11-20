@@ -25,6 +25,20 @@ fit_quadratic <- function(a, b, topt){
     return(output)
   }
   
+  # Scale to range 0-1
+  max.y <- max(func(seq(-50, 50, by = 0.1)))
+  min.y <- min(func(seq(-50, 50, by = 0.1)))
+  
+  scale_values <- function(x) {
+    (x-min.y) / (max.y-min.y)
+  }
+  
+  func <- function(x){
+    output <- (a*x^2 + b*x)/(a*topt^2 + b*topt)
+    output <- ifelse(output < 0, 0, output)
+    return(scale_values(output))
+  }
+  
   return(func)
 }
 
