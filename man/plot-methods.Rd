@@ -26,7 +26,7 @@ plot(x, y, ...)
 
 \item{...}{Any other argument suitable for plot()}
 
-\item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time; ignored for class \code{sim_conds}}
+\item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}}
 }
 \description{
 Plot methods for S4 objects of class sim_conds, endosym_mod, and endosym_col

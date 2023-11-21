@@ -2,7 +2,7 @@
 #'
 #' @param x S4 object of class \code{sim_conds} or \code{endosym_mod} or \code{endosym_col}
 #' @param y from the generic \code{plot} function, ignored for EndoSim objects
-#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time; ignored for class \code{sim_conds}
+#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}
 #' @param ... Any other argument suitable for plot()
 #' 
 #' @keywords methods plot
@@ -97,7 +97,7 @@ setMethod("plot",
                 ggplot2::theme_bw()
             }
             
-            if(type == "R+"){
+            if(type == "R+") {
               output <- x@pest_df %>%
                 tidyr::pivot_longer(cols = 2:11,
                                     names_to = "lifestage",
@@ -116,6 +116,28 @@ setMethod("plot",
                 ggplot2::labs(x = "Date",
                               y = "Proportion of R+ in population") +
                 ggplot2::theme_bw()
+            }
+            
+            if(type == "demo") {
+              output <- x@pest_df %>%
+                tidyr::pivot_longer(2:11) %>%
+                dplyr::mutate(name = stringr::str_remove(name, "neg_|pos_")) %>%
+                dplyr::group_by(t, name) %>%
+                dplyr::summarise(value = sum(value)) %>%
+                dplyr::ungroup() %>%
+                dplyr::group_by(t) %>%
+                dplyr::mutate(sumval = sum(value)) %>%
+                dplyr::group_by(t, name) %>%
+                dplyr::summarise(ratio = value/sumval) %>%
+                dplyr::mutate(name = factor(name,
+                                            levels = c("n1", "n2", "n3", "n4", "adult"),
+                                            labels = c("Instar 1", "Instar 2", "Instar 3", "Instar 4", "Adult"))) %>%
+                ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(x@start_date)), y = ratio, fill = name)) +
+                ggplot2::geom_density(position = "stack", stat = "identity") +
+                ggplot2::theme_minimal() +
+                ggplot2::scale_fill_viridis_d(name = "Lifestage") +
+                ggplot2::labs(x = "Day",
+                              y = "Proportion of population")
             }
             
             output
