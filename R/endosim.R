@@ -96,7 +96,6 @@ endosim <- function(Pest,
   fitness_cost <- Endosymbiont@'fitness_cost'
   
   heal_time <- Crop@'heal_time'
-  fun_reinf <- Crop@'fun_reinf'
   sowing_date <- Crop@'sowing_date'
   harvest_date <- Crop@'harvest_date'
   
@@ -154,7 +153,7 @@ endosim <- function(Pest,
   # create initial matrix of cohort ages
   cohort_ages <- matrix(c(rep(1, 20)), nrow = 4)
   
-  # create initial dataframe of crop population
+  # create initial vector of crop population
   crop_pop <- init@'Crop'
   
   # create initial vector of parasitoid population and array of parasitised cohorts
@@ -290,33 +289,22 @@ endosim <- function(Pest,
     tot_mov = (sum(cohorts[, 1, ][-adult_ala], para_cohorts[, 1, ]) * apterae_walk) +
       (sum(cohorts[, 1, ][adult_ala]) * alate_flight)
     
-    # calculate number of inoculated plants
+    # calculate proportion of inoculated plants
     new_inoc =
-      tot_mov * # total plants encountered by pest
+      min(tot_mov/crop_pop[3], 1) * # proportion of plants encountered by pest
       sum(cohorts[c(1, 3), 1, ], para_cohorts[c(1, 3), 1, ]) / sum(cohorts[, 1, ], para_cohorts[, 1, ]) * # probability pest is R+
-      sum(crop_pop[, 3]) / sum(crop_pop[, 2:3]) * # probability encountered plant is R-
+      crop_pop[1] * # probability encountered plant is R-
       fun_trans_eff(temperature) # probability plant is infected
     
     if(is.na(new_inoc))
       new_inoc <- 0 # capture case when population dies out
     
-    if(round(new_inoc, 0) > 0){
-      neg_crop_ind <- which(crop_pop[, 2] == 0)[1:new_inoc]
-      
-      crop_pop[neg_crop_ind, 1] <- t
-      crop_pop[neg_crop_ind, 2] <- 1
-      crop_pop[neg_crop_ind, 3] <- 0
-    }
-    
-    # which plants recover
-    heal_ind <- which(t - crop_pop[, 1] >= heal_time)
-    if (round(length(heal_ind) * fun_reinf(sum(cohorts[c(1, 3), 1, ], para_cohorts[c(1, 3), 1, ]) / nrow(crop_pop))) > 0)
-      heal_ind <- heal_ind[1:round(length(heal_ind) * fun_reinf(sum(cohorts[c(1, 3), 1, ], para_cohorts[c(1, 3), 1, ]) / nrow(crop_pop)))] else
-        heal_ind <- which(1 < 0)
+    # proportion of plants recovering
+    heal_ind <- crop_pop[2] * exp(-1/heal_time)
     
     # update crop dataframe
-    crop_pop[heal_ind, 2] <- 0
-    crop_pop[heal_ind, 3] <- 1
+    crop_pop[1] <- max(min(crop_pop[1] - new_inoc + heal_ind, 1), 0)
+    crop_pop[2] <- max(min(crop_pop[2] + new_inoc - heal_ind, 1), 0)
     
     # identify susceptible pests
     sus_ala <- which(cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "neg_ala"))
@@ -328,7 +316,7 @@ endosim <- function(Pest,
     # calculate infection rate
     inf_rate =
       sum(sum(cohorts[, 1, ][c(sus_apt, sus_ala)]), sus_para) * # Number of susceptible R- pests
-      (sum(crop_pop[, 2]) / sum(crop_pop[, 2:3])) * # proportion of R+ plants
+      crop_pop[2] * # proportion of R+ plants
       fun_susc(temperature) # probability pest is infected
     
     inf_para <- inf_rate * sus_para / sum(sum(cohorts[, 1, ][c(sus_apt, sus_ala)]), sus_para)

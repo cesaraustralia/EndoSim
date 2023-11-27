@@ -12,9 +12,7 @@ An S4 class to store a crop's life history for the endosymbiont model
 \describe{
 \item{\code{name}}{The name of the crop}
 
-\item{\code{heal_time}}{Time in days endosymbiont remains in plant}
-
-\item{\code{fun_reinf}}{Function describing probability of plant reinfection as function of R+ pest density}
+\item{\code{heal_time}}{Half-time in days for plant recovery from endosymbiont infection}
 
 \item{\code{sowing_date}}{Date crop is sown in YYYY-MM-DD format}
 
@@ -25,7 +23,9 @@ An S4 class to store a crop's life history for the endosymbiont model
 canola <-
 new("crop",
 name = "Canola",
-heal_time = 3)
+heal_time = 2,
+sowing_date = "2022-04-01",
+harvest_date = "2022-11-01")
 
 canola
 }
