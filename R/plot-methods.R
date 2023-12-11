@@ -1,8 +1,8 @@
-#' Plot methods for S4 objects of class sim_conds, endosym_mod, and endosym_col
+#' Plot methods for S4 objects of class sim_conds, endosym_mod, endosym_col, and pest
 #'
-#' @param x S4 object of class \code{sim_conds} or \code{endosym_mod} or \code{endosym_col}
+#' @param x S4 object of class \code{sim_conds} or \code{endosym_mod} or \code{endosym_col} or \code{pest}
 #' @param y from the generic \code{plot} function, ignored for EndoSim objects
-#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}
+#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}, \code{endosym_col} and \code{pest}
 #' @param ... Any other argument suitable for plot()
 #' 
 #' @keywords methods plot
@@ -178,6 +178,37 @@ setMethod("plot",
               ggplot2::theme_bw() +
               ggplot2::theme(legend.position = "bottom",
                              legend.direction = "vertical")
+            
+            output
+          }
+)
+
+#' @docType methods
+#' @aliases plot,pest,missing,ANY-method
+#' @rdname plot-methods
+
+setMethod("plot",
+          signature(x = "pest", y = "missing"),
+          
+          function(x, ...) {
+            xvals <- seq(0, 50)
+            
+            output <- tibble::tibble(`Temperature-dependent development (apterae)` = x@fun_dev_apt(xvals),
+                                     `Temperature-dependent development (alates)` = x@fun_dev_ala(xvals),
+                                     `Temperature-dependent mortality` = sapply(xvals, function(m) x@fun_temp_loss(m, m)),
+                                     `Rainfall-dependent mortality` = x@fun_rainfall_loss(xvals),
+                                     `Senescence-dependent mortality` = x@fun_sen_loss(xvals),
+                                     `Temperature-dependent fecundity` = x@fun_temp_fecund(xvals),
+                                     `Age-dependent fecundity` = x@fun_age_fecund(xvals),
+                                     `Density-dependent fecundity` = x@fun_dens_fecund(xvals * 1000),
+                                     `Density-dependent alate production` = x@fun_alate_prod(xvals * 1000),
+                                     xvals = xvals) %>%
+              tidyr::pivot_longer(1:9) %>%
+              ggplot2::ggplot(ggplot2::aes(x = xvals, y = value)) +
+              ggplot2::geom_line() +
+              ggplot2::facet_wrap(~name, scales = "free") +
+              ggplot2::theme_bw() +
+              ggplot2::labs(x = "", y = "")
             
             output
           }

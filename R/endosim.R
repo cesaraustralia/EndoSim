@@ -303,8 +303,8 @@ endosim <- function(Pest,
     heal_ind <- crop_pop[2] * exp(-1/heal_time)
     
     # update crop dataframe
-    crop_pop[1] <- max(min(crop_pop[1] - new_inoc + heal_ind, 1), 0)
-    crop_pop[2] <- max(min(crop_pop[2] + new_inoc - heal_ind, 1), 0)
+    crop_pop[1] <- max(min(crop_pop[1] - new_inoc + (crop_pop[2] - heal_ind), 1), 0)
+    crop_pop[2] <- max(min(heal_ind + new_inoc, 1), 0)
     
     # identify susceptible pests
     sus_ala <- which(cohorts[, 2, ] == 5 & stringr::str_detect(rownames(cohorts[, 2, ]), "neg_ala"))

@@ -48,10 +48,10 @@ fit_rezende <- function(ymax, xopt, xmin, xmax){
   }
   
   # Create the x vector for optimization
-  x <- c(xmin, xmax, xopt)
+  x <- c(xmin, xopt, xmax)
   
   # Create the y vector for optimization
-  y <- c(0, 0, ymax)
+  y <- c(0, ymax, 0)
   
   # Set the initial values for a, b, and q10
   initial_params <- c(0.1, 0.1, 2.77)  # Initial guess for a, b, and q10
