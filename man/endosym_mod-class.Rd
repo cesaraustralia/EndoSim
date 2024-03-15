@@ -37,5 +37,7 @@ An S4 class to store a simulation output
 \item{\code{pest_cohorts}}{array of pest cohorts at the end of the simulation}
 
 \item{\code{para_df}}{data.frame of parasitoid population through time}
+
+\item{\code{area}}{area of crop (m2)}
 }}
 

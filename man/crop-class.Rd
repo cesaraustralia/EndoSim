@@ -16,7 +16,13 @@ An S4 class to store a crop's life history for the endosymbiont model
 
 \item{\code{sowing_date}}{Date crop is sown in YYYY-MM-DD format}
 
+\item{\code{emergence_date}}{Date crop emerges in YYYY-MM-DD format}
+
 \item{\code{harvest_date}}{Date crop is harvested in YYYY-MM-DD format}
+
+\item{\code{carrying_capacity}}{Function defining proportion of pest carrying capacity based on days after emerging}
+
+\item{\code{density}}{Crop density (m2)}
 }}
 
 \examples{
@@ -24,8 +30,10 @@ canola <-
 new("crop",
 name = "Canola",
 heal_time = 2,
-sowing_date = "2022-04-01",
-harvest_date = "2022-11-01")
+sowing_date = "2022-04-05",
+emergence_date = "2022-04-10",
+harvest_date = "2022-11-01",
+carrying_capacity = EndoSim::fit_sigmoid(1, 0.1, 80))
 
 canola
 }

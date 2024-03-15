@@ -16,6 +16,7 @@
 #' @slot pest_df data.frame of pest population through time
 #' @slot pest_cohorts array of pest cohorts at the end of the simulation
 #' @slot para_df data.frame of parasitoid population through time
+#' @slot area area of crop (m2)
 
 methods::setClass("endosym_mod",
                   slots = c(pest = "character",
@@ -31,5 +32,6 @@ methods::setClass("endosym_mod",
                             para = "logical",
                             pest_df = "data.frame",
                             pest_cohorts = "array",
-                            para_df = "data.frame")
+                            para_df = "data.frame",
+                            area = "numeric")
 )

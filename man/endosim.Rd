@@ -12,6 +12,7 @@ endosim(
   init,
   conds,
   plot = TRUE,
+  progress = TRUE,
   vert_trans = FALSE,
   hori_trans = FALSE,
   imi = FALSE,
@@ -33,6 +34,8 @@ endosim(
 \item{conds}{object of class \code{sim_conds} defining the simulation conditions}
 
 \item{plot}{if \code{TRUE} (default) generate plots}
+
+\item{progress}{if \code{TRUE} (default) print progress bar}
 
 \item{vert_trans}{set to \code{TRUE} to turn on vertical transmission}
 

@@ -67,7 +67,7 @@ setMethod("plot",
                 dplyr::group_by(t, endosymbiont) %>%
                 dplyr::summarise(n = sum(n)) %>%
                 dplyr::group_by(t) %>%
-                dplyr::mutate(tot = sum(n)) %>%
+                dplyr::mutate(tot = sum(n)/x@area) %>%
                 ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(x@start_date)), y = n)) +
                 ggplot2::geom_density(ggplot2::aes(fill = endosymbiont),
                                       stat = "identity",
@@ -80,15 +80,15 @@ setMethod("plot",
                                         dplyr::mutate(endosymbiont = ifelse(stringr::str_detect(lifestage, "pos"), "pos", "neg"),
                                                       lifestage = sub("_", "", stringr::str_remove(lifestage, "pos|neg|"))) %>%
                                         dplyr::group_by(t, endosymbiont) %>%
-                                        dplyr::summarise(n = sum(n))) +
+                                        dplyr::summarise(n = sum(n)/x@area)) +
                 ggplot2::geom_line(data = x@pest_df %>%
                                      tidyr::pivot_longer(cols = 2:11,
                                                          names_to = "lifestage",
                                                          values_to = "n") %>%
                                      dplyr::group_by(t) %>%
-                                     dplyr::summarise(n = sum(n))) +
+                                     dplyr::summarise(n = sum(n)/x@area)) +
                 ggplot2::labs(x = "Date",
-                              y = "Total number of pests") +
+                              y = "Pest density (per m2)") +
                 ggplot2::scale_fill_manual(
                   values = c("darkgoldenrod", "darkgreen"),
                   name = "Phenotype",
@@ -170,11 +170,11 @@ setMethod("plot",
                                   names_to = "lifestage",
                                   values_to = "n") %>%
               dplyr::group_by(t, vert_trans, hori_trans, imi, emi, para, scenario) %>%
-              dplyr::summarise(n = sum(n)) %>%
+              dplyr::summarise(n = sum(n)/x@sims[[1]]@area) %>%
               ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(x@sims[[1]]@start_date)), y = n, colour = scenario)) +
               ggplot2::geom_line() +
               ggplot2::labs(x = "Date",
-                            y = "Total number of pests") +
+                            y = "Pest density (per m2)") +
               ggplot2::theme_bw() +
               ggplot2::theme(legend.position = "bottom",
                              legend.direction = "vertical")
@@ -204,6 +204,8 @@ setMethod("plot",
                                      `Density-dependent alate production` = x@fun_alate_prod(xvals * 1000),
                                      xvals = xvals) %>%
               tidyr::pivot_longer(1:9) %>%
+              dplyr::mutate(xvals = dplyr::case_when(stringr::str_detect(name, "Density") ~ xvals * 1000,
+                                                     T ~ xvals)) %>%
               ggplot2::ggplot(ggplot2::aes(x = xvals, y = value)) +
               ggplot2::geom_line() +
               ggplot2::facet_wrap(~name, scales = "free") +

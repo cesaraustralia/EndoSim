@@ -9,6 +9,7 @@
 #' @param init object of class \code{initial} defining the starting conditions for the simulation
 #' @param conds object of class \code{sim_conds} defining the simulation conditions
 #' @param plot if \code{TRUE} (default) generate plots
+#' @param progress if \code{TRUE} (default) print progress bar
 #' @param vert_trans set to \code{TRUE} to turn on vertical transmission
 #' @param hori_trans set to \code{TRUE} to turn on horizontal transmission
 #' @param imi set to \code{TRUE} to turn on immigration into paddock
@@ -34,6 +35,7 @@ endosim <- function(Pest,
                     init,
                     conds,
                     plot = TRUE,
+                    progress = TRUE,
                     vert_trans = FALSE,
                     hori_trans = FALSE,
                     imi = FALSE,
@@ -67,8 +69,6 @@ endosim <- function(Pest,
   }
   
   if(!imi){
-    Pest@'fun_imi_neg' <- fit_null(0)
-    Pest@'fun_imi_pos' <- fit_null(0)
     warning("Immigration cancelled!")
   }
   
@@ -97,7 +97,13 @@ endosim <- function(Pest,
   
   heal_time <- Crop@'heal_time'
   sowing_date <- Crop@'sowing_date'
+  emergence_date <- Crop@'emergence_date'
   harvest_date <- Crop@'harvest_date'
+  introduction_date <- Endosymbiont@'introduction_date'
+  
+  area <- init@'Crop'[[3]]/Crop@'density'
+  
+  introduction_n <- Endosymbiont@'introduction_n'
   
   # define functions
   fun_dev_apt <- Pest@'fun_dev_apt'
@@ -120,6 +126,8 @@ endosim <- function(Pest,
   fun_para_scal <- Parasitoid@'fun_para_scal'
   fun_attack <- Parasitoid@'fun_attack'
   fun_handling <- Parasitoid@'fun_handling'
+  
+  fun_cc <- Crop@'carrying_capacity'
   
   # define tracked populations
   cohorts <- init@'Pest'
@@ -178,24 +186,37 @@ endosim <- function(Pest,
                         mummies = 0,
                         females = para_pop[['females']])
   
-  print("Running model:")
-  
-  progress_bar = utils::txtProgressBar(
-    min = 0,
-    max = sim_length,
-    style = 1,
-    char = "="
-  )
+  if(progress){
+    print("Running simulation:")
+    
+    progress_bar = utils::txtProgressBar(
+      min = 0,
+      max = sim_length,
+      style = 1,
+      char = "="
+    )
+  }
   
   for (t in 1:sim_length){
-    # current_date <- lubridate::ymd(start_date) + lubridate::days(t)
-    # growth_season <- current_date %in% seq(lubridate::ymd(sowing_date), lubridate::ymd(harvest_date), "day")
-    # 
-    # # adjust carrying capacity if outside growth season
-    # if(growth_season)
-    #   fun_dens_fecund <- Pest@'fun_dens_fecund'
-    # else
-    #   fun_dens_fecund <- fit_bannerman(100, 0.08)
+    current_date <- lubridate::ymd(start_date) + lubridate::days(t)
+    growth_season <- current_date %in% seq(lubridate::ymd(emergence_date), lubridate::ymd(harvest_date), "day")
+
+    # adjust carrying capacity if outside growth season
+    if(growth_season){
+      
+      # cancel immigration from now on if immigration module disabled
+      if(!imi){
+        fun_imi_neg <- fit_null(0)
+        fun_imi_pos <- fit_null(0)
+      }
+      
+      dae <- as.numeric(current_date - lubridate::ymd(emergence_date))
+      cc_p <- fun_cc(dae)
+      
+      fun_dens_fecund <- fit_bannerman(10000 * area * cc_p, 0.0008)
+    }
+    else
+      fun_dens_fecund <- fit_null(0)
     
     min_temp = env[t, 2]
     max_temp = env[t, 3]
@@ -255,8 +276,28 @@ endosim <- function(Pest,
     cohorts[, 1, ] <- sapply(cohorts[, 1, ], max, 0) # make sure pop size doesn't drop to negative
     
     # calculate how many new adults immigrate into population
-    imi_adult_neg <- fun_imi_neg(t)
-    imi_adult_pos <- fun_imi_pos(t)
+    # introduction of R+
+    if(current_date == lubridate::ymd(introduction_date)){
+      # create new cohort
+      new_cohort <- matrix(c(0, 0, introduction_n, 0,
+                             rep(5, 4)),
+                           ncol = 2)
+      
+      cohorts <- abind::abind(cohorts,
+                              new_cohort,
+                              along = 3)
+      dev_cohorts <- rbind(dev_cohorts,
+                           matrix(rep(0, 4), nrow = 1))
+      adult_ages <- cbind(adult_ages,
+                          matrix(c(0, 0, t - 1, 0), ncol = 1))
+      cohort_ages <- cbind(cohort_ages,
+                           matrix(c(0, 0, t, 0), ncol = 1))
+    }
+    
+    
+    # daily immigration
+    imi_adult_neg <- fun_imi_neg(t) * area
+    imi_adult_pos <- fun_imi_pos(t) * area
     
     if(sum(imi_adult_neg, imi_adult_pos) > 0){
       # create new cohort
@@ -542,7 +583,9 @@ endosim <- function(Pest,
     
     para_pop[['females']] <- 0
     
-    utils::setTxtProgressBar(progress_bar, value = t)
+    if(progress){
+      utils::setTxtProgressBar(progress_bar, value = t)
+    }
     
     if(sum(cohorts[, 1, ]) == 0){
       print(paste0("Population died out at time ", t, "; simulation ended"))
@@ -550,7 +593,9 @@ endosim <- function(Pest,
     }
   }
   
-  close(progress_bar)
+  if(progress){
+    close(progress_bar)
+  }
   
   output <- new("endosym_mod",
                 pest = Pest@species,
@@ -566,7 +611,8 @@ endosim <- function(Pest,
                 para = para,
                 pest_df = pest_pop,
                 pest_cohorts = cohorts,
-                para_df = para_df)
+                para_df = para_df,
+                area = area)
   
   if (plot){
     mod_plot <- plot(output, type = "pop_size")

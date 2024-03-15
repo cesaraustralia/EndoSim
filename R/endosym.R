@@ -6,6 +6,8 @@
 #' @slot fitness_cost Relative fitness cost of R+ phenotype (0-1)
 #' @slot fun_trans_eff Function describing temperature-dependent efficiency of endosymbiont transmission to plants
 #' @slot fun_susc Function describing temperature-dependent susceptibility of R- pests to infection from plants
+#' @slot introduction_date Date R+ individuals are introduced in YYYY-MM-DD format
+#' @slot introduction_n Number of R+ adult individuals introduced (assumed to all be alates)
 #' 
 #' @examples 
 #' Rickettsiella <-
@@ -18,7 +20,9 @@
 #'       k = 4),
 #'     fun_susc = EndoSim:::fit_custom(seq(0, 40, 4),
 #'       c(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.75, 0.6, 0.3, 0, 0),
-#'       k = 7)
+#'       k = 7),
+#'       introduction_date = "2024-04-05",
+#'       introduction_n = 1000
 #'     )
 #' 
 #' Rickettsiella
@@ -27,5 +31,7 @@ methods::setClass("endosym",
                   slots = c(name = "character",
                             fitness_cost = "numeric",
                             fun_trans_eff = "function",
-                            fun_susc = "function")
+                            fun_susc = "function",
+                            introduction_date = "character",
+                            introduction_n = "numeric")
 )
