@@ -202,17 +202,10 @@ endosim <- function(Pest,
     growth_season <- current_date %in% seq(lubridate::ymd(emergence_date), lubridate::ymd(harvest_date), "day")
 
     # adjust carrying capacity if outside growth season
+    dae <- as.numeric(current_date - lubridate::ymd(emergence_date))
+    cc_p <- fun_cc(dae)
+    
     if(growth_season){
-      
-      # cancel immigration from now on if immigration module disabled
-      if(!imi){
-        fun_imi_neg <- fit_null(0)
-        fun_imi_pos <- fit_null(0)
-      }
-      
-      dae <- as.numeric(current_date - lubridate::ymd(emergence_date))
-      cc_p <- fun_cc(dae)
-      
       fun_dens_fecund <- fit_bannerman(10000 * area * cc_p, 0.0008)
     }
     else
@@ -298,6 +291,11 @@ endosim <- function(Pest,
     # daily immigration
     imi_adult_neg <- fun_imi_neg(t) * area
     imi_adult_pos <- fun_imi_pos(t) * area
+    
+    if(!imi){
+      imi_adult_neg <- round(imi_adult_neg * (1-cc_p), 0)
+      imi_adult_pos <- round(imi_adult_pos * (1-cc_p), 0)
+    }
     
     if(sum(imi_adult_neg, imi_adult_pos) > 0){
       # create new cohort
