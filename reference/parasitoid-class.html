@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EndoSim</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,14 @@
 <dd><p>Function describing handling rate as function of temperature</p></dd>
 
 
+<dt><code>introduction_date</code></dt>
+<dd><p>Date parasitoids are introduced in YYYY-MM-DD format</p></dd>
+
+
+<dt><code>introduction_n</code></dt>
+<dd><p>Number of adult parasitoids introduced (assumed to all be female)</p></dd>
+
+
 </dl></div>
 
     <div class="section level2">
@@ -74,7 +82,9 @@
 <span class="r-in"><span>            fun_dev_para <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_lactin.html">fit_lactin</a></span><span class="op">(</span><span class="fl">0.13048</span>, <span class="fl">7.64313</span>, <span class="op">-</span><span class="fl">0.01308</span>, <span class="fl">35.47</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            fun_para_scal <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_null.html">fit_null</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            fun_attack <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_thirdpoly.html">fit_thirdpoly</a></span><span class="op">(</span><span class="fl">0.00001084</span>, <span class="op">-</span><span class="fl">0.0021</span>, <span class="op">-</span><span class="fl">0.0272</span>, <span class="op">-</span><span class="fl">0.0145</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>            fun_handling <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_thirdpoly.html">fit_thirdpoly</a></span><span class="op">(</span><span class="fl">0.298</span>, <span class="fl">0.0035</span>, <span class="fl">0.000256</span>, <span class="fl">1.395</span>, inv <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            fun_handling <span class="op">=</span> <span class="fu">EndoSim</span><span class="fu">:::</span><span class="fu"><a href="fit_thirdpoly.html">fit_thirdpoly</a></span><span class="op">(</span><span class="fl">0.298</span>, <span class="fl">0.0035</span>, <span class="fl">0.000256</span>, <span class="fl">1.395</span>, inv <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>            introduction_date <span class="op">=</span> <span class="st">"2024-04-05"</span>,</span></span>
+<span class="r-in"><span>            introduction_n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Wasp</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "parasitoid"</span>
@@ -89,16 +99,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     output &lt;- ifelse(output &lt; 0, 0, output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555aa52f65e8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555aa9977088&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5637f0684798&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5637f40a3b18&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_para_scal":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(rep(output, length(x)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555aab6d9a10&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555aa9976de8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5637f5ed75f8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5637f40a7750&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_attack":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -108,8 +118,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>         output &lt;- 1/output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555aa95abd18&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555aa997a710&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5637f3da2ae8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5637f40bbab8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "fun_handling":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x) </span>
@@ -119,8 +129,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>         output &lt;- 1/output</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(output)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555aa95abd18&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555aa997a208&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5637f3da2ae8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5637f40c0590&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "introduction_date":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2024-04-05"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "introduction_n":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
