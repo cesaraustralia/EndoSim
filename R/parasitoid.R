@@ -7,6 +7,8 @@
 #' @slot fun_para_scal Function to modify development rate
 #' @slot fun_attack Function describing attack rate as function of temperature
 #' @slot fun_handling Function describing handling rate as function of temperature
+#' @slot introduction_date Date parasitoids are introduced in YYYY-MM-DD format
+#' @slot introduction_n Number of adult parasitoids introduced (assumed to all be female)
 #' 
 #' @examples 
 #' Wasp <- new("parasitoid",
@@ -14,7 +16,9 @@
 #'             fun_dev_para = EndoSim:::fit_lactin(0.13048, 7.64313, -0.01308, 35.47),
 #'             fun_para_scal = EndoSim:::fit_null(1),
 #'             fun_attack = EndoSim:::fit_thirdpoly(0.00001084, -0.0021, -0.0272, -0.0145),
-#'             fun_handling = EndoSim:::fit_thirdpoly(0.298, 0.0035, 0.000256, 1.395, inv = T))
+#'             fun_handling = EndoSim:::fit_thirdpoly(0.298, 0.0035, 0.000256, 1.395, inv = T),
+#'             introduction_date = "2024-04-05",
+#'             introduction_n = 5)
 #' 
 #' Wasp
 
@@ -23,5 +27,7 @@ methods::setClass("parasitoid",
                             fun_dev_para = "function",
                             fun_para_scal = "function",
                             fun_attack = "function",
-                            fun_handling = "function")
+                            fun_handling = "function",
+                            introduction_date = "character",
+                            introduction_n = "numeric")
 )

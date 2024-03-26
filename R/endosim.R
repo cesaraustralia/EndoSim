@@ -79,7 +79,7 @@ endosim <- function(Pest,
   
   if(!para){
     Parasitoid@'fun_para_scal' <- fit_null(0)
-    init@'Parasitoid' <- 0
+    Parasitoid@'introduction_n' <- 0
     warning("Parasitoids cancelled!")
   }
   
@@ -99,7 +99,8 @@ endosim <- function(Pest,
   sowing_date <- Crop@'sowing_date'
   emergence_date <- Crop@'emergence_date'
   harvest_date <- Crop@'harvest_date'
-  introduction_date <- Endosymbiont@'introduction_date'
+  pest_intro_date <- Endosymbiont@'introduction_date'
+  para_intro_date <- Parasitoid@'introduction_date'
   
   area <- init@'Crop'[[3]]/Crop@'density'
   
@@ -165,7 +166,7 @@ endosim <- function(Pest,
   crop_pop <- init@'Crop'
   
   # create initial vector of parasitoid population and array of parasitised cohorts
-  para_pop <- c(0, init@'Parasitoid')
+  para_pop <- c(0, 0)
   names(para_pop) <- c("mummies", "females")
   
   para_cohorts <- array(0,
@@ -200,7 +201,7 @@ endosim <- function(Pest,
   for (t in 1:sim_length){
     current_date <- lubridate::ymd(start_date) + lubridate::days(t)
     growth_season <- current_date %in% seq(lubridate::ymd(emergence_date), lubridate::ymd(harvest_date), "day")
-
+    
     # adjust carrying capacity if outside growth season
     dae <- as.numeric(current_date - lubridate::ymd(emergence_date))
     cc_p <- fun_cc(dae)
@@ -270,7 +271,7 @@ endosim <- function(Pest,
     
     # calculate how many new adults immigrate into population
     # introduction of R+
-    if(current_date == lubridate::ymd(introduction_date)){
+    if(current_date == lubridate::ymd(pest_intro_date)){
       # create new cohort
       new_cohort <- matrix(c(0, 0, introduction_n, 0,
                              rep(5, 4)),
@@ -374,6 +375,12 @@ endosim <- function(Pest,
     cohorts[, 1, ][sus_ala] <- cohorts[, 1, ][sus_ala] - new_inf_ala
     
     ## parasitism
+    
+    # introduction of parasitoids
+    if(current_date == lubridate::ymd(para_intro_date)){
+      para_pop[[2]] <- Parasitoid@'introduction_n'
+    }
+    
     # identify susceptible pests (instars 2-3)
     all_susc <- sum(cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))])
     
