@@ -18,7 +18,7 @@
 #' sowing_date = "2022-04-05",
 #' emergence_date = "2022-04-10",
 #' harvest_date = "2022-11-01",
-#' carrying_capacity = EndoSim::fit_sigmoid(1, 0.1, 80))
+#' carrying_capacity = EndoSim:::fit_sigmoid(1, 0.1, 80))
 #' 
 #' canola
 
