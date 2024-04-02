@@ -7,7 +7,7 @@
 #' @docType methods
 #' @rdname show-methods
 
-setGeneric("show", function(x) standardGeneric("show"))
+setGeneric("show", function(object) standardGeneric("show"))
 
 #' @docType methods
 #' @aliases show,endosim_mod,ANY-method

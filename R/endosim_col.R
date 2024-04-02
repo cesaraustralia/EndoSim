@@ -1,12 +1,12 @@
-#' An S4 class to store a collection of simulations with the Endosymbiont model
+#' An S4 class to store a collection of simulations with the endosymbiont model
 #' 
-#' @exportClass endosym_col
+#' @exportClass endosim_col
 #'
 #' @slot scenarios Dataframe defining which modules are active or deactivated in each simulated scenario
-#' @slot sims List of objects of class [endosym_mod-class], each corresponding to a row of \code{scenarios}
+#' @slot sims List of objects of class [endosim_mod-class], each corresponding to a row of \code{scenarios}
 
 
-methods::setClass("endosym_col",
+methods::setClass("endosim_col",
                   slots = c(scenarios = "data.frame",
                             sims = "list")
 )

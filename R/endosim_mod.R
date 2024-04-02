@@ -1,6 +1,6 @@
 #' An S4 class to store a simulation output
 #' 
-#' @exportClass endosym_mod
+#' @exportClass endosim_mod
 #'
 #' @slot pest name of the pest
 #' @slot crop name of the crop
@@ -18,7 +18,7 @@
 #' @slot para_df data.frame of parasitoid population through time
 #' @slot area area of crop (m2)
 
-methods::setClass("endosym_mod",
+methods::setClass("endosim_mod",
                   slots = c(pest = "character",
                             crop = "character",
                             endosymbiont = "character",

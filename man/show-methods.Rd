@@ -7,9 +7,9 @@
 \alias{show,endosim_mod,ANY-method}
 \title{Show method for S4 object of class endosim_mod}
 \usage{
-show(x)
+show(object)
 
-\S4method{show}{endosim_mod}(x)
+\S4method{show}{endosim_mod}(object)
 }
 \arguments{
 \item{object}{object of class \linkS4class{endosim_mod}}
