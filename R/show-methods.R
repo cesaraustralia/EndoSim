@@ -6,12 +6,7 @@
 #' @export
 #' @docType methods
 #' @rdname show-methods
-
-setGeneric("show", function(object) standardGeneric("show"))
-
-#' @docType methods
-#' @aliases show,endosim_mod,ANY-method
-#' @rdname show-methods
+#' @aliases show
 
 setMethod("show",
           "endosim_mod",
