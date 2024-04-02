@@ -48,7 +48,7 @@ endosim(
 \item{para}{set to \code{TRUE} to turn on parasitoids}
 }
 \value{
-object of class \code{endosym_mod}; see \linkS4class{endosym_mod}.
+object of class \code{endosim_mod}; see \linkS4class{endosim_mod}.
 }
 \description{
 Run simulation using the endosymbiont model

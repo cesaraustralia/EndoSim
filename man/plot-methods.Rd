@@ -5,26 +5,26 @@
 \alias{plot}
 \alias{plot,sim_conds,missing-method}
 \alias{plot,sim_conds,missing,ANY-method}
-\alias{plot,endosym_mod,missing-method}
-\alias{plot,endosym_mod,missing,ANY-method}
-\alias{plot,endosym_col,missing-method}
-\alias{plot,endosym_col,missing,ANY-method}
+\alias{plot,endosim_mod,missing-method}
+\alias{plot,endosim_mod,missing,ANY-method}
+\alias{plot,endosim_col,missing-method}
+\alias{plot,endosim_col,missing,ANY-method}
 \alias{plot,pest,missing-method}
 \alias{plot,pest,missing,ANY-method}
-\title{Plot methods for S4 objects of class sim_conds, endosym_mod, endosym_col, and pest}
+\title{Plot methods for S4 objects of class sim_conds, endosim_mod, endosim_col, and pest}
 \usage{
 plot(x, y, ...)
 
 \S4method{plot}{sim_conds,missing}(x, y, ...)
 
-\S4method{plot}{endosym_mod,missing}(x, type = "pop_size", ...)
+\S4method{plot}{endosim_mod,missing}(x, type = "pop_size", ...)
 
-\S4method{plot}{endosym_col,missing}(x, y, ...)
+\S4method{plot}{endosim_col,missing}(x, y, ...)
 
 \S4method{plot}{pest,missing}(x, y, ...)
 }
 \arguments{
-\item{x}{S4 object of class \code{sim_conds} or \code{endosym_mod} or \code{endosym_col} or \code{pest}}
+\item{x}{S4 object of class \code{sim_conds} or \code{endosim_mod} or \code{endosim_col} or \code{pest}}
 
 \item{y}{from the generic \code{plot} function, ignored for EndoSim objects}
 
@@ -33,7 +33,7 @@ plot(x, y, ...)
 \item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}, \code{endosym_col} and \code{pest}}
 }
 \description{
-Plot methods for S4 objects of class sim_conds, endosym_mod, endosym_col, and pest
+Plot methods for S4 objects of class sim_conds, endosim_mod, endosim_col, and pest
 }
 \keyword{methods}
 \keyword{plot}

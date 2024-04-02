@@ -1,6 +1,6 @@
-#' Summary method for S4 object of class endosym_col
+#' Summary method for S4 object of class endosim_col
 #'
-#' @param x S4 object of class \code{endosym_col}
+#' @param x S4 object of class \code{endosim_col}
 #' @param ... Any other argument suitable for summary()
 #' 
 #' @keywords methods summary
@@ -11,11 +11,11 @@
 setGeneric("summary", function(x, ...) standardGeneric("summary"))
 
 #' @docType methods
-#' @aliases summary,endosym_col,missing,ANY-method
+#' @aliases summary,endosim_col,missing,ANY-method
 #' @rdname summary-methods
 
 setMethod("summary",
-          signature(x = "endosym_col"),
+          signature(x = "endosim_col"),
           
           function(x, ...) {
             

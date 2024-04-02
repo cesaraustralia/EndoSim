@@ -30,7 +30,7 @@ counterfact(
 \item{modules}{list of modules and scenarios to run, if \code{NULL} (default) all fixed to FALSE}
 }
 \value{
-object of class \code{endosym_col}; see \linkS4class{endosym_col}.
+object of class \code{endosim_col}; see \linkS4class{endosim_col}.
 }
 \description{
 Run multiple simulations of the endosymbiont model under different scenarios

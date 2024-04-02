@@ -1,15 +1,20 @@
-#' Show method for S4 object of class endosym_mod
+#' Show method for S4 object of class endosim_mod
 #' 
-#' @param object object of class [endosym_mod-class]
+#' @param object object of class [endosim_mod-class]
 #' 
 #' @keywords methods show
 #' @export
 #' @docType methods
 #' @rdname show-methods
-#' @aliases show
+
+setGeneric("show", function(x) standardGeneric("show"))
+
+#' @docType methods
+#' @aliases show,endosim_mod,ANY-method
+#' @rdname show-methods
 
 setMethod("show",
-          "endosym_mod",
+          "endosim_mod",
           
           function(object) {
             if(object@vert_trans)

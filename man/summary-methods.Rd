@@ -3,21 +3,21 @@
 \docType{methods}
 \name{summary}
 \alias{summary}
-\alias{summary,endosym_col-method}
-\alias{summary,endosym_col,missing,ANY-method}
-\title{Summary method for S4 object of class endosym_col}
+\alias{summary,endosim_col-method}
+\alias{summary,endosim_col,missing,ANY-method}
+\title{Summary method for S4 object of class endosim_col}
 \usage{
 summary(x, ...)
 
-\S4method{summary}{endosym_col}(x, ...)
+\S4method{summary}{endosim_col}(x, ...)
 }
 \arguments{
-\item{x}{S4 object of class \code{endosym_col}}
+\item{x}{S4 object of class \code{endosim_col}}
 
 \item{...}{Any other argument suitable for summary()}
 }
 \description{
-Summary method for S4 object of class endosym_col
+Summary method for S4 object of class endosim_col
 }
 \keyword{methods}
 \keyword{summary}

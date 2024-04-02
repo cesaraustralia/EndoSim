@@ -1,6 +1,6 @@
-#' Plot methods for S4 objects of class sim_conds, endosym_mod, endosym_col, and pest
+#' Plot methods for S4 objects of class sim_conds, endosim_mod, endosim_col, and pest
 #'
-#' @param x S4 object of class \code{sim_conds} or \code{endosym_mod} or \code{endosym_col} or \code{pest}
+#' @param x S4 object of class \code{sim_conds} or \code{endosim_mod} or \code{endosim_col} or \code{pest}
 #' @param y from the generic \code{plot} function, ignored for EndoSim objects
 #' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}, \code{endosym_col} and \code{pest}
 #' @param ... Any other argument suitable for plot()
@@ -50,11 +50,11 @@ setMethod("plot",
 )
 
 #' @docType methods
-#' @aliases plot,endosym_mod,missing,ANY-method
+#' @aliases plot,endosim_mod,missing,ANY-method
 #' @rdname plot-methods
 
 setMethod("plot",
-          signature(x = "endosym_mod", y = "missing"),
+          signature(x = "endosim_mod", y = "missing"),
           
           function(x, type = "pop_size", ...) {
             if(type == "pop_size") {
@@ -145,11 +145,11 @@ setMethod("plot",
 )
 
 #' @docType methods
-#' @aliases plot,endosym_col,missing,ANY-method
+#' @aliases plot,endosim_col,missing,ANY-method
 #' @rdname plot-methods
 
 setMethod("plot",
-          signature(x = "endosym_col", y = "missing"),
+          signature(x = "endosim_col", y = "missing"),
           
           function(x, ...) {
             all_scenarios <- lapply(1:dim(x@scenarios)[1],

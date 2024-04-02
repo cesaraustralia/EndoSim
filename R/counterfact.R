@@ -9,7 +9,7 @@
 #' @param init object of class \code{initial} defining the starting conditions for the simulation
 #' @param conds object of class \code{sim_conds} defining the simulation conditions
 #' @param modules list of modules and scenarios to run, if \code{NULL} (default) all fixed to FALSE
-#' @return object of class \code{endosym_col}; see [endosym_col-class].
+#' @return object of class \code{endosim_col}; see [endosim_col-class].
 #' @details
 #' Uses the [endosim] function to run simulations of the endosymbiont model. A basic null model is always run, without any modules. The provided [pest-class], [endosym-class], [crop-class],[parasitoid-class], [initial-class], and [sim_conds-class] objects are used to parameterise the simulation.
 #' 
@@ -55,7 +55,7 @@ counterfact <- function(Pest,
                        conds = conds,
                        plot = FALSE)
   
-  output <- new("endosym_col",
+  output <- new("endosim_col",
                 scenarios = modules_mat, 
                 sims = lapply(1:length(modules_vectors),
                               function(x){

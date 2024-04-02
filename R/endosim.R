@@ -15,7 +15,7 @@
 #' @param imi set to \code{TRUE} to turn on immigration into paddock
 #' @param emi set to \code{TRUE} to turn on emigration from paddock
 #' @param para set to \code{TRUE} to turn on parasitoids
-#' @return object of class \code{endosym_mod}; see [endosym_mod-class].
+#' @return object of class \code{endosim_mod}; see [endosim_mod-class].
 #' @details
 #' Constructs the endosymbiont model using the provided [pest-class], [endosym-class], [crop-class],[parasitoid-class], [initial-class], and [sim_conds-class] objects.
 #' 
@@ -602,7 +602,7 @@ endosim <- function(Pest,
     close(progress_bar)
   }
   
-  output <- new("endosym_mod",
+  output <- new("endosim_mod",
                 pest = Pest@species,
                 crop = Crop@name,
                 endosymbiont = Endosymbiont@name,
