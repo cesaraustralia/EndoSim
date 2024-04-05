@@ -1,0 +1,20 @@
+citHeader("To cite EndoSim in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Modelling the spread of a novel endosymbiont infection in field populations of an aphid pest",
+  author       = personList(as.person("Alex Slavenko"),
+                   as.person("Perran A Ross"),
+                   as.person("Luis Mata"),
+                   as.person("Ary A Hoffmann"),
+                   as.person("Paul A Umina")),
+  journal      = "",
+  year         = "in prep",
+  volume       = "",
+  number       = "",
+  pages        = "",
+  url          = "",
+
+  textVersion  =
+  paste("Alex Slavenko, Perran A Ross, Luis Mata, Ary A Hoffmann, Paul A Umina (in prep).",
+        "Modelling the spread of a novel endosymbiont infection in field populations of an aphid pest.")
+)
