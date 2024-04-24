@@ -21,7 +21,7 @@
 #'     fun_susc = EndoSim:::fit_custom(seq(0, 40, 4),
 #'       c(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.75, 0.6, 0.3, 0, 0),
 #'       k = 7),
-#'       introduction_date = "2024-04-05",
+#'       introduction_date = "2024-04-17",
 #'       introduction_n = 1000
 #'     )
 #' 

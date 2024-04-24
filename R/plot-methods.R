@@ -1,9 +1,9 @@
 #' Plot methods for S4 objects of class sim_conds, endosim_mod, endosim_col, and pest
 #'
-#' @param x S4 object of class \code{sim_conds} or \code{endosim_mod} or \code{endosim_col} or \code{pest}
+#' @param x S4 object of class [sim_conds-class] or [endosim_mod-class] or [endosim_col-class] or [pest-class]
 #' @param y from the generic \code{plot} function, ignored for EndoSim objects
-#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}, \code{endosym_col} and \code{pest}
-#' @param ... Any other argument suitable for plot()
+#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time, "para" to plot parasitoid populations through time; ignored for class [sim_conds], [endosym_col] and [pest]
+#' @param ... Any other argument suitable for \code{plot()}
 #' 
 #' @keywords methods plot
 #' @export
@@ -98,6 +98,9 @@ setMethod("plot",
             }
             
             if(type == "R+") {
+              if(!x@vert_trans & !x@hori_trans)
+                warning("Endosymbiont transmission modules are turned off!")
+              
               output <- x@pest_df %>%
                 tidyr::pivot_longer(cols = 2:11,
                                     names_to = "lifestage",
@@ -138,6 +141,30 @@ setMethod("plot",
                 ggplot2::scale_fill_viridis_d(name = "Lifestage") +
                 ggplot2::labs(x = "Day",
                               y = "Proportion of population")
+            }
+            
+            if(type == "para"){
+              if(!x@para)
+                warning("Parasitoid module is turned off!")
+              
+              output <- x@para_df %>%
+                tidyr::pivot_longer(cols = 2:3,
+                                    names_to = "lifestage",
+                                    values_to = "n") %>%
+                dplyr::group_by(t, lifestage) %>%
+                dplyr::summarise(n = sum(n)) %>%
+                dplyr::group_by(t) %>%
+                dplyr::mutate(tot = sum(n)/x@area) %>%
+                ggplot2::ggplot(ggplot2::aes(x = as.Date(t, origin = as.Date(x@start_date)), y = n)) +
+                ggplot2::geom_line(ggplot2::aes(colour = lifestage)) +
+                ggplot2::labs(x = "Date",
+                              y = "Density (per m2)") +
+                ggplot2::scale_colour_manual(
+                  values = c("darkred", "lightpink"),
+                  name = "",
+                  labels = c("Parasitoids", "Mummies")
+                ) +
+                ggplot2::theme_bw()
             }
             
             output

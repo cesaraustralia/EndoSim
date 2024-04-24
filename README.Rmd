@@ -49,13 +49,13 @@ A model simulation can be run by using the `endosim()` function. This function a
 
 1. **Pest**: object of class `pest()` – includes all the functions defining the pest’s population dynamics, including development, fecundity, mortality, and immigration and emigration.
 
-2. **Endosymbiont**: object of class `endosym()` – includes the endosymbiont’s fitness cost and functions defining horizontal transmission rates, as well as the date on initial introduction to the population and the number of infected individuals introduced.
+2. **Endosymbiont**: object of class `endosym()` – includes the endosymbiont’s fitness cost and functions defining horizontal transmission rates, as well as the date of initial introduction to the population and the number of infected individuals introduced.
 
-3. **Crop**: object of class `crop()` which includes the half-time of endosymbiont plant recovery, sowing, emergence and harvest dates, a function defining how pest carrying capacity changes based on time after crop emergence, and the crop density (in m^2^).
+3. **Crop**: object of class `crop()` - includes the half-time of endosymbiont plant recovery, sowing, emergence and harvest dates, a function defining how pest carrying capacity changes based on time after crop emergence, and the crop density (in m^2^).
 
-4. **Parasitoid**: object of class `parasitoid()` – includes all the functions defining the parasitoid’s population dynamics and behaviour, including development, attack rates and handling times.
+4. **Parasitoid**: object of class `parasitoid()` – includes all the functions defining the parasitoid’s population dynamics and behaviour, including development, attack rates and handling times, as well as the date of initial introduction to the population and the number of individuals introduced.
 
-5. **init**: object of class `initial()` – defining the initial numbers of R+ and R- pests and crops and adult parasitoids at the start of the simulations.
+5. **init**: object of class `initial()` – defining the numbers of crop plants, and R+ and R- pests at the start of the simulations.
 
 6. **conds**: object of class `sim_conds()` – defining the length of the simulation and environmental conditions (rainfall, min, max and mean temperature) in each daily timestep. Conditions for a given location can be generated with the `make_conds()` function, which accepts a start and end date for the simulation and GPS coordinates (in decimal degrees) of the location. Environmental data are then downloaded from [SILO](https://www.longpaddock.qld.gov.au/silo/) gridded daily climate surface layers (derived either by splining or kriging observational data from weather stations) and extracted for the required coordinates and dates.
 

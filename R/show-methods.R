@@ -1,15 +1,73 @@
-#' Show method for S4 object of class endosim_mod
+#' Show methods for S4 objects of class pest, endosym, crop, parasitoid, and endosim_mod
 #' 
-#' @param object object of class [endosim_mod-class]
+#' @param object S4 object of class [pest-class], [endosym-class], [crop-class], [parasitoid-class], or [endosim_mod-class]
 #' 
 #' @keywords methods show
 #' @export
 #' @docType methods
+#' @aliases show,pest,ANY-method
 #' @rdname show-methods
-#' @aliases show
 
 setMethod("show",
-          "endosim_mod",
+          signature(object = "pest"),
+          
+          function(object) {
+                      cat("Pest of the species ", object@species
+                      )
+          }
+)
+
+#' @docType methods
+#' @aliases show,endosym,ANY-method
+#' @rdname show-methods
+
+setMethod("show",
+          signature(object = "endosym"),
+          
+          function(object) {
+            cat("Endosymbiont of the species ", object@name, "\n",
+                "with a fitness cost of ", object@fitness_cost, "\n",
+                object@introduction_n, " infected individuals introduced on ", object@introduction_date
+            )
+          }
+)
+
+#' @docType methods
+#' @aliases show,crop,ANY-method
+#' @rdname show-methods
+
+setMethod("show",
+          signature(object = "crop"),
+          
+          function(object) {
+            cat(object@name, " crop sown on ", object@sowing_date, "\n",
+                "sown at a density of ", object@density, " plants per m2\n",
+                "emerging on ", object@emergence_date, " and harvested on ", object@harvest_date
+            )
+          }
+)
+
+#' @docType methods
+#' @aliases show,parasitoid,ANY-method
+#' @rdname show-methods
+
+setMethod("show",
+          signature(object = "parasitoid"),
+          
+          function(object) {
+            cat("Parasitoid of the species ", object@species, "\n",
+                "attacking pests of the following lifestages: ", object@susc_stage, "\n",
+                object@introduction_n, " individuals introduced on ", object@introduction_date
+            )
+          }
+)
+
+#' @docType methods
+#' @aliases show,endosim_mod,ANY-method
+#' @rdname show-methods
+
+setMethod("show",
+          signature(object = "endosim_mod"),
           
           function(object) {
             if(object@vert_trans)

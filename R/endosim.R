@@ -102,6 +102,8 @@ endosim <- function(Pest,
   pest_intro_date <- Endosymbiont@'introduction_date'
   para_intro_date <- Parasitoid@'introduction_date'
   
+  susc_stage <- Parasitoid@'susc_stage'
+  
   area <- init@'Crop'[[3]]/Crop@'density'
   
   introduction_n <- Endosymbiont@'introduction_n'
@@ -170,7 +172,7 @@ endosim <- function(Pest,
   names(para_pop) <- c("mummies", "females")
   
   para_cohorts <- array(0,
-                        dim = c(4, 2, 2),
+                        dim = c(4, 2, length(susc_stage)),
                         dimnames = list("pest_type" = c("pos_apt", "neg_apt", "pos_ala", "neg_ala"),
                                         "variable" = c("N", "lifestage"),
                                         "cohort_num" = c()
@@ -179,9 +181,9 @@ endosim <- function(Pest,
   
   active_para <- which(para_cohorts[, 1, ] > 0)
   
-  dev_para_cohorts <- matrix(rep(0, 8), ncol = 4)
+  dev_para_cohorts <- matrix(rep(0, 4 * length(susc_stage)), nrow = length(susc_stage))
   
-  para_ages <- matrix(rep(0, 8), nrow = 4)
+  para_ages <- matrix(rep(0, 4 * length(susc_stage)), ncol = length(susc_stage))
   
   para_df <- data.frame(t = 0,
                         mummies = 0,
@@ -381,8 +383,8 @@ endosim <- function(Pest,
       para_pop[[2]] <- Parasitoid@'introduction_n'
     }
     
-    # identify susceptible pests (instars 2-3)
-    all_susc <- sum(cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))])
+    # identify susceptible pests based on susceptible lifestages
+    all_susc <- sum(cohorts[, 1, ][which(cohorts[, 2, ] %in% susc_stage)])
     
     all_parasite <- para_pop[['females']]
     
@@ -395,37 +397,32 @@ endosim <- function(Pest,
     if(is.na(para_rate))
       para_rate <- 0
     
-    # calculate new parasitised cohort
     if(para_rate > 0){
       
-      new_para <- round(cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))] * para_rate / all_susc, 0)
+      new_para <- round(cohorts[, 1, ][which(cohorts[, 2, ] %in% susc_stage)] * para_rate / all_susc, 0)
       
-      new_para_cohort_n2 <- matrix(c(round(sum(new_para) * sum(cohorts[1, 1, ][which(cohorts[1, 2, ] == 2)]) / all_susc, 0),
-                                     round(sum(new_para) * sum(cohorts[2, 1, ][which(cohorts[2, 2, ] == 2)]) / all_susc, 0),
-                                     round(sum(new_para) * sum(cohorts[3, 1, ][which(cohorts[3, 2, ] == 2)]) / all_susc, 0),
-                                     round(sum(new_para) * sum(cohorts[4, 1, ][which(cohorts[4, 2, ] == 2)]) / all_susc, 0),
-                                     rep(2, 4)), ncol = 2)
-      
-      new_para_cohort_n3 <- matrix(c(round(sum(new_para) * sum(cohorts[1, 1, ][which(cohorts[1, 2, ] == 3)]) / all_susc, 0),
-                                     round(sum(new_para) * sum(cohorts[2, 1, ][which(cohorts[2, 2, ] == 3)]) / all_susc, 0),
-                                     round(sum(new_para) * sum(cohorts[3, 1, ][which(cohorts[3, 2, ] == 3)]) / all_susc, 0),
-                                     round(sum(new_para) * sum(cohorts[4, 1, ][which(cohorts[4, 2, ] == 3)]) / all_susc, 0),
-                                     rep(3, 4)), ncol = 2)
-      
-      para_cohorts <- abind::abind(para_cohorts,
-                                   new_para_cohort_n2,
-                                   new_para_cohort_n3,
-                                   along = 3)
+      # calculate new parasitised cohorts (iterate over all susceptible lifestages)
+      for(lifestage in susc_stage){
+        new_para_cohort <- matrix(c(round(sum(new_para) * sum(cohorts[1, 1, ][which(cohorts[1, 2, ] == lifestage)]) / all_susc, 0),
+                                    round(sum(new_para) * sum(cohorts[2, 1, ][which(cohorts[2, 2, ] == lifestage)]) / all_susc, 0),
+                                    round(sum(new_para) * sum(cohorts[3, 1, ][which(cohorts[3, 2, ] == lifestage)]) / all_susc, 0),
+                                    round(sum(new_para) * sum(cohorts[4, 1, ][which(cohorts[4, 2, ] == lifestage)]) / all_susc, 0),
+                                    rep(lifestage, 4)), ncol = 2)
+        
+        para_cohorts <- abind::abind(para_cohorts,
+                                     new_para_cohort,
+                                     along = 3) 
+      }
       
       dev_para_cohorts <- rbind(dev_para_cohorts,
-                                matrix(rep(0, 8), ncol = 4))
+                                matrix(rep(0, 4 * length(susc_stage)), nrow = length(susc_stage)))
       
       para_ages <- cbind(para_ages,
-                         matrix(rep(min(cohort_ages[which(cohorts[, 2, ] %in% c(2, 3))]), 8), nrow = 4))
+                         matrix(rep(min(cohort_ages[which(cohorts[, 2, ] %in% susc_stage)]), 4 * length(susc_stage)), ncol = length(susc_stage)))
       
       active_para <- which(para_cohorts[, 1, ] > 0)
       
-      cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))] <- cohorts[, 1, ][which(cohorts[, 2, ] %in% c(2, 3))] - new_para
+      cohorts[, 1, ][which(cohorts[, 2, ] %in% susc_stage)] <- cohorts[, 1, ][which(cohorts[, 2, ] %in% susc_stage)] - new_para
     }
     
     ## mortality

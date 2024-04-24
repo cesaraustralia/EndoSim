@@ -24,13 +24,13 @@ plot(x, y, ...)
 \S4method{plot}{pest,missing}(x, y, ...)
 }
 \arguments{
-\item{x}{S4 object of class \code{sim_conds} or \code{endosim_mod} or \code{endosim_col} or \code{pest}}
+\item{x}{S4 object of class \linkS4class{sim_conds} or \linkS4class{endosim_mod} or \linkS4class{endosim_col} or \linkS4class{pest}}
 
 \item{y}{from the generic \code{plot} function, ignored for EndoSim objects}
 
-\item{...}{Any other argument suitable for plot()}
+\item{...}{Any other argument suitable for \code{plot()}}
 
-\item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time; ignored for class \code{sim_conds}, \code{endosym_col} and \code{pest}}
+\item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time, "para" to plot parasitoid populations through time; ignored for class \link{sim_conds}, \link{endosym_col} and \link{pest}}
 }
 \description{
 Plot methods for S4 objects of class sim_conds, endosim_mod, endosim_col, and pest

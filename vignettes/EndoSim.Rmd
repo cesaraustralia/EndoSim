@@ -1,0 +1,272 @@
+---
+title: "EndoSim"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{EndoSim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(EndoSim)
+```
+
+This vignette will show you how to set up and run a simulation using EndoSim. The inputs for a simulation can be quite complicated, and may require a lot of data to properly parameterise. We therefore recommended using the examples in this vignette if you are running simulations using already included pest, endosymbiont, and parasitoid species. However, feel free to experiment with different functions and parameters to explore how they affect simulation outputs and to familiarise yourself with the package and its use.
+
+## Setting up simulation inputs
+
+The first thing we'll need to do is set up the simulation inputs. In order to run a simulation using the EndoSim model, we will need the following objects:
+
+### 1. **Pest**
+
+A `pest()` objects includes all the functions defining the pest’s population dynamics, including development, fecundity, mortality, and immigration and emigration. The example pest included in the package is the green peach aphid, *Myzus persicae*. We can load this pest by running the following chunk:
+
+```{r pest-load}
+data(GPA)
+
+GPA
+```
+
+The functions included for this species are based on extensive literature on the species' biology, and so we recommend not changing these unless you wish to create a new pest object with different functional responses or parameters.
+
+With a pest species you can easily visualise the various functional responses by using the generic `plot()` function:
+
+```{r pest-plot, fig.dim = c(10,8)}
+plot(GPA)
+```
+
+### 2. **Crop**
+
+A `crop()` object includes the half-time of endosymbiont plant recovery, sowing, emergence and harvest dates, a function defining how pest carrying capacity changes based on time after crop emergence, and the crop density (in m^2^). The example crop included in the package is canola. However, you may still want to adjust many of the parameters based on the agronomical context in which you are running your simulation.
+
+```{r crop-load}
+data(Canola)
+
+Canola
+```
+
+### 3. **Endosymbiont**
+
+An `endosym()` object includes the endosymbiont’s fitness cost and functions defining horizontal transmission rates. However, it also includes the date of initial introduction to the population and the number of infected individuals introduced - you may want to adjust these based on the simulation you're running. The example endosymbiont included in the package is *Rickettsiella*. We can load this pest by running the following chunk:
+
+```{r endosym-load}
+data(Rickettsiella)
+
+Rickettsiella
+```
+
+In this example, R+ individuals (infected with the endosymbiont) are timed to release a week following crop emergence.
+
+### 4. **Parasitoid**
+
+A `parasitoid()` objects includes all the functions defining the parasitoid’s population dynamics and behaviour, including development, attack rates and handling times, as well as arguments defining which lifestages of the pest are susceptible to attack, the date of initial introduction to the population and the number of individuals introduced - you may want to adjust these based on the simulation you're running. The susceptible lifestages might also change based on the pest you are using. The example parasitoid included in the package is *Diaeretiella rapae*, which mainly attacks 2^nd^ and 3^rd^ instars of *Myzus persicae*. We can load this parasitoid by running the following chunk:
+
+```{r parasitoid-load}
+data(DR)
+
+DR
+```
+
+In this example, introduction of parasitoids is timed to occur three days after the release of R+ aphids.
+
+### 5. **conds**
+
+A `sim_conds()` object defines the length of the simulation and environmental conditions (rainfall, min, max and mean temperature) in each daily timestep. An example object, for Aroonda during the growing season of 2022, is attached as an example:
+
+```{r conds-load}
+data(Aroonda)
+
+Aroonda@sim_length
+
+Aroonda@start_date
+```
+
+Note the start date - in this example we begin the simulation prior to crop sowing and emergence.
+
+The key slot in the `sim_conds()` object is `env`, a dataframe defining the environmental conditions in each day of the simulations:
+
+```{r conds-explore, fig.dim = c(6,4), warning = FALSE}
+# glimpse the environmnetal conditions dataframe
+head(Aroonda@env)
+
+# plot the conditions throughout the simulations
+plot(Aroonda)
+```
+
+A `sim_conds()` object can be defined manually, using your own sourced or simulated environmental data. If you wish to run a simulation within Australia, the `make_conds()` function can be used to generate a `sim_conds()` object for any given locality in Australia. Data are sourced from SILO based on the provided coordinates and start and end dates. Note that SILO data are extrapolated from weather stations, and may not be necessarily representative of microclimatic conditions in your location. If you wish to use microclimatic data, we suggest using other resources such as the [NicheMapR](https://mrke.github.io/models/MicroClimate-Models) package.
+
+### 6. **init**
+
+Finally, the `initial()` object needs to be set up to define the initial numbers of R+ and R- pests and crops at the start of the simulations. The `Crop` slot is very easy to set up - this is simply a numeric vector of length 3, where the first element is the proportion of plants uninfected with the endosymbiont (should usually be 1), the second element is proportion of plants infected with the endosymbiont (should usually be 0), and third element is the total number of plants:
+
+```{r init-setup-1}
+crop.init <- c(1,
+               0,
+               100)
+```
+
+When running the simulation using the `EndoSim()` function, it will internally calculate the area of your plot based on the provided number of plants in the `initial()` object and the provided plant density in the `Crop()` object.
+
+Next, you will need to set up the initial pest population structure, which is defined using an array. The first dimension of the array contains four indices and represents the "type" of the pest in each cohort, *i.e.* whether it is infected with the endosymbiont or not, and whether it is apterae or alate (or destined to become one if the cohort is still nymphal). The second dimension contains two indices and represents the two variables that are tracked in each cohort: the number of individuals of each type (N) and the lifestage they are in (ranging from 1 to 5, which for *Myzus persicae* represents four instars and the adult stage). The third dimension represents the cohort number.
+
+The initial array needs to be set up with 5 indices in the third dimension, *i.e.* with the following dimensions: `c(4, 2, 5)`. This way, each cohort represents a different lifestage, and the initial array represents the numbers of aphids in each life stage. Here is an example of how to set up an initial population of 5 aphids of each instar and 80 adults, without any infected individuals and with an alate proportion of 20%:
+
+```{r init-setup-2}
+# create empty array:
+pest.init <- array(NA,
+                 dim = c(4, 2, 5),
+                 dimnames = list("pest_type" = c("pos_apt", "neg_apt", "pos_ala", "neg_ala"),
+                                 "variable" = c("N", "lifestage"),
+                                 "cohort_num" = c()
+                 )
+)
+
+# populate cohorts:
+pest.init[, , 1] <- matrix(c(0, 4, 0, 1,
+                           1, 1, 1, 1),
+                         ncol = 2)
+pest.init[, , 2] <- matrix(c(0, 4, 0, 1,
+                           2, 2, 2, 2),
+                         ncol = 2)
+pest.init[, , 3] <- matrix(c(0, 4, 0, 1,
+                           3, 3, 3, 3),
+                         ncol = 2)
+pest.init[, , 4] <- matrix(c(0, 4, 0, 1,
+                           4, 4, 4, 4),
+                         ncol = 2)
+pest.init[, , 5] <- matrix(c(0, 64, 0, 16,
+                           5, 5, 5, 5),
+                         ncol = 2)
+
+# combine to create an initial object
+init <- new("initial",
+            Pest = pest.init,
+            Crop = crop.init)
+```
+
+You may want to experiment widely with different initial population sizes, since they can have a large impact on the simulation output. If your simulation begins before crop emergence (as the one in this vignette does) we suggest setting an initial population size of 0 aphids, since without emerged crops there should be nothing to feed on:
+
+```{r init-setup-3}
+# change all N values to 0
+init@Pest[, 1, ] <- 0
+```
+
+Don't worry - the model includes a low immigration rate prior to crop emergence even if the immigration module is turned off, to represent incoming aphids from nearby green bridges or crops. This means that your simulation won't die off prior to crop emergence, when carrying capacity begins to increase in the crop and aphid populations can establish.
+
+## Running a simulation
+
+Now that we've set up all of our input objects, we can run a simulation. For this example we will turn off immigration and emigration, but allow vertical and horizontal transmission of the endosymbiont, as well as the parasitoid module. This is done using logical arguments in the function. Note we will also set `plot = TRUE` so that the generic plot showing the pest population dynamics is generated.
+
+```{r sim, fig.dim = c(6,4)}
+model <- endosim(Pest = GPA,
+                 Endosymbiont = Rickettsiella,
+                 Crop = Canola,
+                 Parasitoid = DR,
+                 init = init,
+                 conds = Aroonda,
+                 plot = TRUE,
+                 progress = FALSE,
+                 imi = FALSE,
+                 emi = FALSE,
+                 vert_trans = TRUE,
+                 hori_trans = TRUE,
+                 para = TRUE)
+```
+
+### Examining results
+
+We have several handy helper functions to explore the results of a simulation. First, we can print the model and use a `summary()` function to view some simple summary data about the simulation, including the mean daily number of aphids, the maximal number at any time during the simulation and the date when the maximum was reached, as well as the simulation length and end date (especially useful if the simulation died out before reaching the pre-determined end date):
+
+```{r sim-summary}
+model
+
+summary(model)
+```
+
+Besides the default plot showing the population dynamics of R+ and R- aphids, we have additional plotting options to explore the model more in depth. This is done by changing the `type` argument of the `plot()` function.
+
+```{r sim-plot-1, fig.dim = c(6,4)}
+plot(model, type = "R+")
+```
+
+This plot shows us the proportion of R+ individuals in the simulation at any given time. This is useful if we want to track how well the endosymbiont infection spreads. We can see that in this example, after the initial introduction, there is initially a sharp decrease in *Rickettsiella* prevalence in the population, but this is quickly counteracted and the infection actually achieves fixation before the population collapses.
+
+We may also want to explore the aphid demographics more in depth:
+
+```{r sim-plot-2, fig.dim = c(6,4)}
+plot(model, type = "demo")
+```
+
+This plot shows us the proportions of aphids of different lifestages in the population at any given time. We can see there are large fluctuations in the proportion - while the proportion of adults generally decreases (which is what also leads to the final population collpase), there is a fluctation between periods of many 2^nd^ and 3^rd^ stars and periods of a majority of 1^st^ instars.
+
+To see why, we can explore the final plot type, of the parasitoid demographics:
+
+```{r sim-plot-3, fig.dim = c(6,4)}
+plot(model, type = "para")
+```
+
+We can see here that the demographic fluctations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so they quickly disappear whenever a new cohort of adult wasps emerges. This leaves mostly the 1^st^ instar aphids, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
+
+Note that in this plot we also see the expected population trend in parasitoid populations - many mummies are generated once wasps are released or emerge. Their number steadily drops due to mortality, before a massive spike due to emergence of a new cohort of wasps. This continues rhythmically until the end of the simulation.
+
+## Comparing scenarios
+
+The final functionality we will explore in this vignette is how to compare multiple scenarios with different modules. This is done using the `counterfact()` function, which allows for the definition of counterfactual simulations using a series of logical arguments.
+
+In this example, we will still keep immigration and emigration switched off, but will explore the impact of turning on or off the two transmission modules and the parasitism module. This is how the function is set up:
+
+```{r counter, echo = FALSE, warning = FALSE}
+model_all <- counterfact(Pest = GPA,
+                         Endosymbiont = Rickettsiella,
+                         Crop = Canola,
+                         Parasitoid = DR,
+                         init = init,
+                         conds = Aroonda,
+                         modules = list(vert_trans = c(FALSE, TRUE),
+                                        hori_trans = c(FALSE, TRUE),
+                                        imi = FALSE,
+                                        emi = FALSE,
+                                        para = c(FALSE, TRUE)))
+```
+
+We can then use the `summary()` function to compare our simple model outputs between the different scenarios:
+
+```{r counter-summary}
+summary(model_all)
+```
+
+Or, if we want to compare the total population trajectories to see how the aphid populations fare under the different modelled scenarios, we can plot a summary figure:
+
+```{r counter-plot, fig.dim = c(6,4)}
+plot(model_all)
+```
+
+Finally, if we want to explore individual models as we did above, we can do that easily by just extracting them from the `endosim_col()` object:
+
+```{r counter-explore-1, fig.dim = c(6,8)}
+# from the summary table, we can see that model no. 1 includes no transmission or parasitoids:
+model_all@sims[[1]]
+
+# aphid populations
+plot(model_all@sims[[1]])
+```
+
+We see that in this "baseline" model, the population actually persists throughout the simulation. As expected with no transmission or parasitoid modules, the *Rickettsiella* infection rapidly disappears from the population, the aphid demographics are a lot more balanced, and there are no parasitoids or mummies:
+
+```{r counter-explore-2, fig.dim = c(6,4), warning = FALSE}
+# infection dynamics
+plot(model_all@sims[[1]], type = "R+")
+
+# demographics
+plot(model_all@sims[[1]], type = "demo")
+
+# parasitoids
+plot(model_all@sims[[1]], type = "para")
+```

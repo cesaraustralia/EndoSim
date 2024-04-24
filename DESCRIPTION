@@ -1,10 +1,10 @@
 Package: EndoSim
 Title: Run simulations using the AGPIP Endosymbiont Model
-Version: 0.0.5.2
+Version: 0.0.5.3
 Authors@R: 
     person("Alex", "Slavenko", , "aslavenko@cesaraustralia.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3265-7715"))
-Description: TBA.
+Description: A package to set up an run simulations of pest dynamics under different IPM management strategies. The main utility is running simulations of endosymbionts with deleterious effects, but other IPM modules can be added.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -24,5 +24,8 @@ Imports:
     tidyr (>= 1.2.1),
     utils (>= 4.2.1)
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.1.4)
 URL: https://cesaraustralia.github.io/EndoSim/
+VignetteBuilder: knitr
