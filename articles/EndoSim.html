@@ -428,7 +428,19 @@ of counterfactual simulations using a series of logical arguments.</p>
 switched off, but will explore the impact of turning on or off the two
 transmission modules and the parasitism module. This is how the function
 is set up:</p>
-<pre><code><span><span class="co">#&gt; [1] "Running 8 counterfactual simulations"</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/counterfact.html">counterfact</a></span><span class="op">(</span>Pest <span class="op">=</span> <span class="va">GPA</span>,</span>
+<span>                         Endosymbiont <span class="op">=</span> <span class="va">Rickettsiella</span>,</span>
+<span>                         Crop <span class="op">=</span> <span class="va">Canola</span>,</span>
+<span>                         Parasitoid <span class="op">=</span> <span class="va">DR</span>,</span>
+<span>                         init <span class="op">=</span> <span class="va">init</span>,</span>
+<span>                         conds <span class="op">=</span> <span class="va">Aroonda</span>,</span>
+<span>                         modules <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>vert_trans <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                                        hori_trans <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                                        imi <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                        emi <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                        para <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Running 8 counterfactual simulations"</span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
 <span><span class="co">#&gt; ================================================================================</span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
@@ -448,7 +460,7 @@ is set up:</p>
 <span><span class="co">#&gt; =====================================================[1] "Population died out at time 142; simulation ended"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; ============================================================[1] "Population died out at time 160; simulation ended"</span></span></code></pre>
+<span><span class="co">#&gt; ============================================================[1] "Population died out at time 160; simulation ended"</span></span></code></pre></div>
 <p>We can then use the <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> function to compare our
 simple model outputs between the different scenarios:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
