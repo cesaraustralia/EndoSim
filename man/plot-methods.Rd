@@ -30,7 +30,7 @@ plot(x, y, ...)
 
 \item{...}{Any other argument suitable for \code{plot()}}
 
-\item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time, "para" to plot parasitoid populations through time; ignored for class \link{sim_conds}, \link{endosym_col} and \link{pest}}
+\item{type}{"pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time, "para" to plot parasitoid populations through time; ignored for class \linkS4class{sim_conds}, \linkS4class{endosim_col} and \linkS4class{pest}}
 }
 \description{
 Plot methods for S4 objects of class sim_conds, endosim_mod, endosim_col, and pest
