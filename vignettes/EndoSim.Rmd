@@ -222,7 +222,7 @@ The final functionality we will explore in this vignette is how to compare multi
 
 In this example, we will still keep immigration and emigration switched off, but will explore the impact of turning on or off the two transmission modules and the parasitism module. This is how the function is set up:
 
-```{r counter, echo = FALSE, warning = FALSE}
+```{r counter, warning = FALSE}
 model_all <- counterfact(Pest = GPA,
                          Endosymbiont = Rickettsiella,
                          Crop = Canola,

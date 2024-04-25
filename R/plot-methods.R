@@ -2,7 +2,7 @@
 #'
 #' @param x S4 object of class [sim_conds-class] or [endosim_mod-class] or [endosim_col-class] or [pest-class]
 #' @param y from the generic \code{plot} function, ignored for EndoSim objects
-#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time, "para" to plot parasitoid populations through time; ignored for class [sim_conds], [endosym_col] and [pest]
+#' @param type "pop_size" (default) to plot population sizes through time, "R+" to plot proportion of R+ through time, "demo" to plot proportion of population by lifestage through time, "para" to plot parasitoid populations through time; ignored for class [sim_conds-class], [endosim_col-class] and [pest-class]
 #' @param ... Any other argument suitable for \code{plot()}
 #' 
 #' @keywords methods plot
