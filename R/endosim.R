@@ -259,7 +259,7 @@ endosim <- function(Pest,
     active_para <- which(para_cohorts[, 1, ] > 0)
     
     # identify which parasitised pests have become mummies
-    mummies <- which(dev_para_cohorts >= 0.6)
+    mummies <- which(t(dev_para_cohorts) >= 0.6)
     mummies <- mummies[which(mummies %in% active_para)]
     
     para_pop[['mummies']] <- sum(para_cohorts[, 1, ][mummies])
@@ -562,21 +562,24 @@ endosim <- function(Pest,
     pos_pops <- rbind(t(cohorts[1, , ]), t(cohorts[3, , ]))
     neg_pops <- rbind(t(cohorts[2, , ]), t(cohorts[4, , ]))
     
-    pos_para <- rbind(t(para_cohorts[1, , ]), t(para_cohorts[3, , ]))
-    neg_para <- rbind(t(para_cohorts[2, , ]), t(para_cohorts[4, , ]))
+    para_cohorts_nomum <- para_cohorts
+    para_cohorts_nomum[, 1, ][mummies] <- 0
+    
+    pos_para <- rbind(t(para_cohorts_nomum[1, , ]), t(para_cohorts_nomum[3, , ]))
+    neg_para <- rbind(t(para_cohorts_nomum[2, , ]), t(para_cohorts_nomum[4, , ]))
     
     pest_pop <- rbind(pest_pop,
                       c(t,
-                        sum(pos_pops[which(pos_pops[, 2] == 1), 1], na.rm = T),
-                        sum(neg_pops[which(neg_pops[, 2] == 1), 1], na.rm = T),
+                        sum(pos_pops[which(pos_pops[, 2] == 1), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 1), 1], na.rm = T),
+                        sum(neg_pops[which(neg_pops[, 2] == 1), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 1), 1], na.rm = T),
                         sum(pos_pops[which(pos_pops[, 2] == 2), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 2), 1], na.rm = T),
                         sum(neg_pops[which(neg_pops[, 2] == 2), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 2), 1], na.rm = T),
                         sum(pos_pops[which(pos_pops[, 2] == 3), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 3), 1], na.rm = T),
                         sum(neg_pops[which(neg_pops[, 2] == 3), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 3), 1], na.rm = T),
-                        sum(pos_pops[which(pos_pops[, 2] == 4), 1], na.rm = T),
-                        sum(neg_pops[which(neg_pops[, 2] == 4), 1], na.rm = T),
-                        sum(pos_pops[which(pos_pops[, 2] == 5), 1], na.rm = T),
-                        sum(neg_pops[which(neg_pops[, 2] == 5), 1], na.rm = T)))
+                        sum(pos_pops[which(pos_pops[, 2] == 4), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 4), 1], na.rm = T),
+                        sum(neg_pops[which(neg_pops[, 2] == 4), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 4), 1], na.rm = T),
+                        sum(pos_pops[which(pos_pops[, 2] == 5), 1], na.rm = T) + sum(pos_para[which(pos_para[, 2] == 5), 1], na.rm = T),
+                        sum(neg_pops[which(neg_pops[, 2] == 5), 1], na.rm = T) + sum(neg_para[which(neg_para[, 2] == 5), 1], na.rm = T)))
     
     para_df <- rbind(para_df,
                      c(t = t,

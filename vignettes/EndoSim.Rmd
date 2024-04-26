@@ -204,7 +204,7 @@ We may also want to explore the aphid demographics more in depth:
 plot(model, type = "demo")
 ```
 
-This plot shows us the proportions of aphids of different lifestages in the population at any given time. We can see there are large fluctuations in the proportion - while the proportion of adults generally decreases (which is what also leads to the final population collpase), there is a fluctation between periods of many 2^nd^ and 3^rd^ stars and periods of a majority of 1^st^ instars.
+This plot shows us the proportions of aphids of different lifestages in the population at any given time. We can see that while the proportion of adults generally decreases (which is what also leads to the final population collpase), there are weird fluctations in the proportions 2^nd^ and 3^rd^ stars, rather than a smooth transition between instars.
 
 To see why, we can explore the final plot type, of the parasitoid demographics:
 
@@ -212,9 +212,9 @@ To see why, we can explore the final plot type, of the parasitoid demographics:
 plot(model, type = "para")
 ```
 
-We can see here that the demographic fluctations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so they quickly disappear whenever a new cohort of adult wasps emerges instead of growing to 4^th^ instar. This leaves mostly the 1^st^ instar aphids, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
+We can see here that the demographic fluctations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so a large portion of them "disappears" whenever a new cohort of adult wasps emerges instead of growing to 4^th^ instar. This leaves mostly 1^st^ instar aphids and the few uninfected 2^nd^ and 3^rd^ instars, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
 
-Note that in this plot we also see the expected population trend in parasitoid populations - many mummies are generated once wasps are released or emerge. Their number steadily drops due to mortality, before a massive spike due to emergence of a new cohort of wasps. This continues rhythmically until the end of the simulation.
+Note that in this plot we also see the expected population trend in parasitoid populations - once wasps are released or emerge, adn after a certain time lag, there is a spike in the number of mummies as the parasitoid larvae complete development. The number of mummies steadily drops due to mortality, before a massive drop to 0 due to emergence of a new cohort of wasps. This continues rhythmically until the end of the simulation.
 
 ## Comparing scenarios
 
