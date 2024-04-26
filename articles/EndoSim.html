@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">EndoSim</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -358,7 +358,7 @@ date):</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   mean_aphid aphid_peak  peak_date sim_length   end_date</span></span>
-<span><span class="co">#&gt; 1   12.79186       2916 2022-05-10        112 2022-07-22</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   12.57558       2909 2022-05-11        112 2022-07-22</span></span></code></pre></div>
 <p>Besides the default plot showing the population dynamics of R+ and R-
 aphids, we have additional plotting options to explore the model more in
 depth. This is done by changing the <code>type</code> argument of the
@@ -378,12 +378,11 @@ population collapses.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="st">"demo"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EndoSim_files/figure-html/sim-plot-2-1.png" width="576"></p>
 <p>This plot shows us the proportions of aphids of different lifestages
-in the population at any given time. We can see there are large
-fluctuations in the proportion - while the proportion of adults
-generally decreases (which is what also leads to the final population
-collpase), there is a fluctation between periods of many 2<sup>nd</sup>
-and 3<sup>rd</sup> stars and periods of a majority of 1<sup>st</sup>
-instars.</p>
+in the population at any given time. We can see that while the
+proportion of adults generally decreases (which is what also leads to
+the final population collpase), there are weird fluctations in the
+proportions 2<sup>nd</sup> and 3<sup>rd</sup> stars, rather than a
+smooth transition between instars.</p>
 <p>To see why, we can explore the final plot type, of the parasitoid
 demographics:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -392,18 +391,21 @@ demographics:</p>
 <p>We can see here that the demographic fluctations match really well
 with the parasitoid populations, which makes sense - <em>Diaeretiella
 rapae</em> targets 2<sup>nd</sup> and 3<sup>rd</sup> instars of
-<em>Myzus persicae</em> and so they quickly disappear whenever a new
-cohort of adult wasps emerges instead of growing to 4<sup>th</sup>
-instar. This leaves mostly the 1<sup>st</sup> instar aphids, and the
-population never grows fast enough for many aphids to reach adulthood,
-at least partly due to the reduced fitness caused by the
+<em>Myzus persicae</em> and so a large portion of them “disappears”
+whenever a new cohort of adult wasps emerges instead of growing to
+4<sup>th</sup> instar. This leaves mostly 1<sup>st</sup> instar aphids
+and the few uninfected 2<sup>nd</sup> and 3<sup>rd</sup> instars, and
+the population never grows fast enough for many aphids to reach
+adulthood, at least partly due to the reduced fitness caused by the
 <em>Rickettsiella</em> infection. This leads to the final population
 collapse we see at the end of the simulation.</p>
 <p>Note that in this plot we also see the expected population trend in
-parasitoid populations - many mummies are generated once wasps are
-released or emerge. Their number steadily drops due to mortality, before
-a massive spike due to emergence of a new cohort of wasps. This
-continues rhythmically until the end of the simulation.</p>
+parasitoid populations - once wasps are released or emerge, adn after a
+certain time lag, there is a spike in the number of mummies as the
+parasitoid larvae complete development. The number of mummies steadily
+drops due to mortality, before a massive drop to 0 due to emergence of a
+new cohort of wasps. This continues rhythmically until the end of the
+simulation.</p>
 </div>
 </div>
 <div class="section level2">
@@ -460,10 +462,10 @@ simple model outputs between the different scenarios:</p>
 <span><span class="co">#&gt; 2       TRUE      FALSE FALSE FALSE FALSE   13.44314       3024 2022-05-12</span></span>
 <span><span class="co">#&gt; 3      FALSE       TRUE FALSE FALSE FALSE   35.13837      10394 2022-10-04</span></span>
 <span><span class="co">#&gt; 4       TRUE       TRUE FALSE FALSE FALSE   13.00298       2901 2022-05-10</span></span>
-<span><span class="co">#&gt; 5      FALSE      FALSE FALSE FALSE  TRUE   19.35303       5809 2022-06-09</span></span>
-<span><span class="co">#&gt; 6       TRUE      FALSE FALSE FALSE  TRUE   13.53657       3034 2022-05-12</span></span>
-<span><span class="co">#&gt; 7      FALSE       TRUE FALSE FALSE  TRUE   19.27109       5247 2022-06-08</span></span>
-<span><span class="co">#&gt; 8       TRUE       TRUE FALSE FALSE  TRUE   12.79186       2916 2022-05-10</span></span>
+<span><span class="co">#&gt; 5      FALSE      FALSE FALSE FALSE  TRUE   19.01378       5722 2022-06-09</span></span>
+<span><span class="co">#&gt; 6       TRUE      FALSE FALSE FALSE  TRUE   13.28130       3028 2022-05-12</span></span>
+<span><span class="co">#&gt; 7      FALSE       TRUE FALSE FALSE  TRUE   18.94011       5162 2022-06-09</span></span>
+<span><span class="co">#&gt; 8       TRUE       TRUE FALSE FALSE  TRUE   12.57558       2909 2022-05-11</span></span>
 <span><span class="co">#&gt;   sim_length   end_date</span></span>
 <span><span class="co">#&gt; 1        214 2022-11-01</span></span>
 <span><span class="co">#&gt; 2        120 2022-07-30</span></span>
