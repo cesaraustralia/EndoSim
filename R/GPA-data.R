@@ -10,7 +10,7 @@
 #' \code{alate_flight} Placeholder \cr
 #' \code{fun_dev_apt} fitted using [fit_wang] with parameters from Barton et al. 2021 \cr
 #' \code{fun_dev_ala} fitted using [fit_wang] with parameters from Barton et al. 2021 \cr
-#' \code{fun_imi_neg} fitted using [fit_imi_barton] to describe constant immigration of 5 adults from background population \cr
+#' \code{fun_imi_neg} fitted using [fit_imi_barton] to describe constant immigration of 50 adults from background population \cr
 #' \code{fun_imi_pos} fitted using [fit_null] to describe no new introductions of R+ adult \cr
 #' \code{fun_emi} fitted using [fit_emi_thack] to describe a constant emigration rate based on Thackray et al. 2004 \cr
 #' \code{fun_temp_loss} fitted using [fit_supergaus] with parameters from Barton et al. 2021 \cr

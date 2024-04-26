@@ -196,7 +196,7 @@ Besides the default plot showing the population dynamics of R+ and R- aphids, we
 plot(model, type = "R+")
 ```
 
-This plot shows us the proportion of R+ individuals in the simulation at any given time. This is useful if we want to track how well the endosymbiont infection spreads. We can see that in this example, after the initial introduction, there is initially a sharp decrease in *Rickettsiella* prevalence in the population, but this is quickly counteracted and the infection actually achieves fixation before the population collapses.
+This plot shows us the proportion of R+ individuals in the simulation at any given time. This is useful if we want to track how well the endosymbiont infection spreads. We can see that in this example, after the initial introduction, there is a steady increase in *Rickettsiella* prevalence in the population until the infection achieves fixation before the population collapses.
 
 We may also want to explore the aphid demographics more in depth:
 
@@ -258,7 +258,7 @@ model_all@sims[[1]]
 plot(model_all@sims[[1]])
 ```
 
-We see that in this "baseline" model, the population actually persists throughout the simulation. As expected with no transmission or parasitoid modules, the *Rickettsiella* infection rapidly disappears from the population, the aphid demographics are a lot more balanced, and there are no parasitoids or mummies:
+We see that in this "baseline" model, the population actually persists throughout the simulation and we get the expected almost bimodal distribution - a population peak at the start of the season, and a second one towards the end. As expected with no transmission or parasitoid modules, the *Rickettsiella* infection rapidly disappears from the population, the aphid demographics are a lot more balanced, and there are no parasitoids or mummies:
 
 ```{r counter-explore-2, fig.dim = c(6,4), warning = FALSE}
 # infection dynamics
