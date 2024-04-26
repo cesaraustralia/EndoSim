@@ -192,7 +192,7 @@ summary(model)
 
 Besides the default plot showing the population dynamics of R+ and R- aphids, we have additional plotting options to explore the model more in depth. This is done by changing the `type` argument of the `plot()` function.
 
-```{r sim-plot-1, fig.dim = c(6,4)}
+```{r sim-plot-1, fig.dim = c(6,4), warning = FALSE}
 plot(model, type = "R+")
 ```
 
@@ -212,7 +212,7 @@ To see why, we can explore the final plot type, of the parasitoid demographics:
 plot(model, type = "para")
 ```
 
-We can see here that the demographic fluctations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so they quickly disappear whenever a new cohort of adult wasps emerges. This leaves mostly the 1^st^ instar aphids, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
+We can see here that the demographic fluctations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so they quickly disappear whenever a new cohort of adult wasps emerges instead of growing to 4^th^ instar. This leaves mostly the 1^st^ instar aphids, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
 
 Note that in this plot we also see the expected population trend in parasitoid populations - many mummies are generated once wasps are released or emerge. Their number steadily drops due to mortality, before a massive spike due to emergence of a new cohort of wasps. This continues rhythmically until the end of the simulation.
 
@@ -244,13 +244,13 @@ summary(model_all)
 
 Or, if we want to compare the total population trajectories to see how the aphid populations fare under the different modelled scenarios, we can plot a summary figure:
 
-```{r counter-plot, fig.dim = c(6,4)}
+```{r counter-plot, fig.dim = c(6,8)}
 plot(model_all)
 ```
 
 Finally, if we want to explore individual models as we did above, we can do that easily by just extracting them from the `endosim_col()` object:
 
-```{r counter-explore-1, fig.dim = c(6,8)}
+```{r counter-explore-1, fig.dim = c(6,4)}
 # from the summary table, we can see that model no. 1 includes no transmission or parasitoids:
 model_all@sims[[1]]
 

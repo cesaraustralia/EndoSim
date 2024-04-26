@@ -8,7 +8,7 @@
 #' \code{fun_trans_eff} fitted using [fit_quadratic] to peak around 20°C based Gu et al. 2023 \cr
 #' \code{fun_susc} fitted using [fit_quadratic] to peak around 20°C based Gu et al. 2023 \cr
 #' \code{introduction_date} is 2022-04-17, a week after crop emergence \cr
-#' \code{introduction_n} is 1000 individuals \cr
+#' \code{introduction_n} is 300 individuals \cr
 #'
 #' @docType data
 #'
