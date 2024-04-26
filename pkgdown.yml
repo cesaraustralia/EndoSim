@@ -3,7 +3,7 @@ pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   EndoSim: EndoSim.html
-last_built: 2024-04-26T01:34Z
+last_built: 2024-04-26T02:00Z
 urls:
   reference: https://cesaraustralia.github.io/EndoSim/reference
   article: https://cesaraustralia.github.io/EndoSim/articles

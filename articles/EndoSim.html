@@ -333,7 +333,7 @@ population dynamics is generated.</p>
 <span><span class="co">#&gt; Immigration cancelled!</span></span>
 <span><span class="co">#&gt; Warning in endosim(Pest = GPA, Endosymbiont = Rickettsiella, Crop = Canola, :</span></span>
 <span><span class="co">#&gt; Emigration cancelled!</span></span>
-<span><span class="co">#&gt; [1] "Population died out at time 112; simulation ended"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Population died out at time 150; simulation ended"</span></span></code></pre></div>
 <p><img src="EndoSim_files/figure-html/sim-1.png" width="576"></p>
 <div class="section level3">
 <h3 id="examining-results">Examining results<a class="anchor" aria-label="anchor" href="#examining-results"></a>
@@ -358,7 +358,7 @@ date):</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   mean_aphid aphid_peak  peak_date sim_length   end_date</span></span>
-<span><span class="co">#&gt; 1   12.57558       2909 2022-05-11        112 2022-07-22</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   47.34887      14229 2022-05-26        150 2022-08-29</span></span></code></pre></div>
 <p>Besides the default plot showing the population dynamics of R+ and R-
 aphids, we have additional plotting options to explore the model more in
 depth. This is done by changing the <code>type</code> argument of the
@@ -369,10 +369,9 @@ depth. This is done by changing the <code>type</code> argument of the
 <p>This plot shows us the proportion of R+ individuals in the simulation
 at any given time. This is useful if we want to track how well the
 endosymbiont infection spreads. We can see that in this example, after
-the initial introduction, there is initially a sharp decrease in
-<em>Rickettsiella</em> prevalence in the population, but this is quickly
-counteracted and the infection actually achieves fixation before the
-population collapses.</p>
+the initial introduction, there is a steady increase in
+<em>Rickettsiella</em> prevalence in the population until the infection
+achieves fixation before the population collapses.</p>
 <p>We may also want to explore the aphid demographics more in depth:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="st">"demo"</span><span class="op">)</span></span></code></pre></div>
@@ -435,46 +434,44 @@ is set up:</p>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
 <span><span class="co">#&gt; ================================================================================</span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; =============================================[1] "Population died out at time 120; simulation ended"</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ================================================================================</span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
 <span><span class="co">#&gt; ================================================================================</span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; ==============================================[1] "Population died out at time 123; simulation ended"</span></span>
+<span><span class="co">#&gt; ================================================================================</span></span>
+<span><span class="co">#&gt; [1] "Running simulation:"</span></span>
+<span><span class="co">#&gt; =============================================================[1] "Population died out at time 164; simulation ended"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; ===========================================================================[1] "Population died out at time 200; simulation ended"</span></span>
+<span><span class="co">#&gt; =============================================================[1] "Population died out at time 164; simulation ended"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; ========================================[1] "Population died out at time 107; simulation ended"</span></span>
+<span><span class="co">#&gt; ===========================================================[1] "Population died out at time 159; simulation ended"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; ====================================================================[1] "Population died out at time 182; simulation ended"</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [1] "Running simulation:"</span></span>
-<span><span class="co">#&gt; ==========================================[1] "Population died out at time 112; simulation ended"</span></span></code></pre></div>
+<span><span class="co">#&gt; ========================================================[1] "Population died out at time 150; simulation ended"</span></span></code></pre></div>
 <p>We can then use the <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> function to compare our
 simple model outputs between the different scenarios:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model_all</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   vert_trans hori_trans   imi   emi  para mean_aphid aphid_peak  peak_date</span></span>
-<span><span class="co">#&gt; 1      FALSE      FALSE FALSE FALSE FALSE   41.57372      13273 2022-10-04</span></span>
-<span><span class="co">#&gt; 2       TRUE      FALSE FALSE FALSE FALSE   13.44314       3024 2022-05-12</span></span>
-<span><span class="co">#&gt; 3      FALSE       TRUE FALSE FALSE FALSE   35.13837      10394 2022-10-04</span></span>
-<span><span class="co">#&gt; 4       TRUE       TRUE FALSE FALSE FALSE   13.00298       2901 2022-05-10</span></span>
-<span><span class="co">#&gt; 5      FALSE      FALSE FALSE FALSE  TRUE   19.01378       5722 2022-06-09</span></span>
-<span><span class="co">#&gt; 6       TRUE      FALSE FALSE FALSE  TRUE   13.28130       3028 2022-05-12</span></span>
-<span><span class="co">#&gt; 7      FALSE       TRUE FALSE FALSE  TRUE   18.94011       5162 2022-06-09</span></span>
-<span><span class="co">#&gt; 8       TRUE       TRUE FALSE FALSE  TRUE   12.57558       2909 2022-05-11</span></span>
+<span><span class="co">#&gt; 1      FALSE      FALSE FALSE FALSE FALSE  155.36605      29639 2022-10-30</span></span>
+<span><span class="co">#&gt; 2       TRUE      FALSE FALSE FALSE FALSE  154.69679      29668 2022-10-30</span></span>
+<span><span class="co">#&gt; 3      FALSE       TRUE FALSE FALSE FALSE   59.60102      14186 2022-05-26</span></span>
+<span><span class="co">#&gt; 4       TRUE       TRUE FALSE FALSE FALSE   51.18191      13972 2022-06-06</span></span>
+<span><span class="co">#&gt; 5      FALSE      FALSE FALSE FALSE  TRUE   74.59036      20249 2022-05-28</span></span>
+<span><span class="co">#&gt; 6       TRUE      FALSE FALSE FALSE  TRUE   74.47539      20226 2022-05-28</span></span>
+<span><span class="co">#&gt; 7      FALSE       TRUE FALSE FALSE  TRUE   48.79056      15205 2022-05-26</span></span>
+<span><span class="co">#&gt; 8       TRUE       TRUE FALSE FALSE  TRUE   47.34887      14229 2022-05-26</span></span>
 <span><span class="co">#&gt;   sim_length   end_date</span></span>
 <span><span class="co">#&gt; 1        214 2022-11-01</span></span>
-<span><span class="co">#&gt; 2        120 2022-07-30</span></span>
+<span><span class="co">#&gt; 2        214 2022-11-01</span></span>
 <span><span class="co">#&gt; 3        214 2022-11-01</span></span>
-<span><span class="co">#&gt; 4        123 2022-08-02</span></span>
-<span><span class="co">#&gt; 5        200 2022-10-18</span></span>
-<span><span class="co">#&gt; 6        107 2022-07-17</span></span>
-<span><span class="co">#&gt; 7        182 2022-09-30</span></span>
-<span><span class="co">#&gt; 8        112 2022-07-22</span></span></code></pre></div>
+<span><span class="co">#&gt; 4        214 2022-11-01</span></span>
+<span><span class="co">#&gt; 5        164 2022-09-12</span></span>
+<span><span class="co">#&gt; 6        164 2022-09-12</span></span>
+<span><span class="co">#&gt; 7        159 2022-09-07</span></span>
+<span><span class="co">#&gt; 8        150 2022-08-29</span></span></code></pre></div>
 <p>Or, if we want to compare the total population trajectories to see
 how the aphid populations fare under the different modelled scenarios,
 we can plot a summary figure:</p>
@@ -499,7 +496,9 @@ can do that easily by just extracting them from the
 <span><span class="fu"><a href="../reference/plot-methods.html">plot</a></span><span class="op">(</span><span class="va">model_all</span><span class="op">@</span><span class="va">sims</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p><img src="EndoSim_files/figure-html/counter-explore-1-1.png" width="576"></p>
 <p>We see that in this “baseline” model, the population actually
-persists throughout the simulation. As expected with no transmission or
+persists throughout the simulation and we get the expected almost
+bimodal distribution - a population peak at the start of the season, and
+a second one towards the end. As expected with no transmission or
 parasitoid modules, the <em>Rickettsiella</em> infection rapidly
 disappears from the population, the aphid demographics are a lot more
 balanced, and there are no parasitoids or mummies:</p>
