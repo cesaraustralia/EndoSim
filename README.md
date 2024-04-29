@@ -3,7 +3,7 @@
 
 # EndoSim <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
-[![](https://img.shields.io/badge/devel%20version-0.0.5.2-lightblue.svg)](https://github.com/cesaraustralia/EndoSim)
+[![](https://img.shields.io/badge/devel%20version-0.0.5.4-lightblue.svg)](https://github.com/cesaraustralia/EndoSim)
 [![R build
 status](https://github.com/cesaraustralia/EndoSim/workflows/R-CMD-check/badge.svg)](https://github.com/cesaraustralia/EndoSim/actions)
 [![Project Status: Active - The project has reached a stable, usable
@@ -52,21 +52,22 @@ function accepts as input six objects of unique classes:
 
 2.  **Endosymbiont**: object of class `endosym()` – includes the
     endosymbiont’s fitness cost and functions defining horizontal
-    transmission rates, as well as the date on initial introduction to
+    transmission rates, as well as the date of initial introduction to
     the population and the number of infected individuals introduced.
 
-3.  **Crop**: object of class `crop()` which includes the half-time of
+3.  **Crop**: object of class `crop()` - includes the half-time of
     endosymbiont plant recovery, sowing, emergence and harvest dates, a
     function defining how pest carrying capacity changes based on time
     after crop emergence, and the crop density (in m<sup>2</sup>).
 
 4.  **Parasitoid**: object of class `parasitoid()` – includes all the
     functions defining the parasitoid’s population dynamics and
-    behaviour, including development, attack rates and handling times.
+    behaviour, including development, attack rates and handling times,
+    as well as the date of initial introduction to the population and
+    the number of individuals introduced.
 
-5.  **init**: object of class `initial()` – defining the initial numbers
-    of R+ and R- pests and crops and adult parasitoids at the start of
-    the simulations.
+5.  **init**: object of class `initial()` – defining the numbers of crop
+    plants, and R+ and R- pests at the start of the simulations.
 
 6.  **conds**: object of class `sim_conds()` – defining the length of
     the simulation and environmental conditions (rainfall, min, max and
