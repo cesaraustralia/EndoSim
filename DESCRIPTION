@@ -1,6 +1,6 @@
 Package: EndoSim
 Title: Run simulations using the AGPIP Endosymbiont Model
-Version: 0.0.5.4
+Version: 0.5.4
 Authors@R: 
     person("Alex", "Slavenko", , "aslavenko@cesaraustralia.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3265-7715"))
