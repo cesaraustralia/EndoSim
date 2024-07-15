@@ -17,6 +17,7 @@
 #' @slot pest_cohorts array of pest cohorts at the end of the simulation
 #' @slot para_df data.frame of parasitoid population through time
 #' @slot area area of crop (m2)
+#' @slot yield_loss relative yield loss in %
 
 methods::setClass("endosim_mod",
                   slots = c(pest = "character",
@@ -33,5 +34,6 @@ methods::setClass("endosim_mod",
                             pest_df = "data.frame",
                             pest_cohorts = "array",
                             para_df = "data.frame",
-                            area = "numeric")
+                            area = "numeric",
+                            yield_loss = "numeric")
 )

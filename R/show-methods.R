@@ -26,7 +26,6 @@ setMethod("show",
           
           function(object) {
             cat("Endosymbiont of the species ", object@name, "\n",
-                "with a fitness cost of ", object@fitness_cost, "\n",
                 object@introduction_n, " infected individuals introduced on ", object@introduction_date
             )
           }
@@ -96,7 +95,8 @@ setMethod("show",
                 "Endosymbiont: ", object@endosymbiont, "\n",
                 "Parasitoid: ", object@parasitoid, "\n",
                 "Started on ", object@start_date, ", running for ", object@sim_length, " days\n",
-                "With the following modules: ", paste(c(vert_trans, hori_trans, imi, emi, para), collapse = ", ")
+                "With the following modules: ", paste(c(vert_trans, hori_trans, imi, emi, para), collapse = ", "), "\n",
+                "Yield loss: ", object@yield_loss, "%"
                 )
           }
 )

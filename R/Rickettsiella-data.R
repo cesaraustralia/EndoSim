@@ -4,9 +4,10 @@
 #' for (\emph{Rickettsiella}).
 #' Can be used to run the endosymbiont model on GPA.\cr
 #' \cr
-#' \code{fitness_cost} is 0.5 based on Gu et al. 2023 \cr
+#' \code{fun_fitness} fitted using [fit_null] to be fixed at 0.5 based on Gu et al. 2023 \cr
 #' \code{fun_trans_eff} fitted using [fit_quadratic] to peak around 20°C based Gu et al. 2023 \cr
 #' \code{fun_susc} fitted using [fit_quadratic] to peak around 20°C based Gu et al. 2023 \cr
+#' \code{fun_vert_trans} fitted using [fit_null] to be fixed at 1 based on Gu et al. 2023 \cr
 #' \code{introduction_date} is 2022-04-17, a week after crop emergence \cr
 #' \code{introduction_n} is 300 individuals \cr
 #'

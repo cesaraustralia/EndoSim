@@ -1,5 +1,5 @@
 #' @importFrom mgcv gam s predict.gam
-#' @importFrom stats predict smooth.spline
+#' @importFrom stats predict smooth.spline setNames
 #' @importFrom abind abind
 #' @importFrom terra rast extract
 #' @importFrom tidyr pivot_longer

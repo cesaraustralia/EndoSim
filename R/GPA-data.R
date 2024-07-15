@@ -20,6 +20,7 @@
 #' \code{fun_temp_fecund} fitted using [fit_quadratic] with parameters from Barton et al. 2021 \cr
 #' \code{fun_age_fecund} fitted using [fit_weibull] with parameters from Barton et al. 2021 \cr
 #' \code{fun_alate_prod} fitted using [fit_alate] with parameters from Barton et al. 2021 \cr
+#' \code{fun_damage} fitted using [fit_null] to be fixed to zero (no direct feeding damage) \cr
 #'
 #' @docType data
 #'

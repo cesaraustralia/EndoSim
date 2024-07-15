@@ -31,6 +31,7 @@ Can be used to run the endosymbiont model on GPA.\cr
 \code{fun_temp_fecund} fitted using \link{fit_quadratic} with parameters from Barton et al. 2021 \cr
 \code{fun_age_fecund} fitted using \link{fit_weibull} with parameters from Barton et al. 2021 \cr
 \code{fun_alate_prod} fitted using \link{fit_alate} with parameters from Barton et al. 2021 \cr
+\code{fun_damage} fitted using \link{fit_null} to be fixed to zero (no direct feeding damage) \cr
 }
 \references{
 Barton, M., Parry, H., Ward, S., Hoffmann, A.A., Umina, P.A., van Helden, M., Macfadyen, S. Forecasting impacts of biological control under future climates: mechanistic modelling of an aphid pest and a parasitic wasp. Ecological Modelling, 457, 109679 (2021)

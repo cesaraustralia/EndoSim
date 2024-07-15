@@ -48,6 +48,9 @@ endosim <- function(Pest,
   if (!inherits(Crop, "crop"))
     stop("No Crop of class crop provided!")
   
+  if (!inherits(Endosymbiont, "endosym"))
+    stop("No Endosymbiont of class endosym provided!")
+  
   if (!inherits(init, "initial"))
     stop("No init of class initial provided!")
   
@@ -58,7 +61,8 @@ endosim <- function(Pest,
     stop("No Parasitoid of class parasitoid provided!")
   
   if(!vert_trans){
-    Endosymbiont@'fitness_cost' <- 0
+    Endosymbiont@'fun_fitness' <- fit_null(0)
+    Endosymbiont@'fun_vert_trans' <- fit_null(0)
     warning("Vertical transmission cancelled!")
   }
   
@@ -93,8 +97,6 @@ endosim <- function(Pest,
   apterae_walk <- Pest@'apterae_walk'
   alate_flight <- Pest@'alate_flight'
   
-  fitness_cost <- Endosymbiont@'fitness_cost'
-  
   heal_time <- Crop@'heal_time'
   sowing_date <- Crop@'sowing_date'
   emergence_date <- Crop@'emergence_date'
@@ -104,6 +106,7 @@ endosim <- function(Pest,
   
   susc_stage <- Parasitoid@'susc_stage'
   
+  hp_equiv <- 1
   area <- init@'Crop'[[3]]/Crop@'density'
   
   introduction_n <- Endosymbiont@'introduction_n'
@@ -121,9 +124,12 @@ endosim <- function(Pest,
   fun_temp_fecund <- Pest@'fun_temp_fecund'
   fun_age_fecund <- Pest@'fun_age_fecund'
   fun_alate_prod <- Pest@'fun_alate_prod'
+  fun_damage <- Pest@'fun_damage'
   
+  fun_fitness <- Endosymbiont@'fun_fitness'
   fun_trans_eff <- Endosymbiont@'fun_trans_eff'
   fun_susc <- Endosymbiont@'fun_susc'
+  fun_vert_trans <- Endosymbiont@'fun_vert_trans'
   
   fun_dev_para <- Parasitoid@'fun_dev_para'
   fun_para_scal <- Parasitoid@'fun_para_scal'
@@ -208,8 +214,11 @@ endosim <- function(Pest,
     dae <- as.numeric(current_date - lubridate::ymd(emergence_date))
     cc_p <- fun_cc(dae)
     
+    # calculate crop damage
+    hp_equiv <- (1 - fun_damage(sum(cohorts[, 1, ]))) * hp_equiv
+    
     if(growth_season){
-      fun_dens_fecund <- fit_bannerman(10000 * area * cc_p, 0.0008)
+      fun_dens_fecund <- fit_bannerman(10000 * area * cc_p * hp_equiv, 0.0008)
     }
     else
       fun_dens_fecund <- fit_null(0)
@@ -500,6 +509,9 @@ endosim <- function(Pest,
     # calculate realised fecundity
     res_fecund <- age_prod * temp_prod * dens_prod
     
+    # calculate fitness cost
+    fitness_cost <- fun_fitness(temperature)
+    
     # calculate total newly produced pests with adjustments for type
     all_prod <- as.numeric(cohorts[, 1, ])
     
@@ -529,11 +541,14 @@ endosim <- function(Pest,
     # calculate proportion of alate-destined nymphs produced
     alate_prod <- fun_alate_prod(sum(cohorts[, 1, ]))
     
+    # calculate proportion of vertically transmitted nymphs
+    prop_vert <- fun_vert_trans(temperature)
+    
     # calculate newly produced pests
-    pos_apt_new <- round(pos_prod * (1 - alate_prod), 0)
-    neg_apt_new <- round(neg_prod * (1 - alate_prod), 0)
-    pos_ala_new <- round(pos_prod * alate_prod, 0)
-    neg_ala_new <- round(neg_prod * alate_prod, 0)
+    pos_apt_new <- round(pos_prod * (1 - alate_prod) * prop_vert, 0)
+    neg_apt_new <- round(neg_prod * (1 - alate_prod), 0) + round(pos_prod * (1 - alate_prod) * (1 - prop_vert), 0)
+    pos_ala_new <- round(pos_prod * alate_prod * prop_vert, 0)
+    neg_ala_new <- round(neg_prod * alate_prod, 0) + round(pos_prod * alate_prod * (1 - prop_vert), 0)
     
     # update cohort sizes
     if(sum(pos_apt_new, neg_apt_new, pos_ala_new, neg_ala_new) > 0){
@@ -550,6 +565,12 @@ endosim <- function(Pest,
                           matrix(rep(0, 4), ncol = 1))
       cohort_ages <- cbind(cohort_ages,
                            matrix(rep(t, 4), ncol = 1))
+    }
+    
+    ## kill off all aphids if harvest date
+    if(current_date == lubridate::ymd(harvest_date)){
+      cohorts[, 1, ] <- 0
+      para_cohorts[, 1, ] <- 0
     }
     
     # update active cohorts vector
@@ -617,7 +638,8 @@ endosim <- function(Pest,
                 pest_df = pest_pop,
                 pest_cohorts = cohorts,
                 para_df = para_df,
-                area = area)
+                area = area,
+                yield_loss = (1 - hp_equiv) * 100)
   
   if (plot){
     mod_plot <- plot(output, type = "pop_size")

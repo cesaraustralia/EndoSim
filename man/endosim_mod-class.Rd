@@ -39,5 +39,7 @@ An S4 class to store a simulation output
 \item{\code{para_df}}{data.frame of parasitoid population through time}
 
 \item{\code{area}}{area of crop (m2)}
+
+\item{\code{yield_loss}}{relative yield loss in \%}
 }}
 

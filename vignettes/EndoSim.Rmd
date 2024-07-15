@@ -18,15 +18,15 @@ knitr::opts_chunk$set(
 library(EndoSim)
 ```
 
-This vignette will show you how to set up and run a simulation using EndoSim. The inputs for a simulation can be quite complicated, and may require a lot of data to properly parameterise. We therefore recommended using the examples in this vignette if you are running simulations using already included pest, endosymbiont, and parasitoid species. However, feel free to experiment with different functions and parameters to explore how they affect simulation outputs and to familiarise yourself with the package and its use.
+This vignette will show you how to set up and run a simulation using `EndoSim`. The inputs for a simulation can be quite complicated, and may require a lot of data to properly parameterise. We therefore recommend using the examples in this vignette if you are running simulations using already included pest, endosymbiont, and parasitoid species. However, feel free to experiment with different functions and parameters to explore how they affect simulation outputs and to familiarise yourself with the package and its use.
 
 ## Setting up simulation inputs
 
-The first thing we'll need to do is set up the simulation inputs. In order to run a simulation using the EndoSim model, we will need the following objects:
+The first thing we'll need to do is set up the simulation inputs. In order to run a simulation using the `EndoSim` model, we will need the following objects:
 
 ### 1. **Pest**
 
-A `pest()` objects includes all the functions defining the pest’s population dynamics, including development, fecundity, mortality, and immigration and emigration. The example pest included in the package is the green peach aphid, *Myzus persicae*. We can load this pest by running the following chunk:
+A `pest()` objects includes all the functions defining the pest’s population dynamics, including development, fecundity, mortality, and immigration and emigration, as well as a function defining density-dependent damage to the crop (daily reduction in biomass). The example pest included in the package is the green peach aphid, *Myzus persicae*. We can load this pest by running the following chunk:
 
 ```{r pest-load}
 data(GPA)
@@ -54,7 +54,7 @@ Canola
 
 ### 3. **Endosymbiont**
 
-An `endosym()` object includes the endosymbiont’s fitness cost and functions defining horizontal transmission rates. However, it also includes the date of initial introduction to the population and the number of infected individuals introduced - you may want to adjust these based on the simulation you're running. The example endosymbiont included in the package is *Rickettsiella*. We can load this pest by running the following chunk:
+An `endosym()` object includes functions defining the endosymbiont’s fitness cost and horizontal and vertical transmission rates. However, it also includes the date of initial introduction to the population and the number of infected individuals introduced - you may want to adjust these based on the simulation you're running. The example endosymbiont included in the package is *Rickettsiella*. We can load this pest by running the following chunk:
 
 ```{r endosym-load}
 data(Rickettsiella)
@@ -66,7 +66,7 @@ In this example, R+ individuals (infected with the endosymbiont) are timed to re
 
 ### 4. **Parasitoid**
 
-A `parasitoid()` objects includes all the functions defining the parasitoid’s population dynamics and behaviour, including development, attack rates and handling times, as well as arguments defining which lifestages of the pest are susceptible to attack, the date of initial introduction to the population and the number of individuals introduced - you may want to adjust these based on the simulation you're running. The susceptible lifestages might also change based on the pest you are using. The example parasitoid included in the package is *Diaeretiella rapae*, which mainly attacks 2^nd^ and 3^rd^ instars of *Myzus persicae*. We can load this parasitoid by running the following chunk:
+A `parasitoid()` object includes all the functions defining the parasitoid’s population dynamics and behaviour, including development, attack rates and handling times, as well as arguments defining which lifestages of the pest are susceptible to attack, the date of initial introduction to the population and the number of individuals introduced - you may want to adjust these based on the simulation you're running. The susceptible lifestages might also change based on the pest you are using. The example parasitoid included in the package is *Diaeretiella rapae*, which mainly attacks 2^nd^ and 3^rd^ instars of *Myzus persicae*. We can load this parasitoid by running the following chunk:
 
 ```{r parasitoid-load}
 data(DR)
@@ -114,9 +114,9 @@ crop.init <- c(1,
 
 When running the simulation using the `EndoSim()` function, it will internally calculate the area of your plot based on the provided number of plants in the `initial()` object and the provided plant density in the `Crop()` object.
 
-Next, you will need to set up the initial pest population structure, which is defined using an array. The first dimension of the array contains four indices and represents the "type" of the pest in each cohort, *i.e.* whether it is infected with the endosymbiont or not, and whether it is apterae or alate (or destined to become one if the cohort is still nymphal). The second dimension contains two indices and represents the two variables that are tracked in each cohort: the number of individuals of each type (N) and the lifestage they are in (ranging from 1 to 5, which for *Myzus persicae* represents four instars and the adult stage). The third dimension represents the cohort number.
+Next, you will need to set up the initial pest population structure, which is defined using an array. The first dimension of the array contains four indices and represents the "type" of the pest in each cohort, *i.e.* whether it is infected with the endosymbiont or not, and whether it is apterae or alate (or destined to become one if the cohort is still nymphal). The second dimension contains two indices and represents the two variables that are tracked in each cohort: the number of individuals of each type (N) and the life stage they are in (ranging from 1 to 5, which for *Myzus persicae* represents four instars and the adult stage). The third dimension represents the cohort number.
 
-The initial array needs to be set up with 5 indices in the third dimension, *i.e.* with the following dimensions: `c(4, 2, 5)`. This way, each cohort represents a different lifestage, and the initial array represents the numbers of aphids in each life stage. Here is an example of how to set up an initial population of 5 aphids of each instar and 80 adults, without any infected individuals and with an alate proportion of 20%:
+The initial array needs to be set up with 5 indices in the third dimension, *i.e.* with the following dimensions: `c(4, 2, 5)`. This way, each cohort represents a different life stage, and the initial array represents the numbers of aphids in each life stage. Here is an example of how to set up an initial population of 5 aphids of each instar and 80 adults, without any infected individuals and with an alate proportion of 20%:
 
 ```{r init-setup-2}
 # create empty array:
@@ -151,7 +151,7 @@ init <- new("initial",
             Crop = crop.init)
 ```
 
-You may want to experiment widely with different initial population sizes, since they can have a large impact on the simulation output. If your simulation begins before crop emergence (as the one in this vignette does) we suggest setting an initial population size of 0 aphids, since without emerged crops there should be nothing to feed on:
+You may want to experiment with different initial population sizes, since they can have a large impact on the simulation output. If your simulation begins before crop emergence (as the one in this vignette does) we suggest setting an initial population size of 0 aphids, since without emerged crops there should be nothing to feed on:
 
 ```{r init-setup-3}
 # change all N values to 0
@@ -182,7 +182,7 @@ model <- endosim(Pest = GPA,
 
 ### Examining results
 
-We have several handy helper functions to explore the results of a simulation. First, we can print the model and use a `summary()` function to view some simple summary data about the simulation, including the mean daily number of aphids, the maximal number at any time during the simulation and the date when the maximum was reached, as well as the simulation length and end date (especially useful if the simulation died out before reaching the pre-determined end date):
+We have several handy helper functions to explore the results of a simulation. First, we can print the model and use a `summary()` function to view some simple summary data about the simulation, including the mean daily number of aphids, the maximal number at any time during the simulation and the date when the maximum was reached, yield loss (as a percentage of the maximum yield potential), as well as the simulation length and end date (especially useful if the simulation died out before reaching the pre-determined end date):
 
 ```{r sim-summary}
 model
@@ -204,7 +204,7 @@ We may also want to explore the aphid demographics more in depth:
 plot(model, type = "demo")
 ```
 
-This plot shows us the proportions of aphids of different lifestages in the population at any given time. We can see that while the proportion of adults generally decreases (which is what also leads to the final population collpase), there are weird fluctations in the proportions 2^nd^ and 3^rd^ stars, rather than a smooth transition between instars.
+This plot shows us the proportions of aphids of different life stages in the population at any given time. We can see that while the proportion of adults generally decreases (which is what also leads to the final population collapse), there are weird fluctuations in the proportions of 2^nd^ and 3^rd^ stars, rather than a smooth transition between instars.
 
 To see why, we can explore the final plot type, of the parasitoid demographics:
 
@@ -212,9 +212,9 @@ To see why, we can explore the final plot type, of the parasitoid demographics:
 plot(model, type = "para")
 ```
 
-We can see here that the demographic fluctations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so a large portion of them "disappears" whenever a new cohort of adult wasps emerges instead of growing to 4^th^ instar. This leaves mostly 1^st^ instar aphids and the few uninfected 2^nd^ and 3^rd^ instars, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
+We can see here that the demographic fluctuations match really well with the parasitoid populations, which makes sense - *Diaeretiella rapae* targets 2^nd^ and 3^rd^ instars of *Myzus persicae* and so a large portion of them "disappears" whenever a new cohort of adult wasps emerges instead of growing to 4^th^ instar. This leaves mostly 1^st^ instar aphids and the few uninfected 2^nd^ and 3^rd^ instars, and the population never grows fast enough for many aphids to reach adulthood, at least partly due to the reduced fitness caused by the *Rickettsiella* infection. This leads to the final population collapse we see at the end of the simulation.
 
-Note that in this plot we also see the expected population trend in parasitoid populations - once wasps are released or emerge, adn after a certain time lag, there is a spike in the number of mummies as the parasitoid larvae complete development. The number of mummies steadily drops due to mortality, before a massive drop to 0 due to emergence of a new cohort of wasps. This continues rhythmically until the end of the simulation.
+Note that in this plot we also see the expected population trend in parasitoid populations - once wasps are released or emerge, and after a certain time lag, there is a spike in the number of mummies as the parasitoid larvae complete development. The number of mummies steadily drops due to mortality, before a massive drop to 0 due to emergence of a new cohort of wasps. This continues rhythmically until the end of the simulation.
 
 ## Comparing scenarios
 

@@ -32,7 +32,8 @@ setMethod("summary",
                                                                               dplyr::slice(1L) %>% dplyr::pull(t))),
                                  sim_length = max(object@pest_df$t),
                                  end_date = as.character(lubridate::ymd(object@start_date) +
-                                                           lubridate::days(max(object@pest_df$t))))
+                                                           lubridate::days(max(object@pest_df$t))),
+                                 yield_loss = as.numeric(object@yield_loss))
             
             output
           }
@@ -82,6 +83,10 @@ setMethod("summary",
                                       function(x)
                                         as.character(lubridate::ymd(x@start_date) +
                                                        lubridate::days(max(x@pest_df$t))))
+            
+            output$yield_loss <- sapply(object@sims,
+                                        function(x)
+                                          as.numeric(x@yield_loss))
             
             output
           }

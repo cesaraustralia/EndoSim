@@ -4,7 +4,7 @@
 #'
 #' @slot species The name of the pest
 #' @slot bg_loss Background mortality (0-1)
-#' @slot alate_penalty Relative fecundity penalty of alates compaered to apterae (0-1)
+#' @slot alate_penalty Relative fecundity penalty of alates compared to apterae (0-1)
 #' @slot apterae_walk Number of plants per day visited by apterae
 #' @slot alate_flight Number of plants per day visited by alates
 #' @slot fun_dev_apt Function describing temperature-dependent development of nymphs destined to become apterae
@@ -19,6 +19,7 @@
 #' @slot fun_temp_fecund Function describing daily fecundity as function of temperature
 #' @slot fun_age_fecund Function describing daily fecundity as function of adult cohort age
 #' @slot fun_alate_prod Function describing proportion of newly produced nymphs destined to become alates as function of pest density
+#' @slot fun_damage Function describing reduction in crop biomass due to pest density
 #' 
 #' @examples 
 #' GPA <-
@@ -39,7 +40,8 @@
 #'   fun_dens_fecund = EndoSim:::fit_bannerman(10000, 0.0008),
 #'   fun_temp_fecund = EndoSim:::fit_quadratic(-0.7611, 31.9847, 25),
 #'   fun_age_fecund = EndoSim:::fit_weibull(58, 1.885, 5.953, 0),
-#'   fun_alate_prod = EndoSim:::fit_alate(67.418, 0.993, 0.076, 300)
+#'   fun_alate_prod = EndoSim:::fit_alate(67.418, 0.993, 0.076, 300),
+#'   fun_damage = EndoSim:::fit_null(0)
 #'  )
 #' 
 #' GPA
@@ -61,5 +63,6 @@ methods::setClass("pest",
                             fun_dens_fecund = "function",
                             fun_temp_fecund = "function",
                             fun_age_fecund = "function",
-                            fun_alate_prod = "function")
+                            fun_alate_prod = "function",
+                            fun_damage = "function")
 )
