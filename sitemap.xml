@@ -1,138 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/404.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/articles/EndoSim.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/Aroonda.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/Canola.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/DR.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/GPA.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/Rickettsiella.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/counterfact.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/crop-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/download_silo.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/endosim.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/endosim_col-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/endosim_mod-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/endosym-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_alate.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_bannerman.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_custom.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_emi_thack.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_gaussian.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_gompertz.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_imi_barton.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_lactin.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_null.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_quadratic.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_rainfall_thack.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_rezende.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_sigmoid.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_supergaus.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_thirdpoly.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_wang.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/fit_weibull.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/initial-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/make_conds.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/parasitoid-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/pest-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/plot-methods.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/show-methods.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/sim_conds-class.html</loc>
-  </url>
-  <url>
-    <loc>https://cesaraustralia.github.io/EndoSim/reference/summary-methods.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://cesaraustralia.github.io/EndoSim/404.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/LICENSE.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/articles/EndoSim.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/articles/index.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/articles/new-objects.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/authors.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/index.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/Aroonda.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/Canola.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/DR.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/GPA.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/Rickettsiella.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/counterfact.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/crop-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/download_silo.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/endosim.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/endosim_col-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/endosim_mod-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/endosym-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_alate.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_bannerman.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_custom.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_emi_thack.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_gaussian.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_gompertz.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_imi_barton.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_lactin.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_null.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_quadratic.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_rainfall_thack.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_rezende.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_sigmoid.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_supergaus.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_thirdpoly.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_wang.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/fit_weibull.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/index.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/initial-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/make_conds.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/parasitoid-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/pest-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/pipe.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/plot-methods.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/show-methods.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/sim_conds-class.html</loc></url>
+<url><loc>https://cesaraustralia.github.io/EndoSim/reference/summary-methods.html</loc></url>
 </urlset>
+
