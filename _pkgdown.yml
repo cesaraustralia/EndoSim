@@ -1,4 +1,20 @@
 url: https://cesaraustralia.github.io/EndoSim/
+repo:
+  url:
+    home: https://github.com/cesaraustralia/EndoSim/
+    source: https://github.com/cesaraustralia/EndoSim/
 template:
   bootstrap: 5
+  theme: arrow-light
+  bslib:
+    bg: "#EDEDED"
+    fg: "#06380D"
+    primary: "#000000"
+    code-bg: "#ddd7ce"
+    code-color: "#031e48"
+    base_font: {google: "Inter"}
+    heading_font: {google: "Inter"}
+  navbar:
+    bg: "#06380D"
+    fg: "#707070"
 
