@@ -3,7 +3,7 @@
 
 # EndoSim <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
-[![](https://img.shields.io/badge/devel%20version-0.5.4-lightblue.svg)](https://github.com/cesaraustralia/EndoSim)
+[![](https://img.shields.io/badge/devel%20version-0.6.0-lightblue.svg)](https://github.com/cesaraustralia/EndoSim)
 [![R build
 status](https://github.com/cesaraustralia/EndoSim/workflows/R-CMD-check/badge.svg)](https://github.com/cesaraustralia/EndoSim/actions)
 [![Project Status: Active - The project has reached a stable, usable
