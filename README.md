@@ -115,9 +115,10 @@ Program (AGPIP).
 
 Full details of the model can be found in the following publication:
 
-Slavenko A, Ross PA, Mata L, Hoffmann AA & Umina PA *in prep*, Modelling
-the spread of a novel endosymbiont infection in field populations of an
-aphid pest.
+Slavenko A, Ross PA, Mata L, Hoffmann AA & Umina PA (2024) Modelling
+the spread of a novel endosymbiont infection in field populations of
+an aphid pest. *Annals of Applied Biology*, **185**, 242-254,
+https://doi.org/10.1111/aab.12911
 
 For any questions about the model, suggestions for the package, or
 requests for information or new functionalities, please contact [Alex
