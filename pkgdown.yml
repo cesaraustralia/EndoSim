@@ -1,10 +1,10 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   EndoSim: EndoSim.html
   new-objects: new-objects.html
-last_built: 2024-07-25T23:41Z
+last_built: 2025-01-23T03:43Z
 urls:
   reference: https://cesaraustralia.github.io/EndoSim/reference
   article: https://cesaraustralia.github.io/EndoSim/articles
